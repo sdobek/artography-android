@@ -22,6 +22,14 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name="kartography.app.TakePhotoActivity"
+            android:label="@string/title_activity_take_photo" >
+        </activity>
+        <activity
+            android:name="kartography.app.SetPOILocationActivity"
+            android:label="@string/title_activity_set_poilocation" >
+        </activity>
     </application>
 
 </manifest>
