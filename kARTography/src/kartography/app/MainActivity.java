@@ -1,7 +1,8 @@
 package kartography.app;
 
-import android.os.Bundle;
 import android.app.Activity;
+import android.content.Intent;
+import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
@@ -22,6 +23,8 @@ public class MainActivity extends Activity {
 	}
 	
 	public void addNewArt(MenuItem m) {
+		Intent i = new Intent(this, TakePhotoActivity.class);
+		startActivity(i);
 		Toast.makeText(getBaseContext(), "hello", Toast.LENGTH_LONG).show();
 	}
 
