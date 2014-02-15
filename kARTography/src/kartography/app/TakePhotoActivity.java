@@ -1,6 +1,6 @@
 package kartography.app;
 
-import kartography.models.Location;
+import kartography.models.PoiLocation;
 import kartography.models.Poi;
 import android.app.Activity;
 import android.content.Intent;
@@ -11,7 +11,7 @@ import android.widget.ImageView;
 
 public class TakePhotoActivity extends Activity {
 	Poi pntOfInterest;
-	Location loc;
+	PoiLocation loc;
 	ImageView photo;
 
 	@Override
