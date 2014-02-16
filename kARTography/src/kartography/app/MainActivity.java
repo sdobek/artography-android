@@ -25,6 +25,7 @@ import android.widget.Toast;
 import com.google.android.gms.maps.MapFragment;
 import com.google.android.gms.maps.MapView;
 import com.parse.Parse;
+import com.parse.ParseObject;
 
 @TargetApi(Build.VERSION_CODES.HONEYCOMB)
 public class MainActivity extends FragmentActivity implements TabListener {
@@ -39,18 +40,18 @@ public class MainActivity extends FragmentActivity implements TabListener {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		ParseObject.registerSubclass(Poi.class);
 		Parse.initialize(this, "wN6gpXkwVEF0d9eTw1YzE0ISX2WM8ACdXM0ueuiu", "dGycMyN2IxdihwSV6kzDiCufYAL9UBBQEpOiRmMn");
 		setContentView(R.layout.activity_main);
 		   
 		makeTestPoiObjectandUser();
 		
-		
 		/*ParseObject testObject = new ParseObject("TestObject");
 		testObject.put("foo", "bar");
 		//right now these crash the app :( will 
 		//try to understand parse more. 
-//		testObject.put("artObjectFoo", art);
-//		testObject.add("user", user);
+		testObject.put("artObjectFoo", art);
+		testObject.add("user", user);
 		testObject.saveInBackground();*/
 		
 		setupNavigationTabs();

@@ -5,8 +5,11 @@ package kartography.app;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import kartography.models.PoiLocation;
+import java.util.Date;
+
 import kartography.models.Poi;
+import kartography.models.PoiLocation;
+import kartography.models.User;
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -17,14 +20,19 @@ import android.provider.MediaStore;
 import android.util.Log;
 import android.view.Menu;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
+
+import com.parse.Parse;
+import com.parse.ParseAnalytics;
 
 public class TakePhotoActivity extends Activity {
 	private static final int REQUEST_IMAGE_CAPTURE = 11;
 	Poi pntOfInterest;
 	PoiLocation loc;
 	ImageView photo;
+	private Uri fileUri;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -60,9 +68,16 @@ public class TakePhotoActivity extends Activity {
 	}
 	
 	public void onSavePOI(View v){
-		//Save data for POI
-		//Open mapview with added photo selected
-		Toast.makeText(getBaseContext(), "Saving", Toast.LENGTH_SHORT).show();
+		String author = ((EditText)findViewById(R.id.et_author)).getText().toString();
+		String title = ((EditText)findViewById(R.id.et_title)).getText().toString();
+		String description = ((EditText)findViewById(R.id.et_description)).getText().toString();
+		//Some of the data is dummy to be replaced later
+		Date date = new Date();
+		User u = new User("Steven Dobek", "Steven", "Dobek", null, null);
+		Poi pointOfInterest = new Poi(title, author, date, description,
+				fileUri.toString(), u, null,
+				null);
+		pointOfInterest.saveInBackground();
 	}
 	
 	@Override
@@ -94,7 +109,7 @@ public class TakePhotoActivity extends Activity {
 		        Log.d("MyCameraApp", "failed to create directory");
 		    }
 		    // Specify the file target for the photo
-		    Uri fileUri = Uri.fromFile(new File(mediaStorageDir.getPath() + File.separator +
+		    fileUri = Uri.fromFile(new File(mediaStorageDir.getPath() + File.separator +
 		                fileName));
 		    return fileUri;
 		}

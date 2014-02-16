@@ -3,7 +3,11 @@ package kartography.models;
 import java.util.Arrays;
 import java.util.Date;
 
-public class Poi {
+import com.parse.ParseClassName;
+import com.parse.ParseObject;
+
+@ParseClassName("POI")
+public class Poi extends ParseObject {
 	
 	String title;
 	String artist;
@@ -15,7 +19,10 @@ public class Poi {
 	PoiLocation location;
 	Boolean flagged = false;
 	
-	//full art
+	public Poi(){
+		super();
+	}
+	
 	public Poi(String title, String artist, Date createdAt, String description,
 			String artPhotoUrl, User uploadedByUser, String[] tags,
 			PoiLocation location) {
@@ -28,6 +35,14 @@ public class Poi {
 		this.uploadedByUser = uploadedByUser;
 		this.tags = tags;
 		this.location = location;
+		
+		put("title", title);
+		put("artist", artist);
+		put("description", description);
+		put("artPhotoUrl", artPhotoUrl);
+		put("uploadedByUserId", uploadedByUser.getFullName());
+		put("locationId", "temp_loc");
+		put("flagged", false);
 	}
 	
 	//minimum viable object
