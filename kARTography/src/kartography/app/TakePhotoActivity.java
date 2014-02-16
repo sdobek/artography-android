@@ -24,6 +24,9 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.parse.Parse;
+import com.parse.ParseAnalytics;
+
 public class TakePhotoActivity extends Activity {
 	private static final int REQUEST_IMAGE_CAPTURE = 11;
 	Poi pntOfInterest;
@@ -68,6 +71,7 @@ public class TakePhotoActivity extends Activity {
 		String author = ((EditText)findViewById(R.id.et_author)).getText().toString();
 		String title = ((EditText)findViewById(R.id.et_title)).getText().toString();
 		String description = ((EditText)findViewById(R.id.et_description)).getText().toString();
+		//Some of the data is dummy to be replaced later
 		Date date = new Date();
 		User u = new User("Steven Dobek", "Steven", "Dobek", null, null);
 		Poi pointOfInterest = new Poi(title, author, date, description,
