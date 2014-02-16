@@ -38,6 +38,12 @@
             android:name="kartography.app.SetPOILocationActivity"
             android:label="@string/title_activity_set_poilocation" >
         </activity>
+    
+    <meta-data
+        android:name="com.google.android.maps.v2.API_KEY"
+        android:value="AIzaSyCK3_sOcoo2pBhQZ-YYDuZyPRtAXZ134JE"/>
     </application>
 
+    
+    
 </manifest>

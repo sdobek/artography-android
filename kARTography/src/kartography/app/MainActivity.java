@@ -22,9 +22,9 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
 
-
+import com.google.android.gms.maps.MapFragment;
+import com.google.android.gms.maps.MapView;
 import com.parse.Parse;
-import com.parse.ParseObject;
 
 @TargetApi(Build.VERSION_CODES.HONEYCOMB)
 public class MainActivity extends FragmentActivity implements TabListener {
@@ -34,6 +34,7 @@ public class MainActivity extends FragmentActivity implements TabListener {
 	
 	private PoiListFragment lFrag = null;
 	private PoiMapFragment mFrag = null;
+	private MapFragment mMapFragment = null;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -42,13 +43,15 @@ public class MainActivity extends FragmentActivity implements TabListener {
 		setContentView(R.layout.activity_main);
 		   
 		makeTestPoiObjectandUser();
-		ParseObject testObject = new ParseObject("TestObject");
+		
+		
+		/*ParseObject testObject = new ParseObject("TestObject");
 		testObject.put("foo", "bar");
 		//right now these crash the app :( will 
 		//try to understand parse more. 
 //		testObject.put("artObjectFoo", art);
 //		testObject.add("user", user);
-		testObject.saveInBackground();
+		testObject.saveInBackground();*/
 		
 		setupNavigationTabs();
 		
@@ -73,16 +76,17 @@ public class MainActivity extends FragmentActivity implements TabListener {
 		
 		actionBar.setDisplayShowTitleEnabled(true);
 		
-		Tab tabHome = actionBar.newTab().setText("List").setTag("PoiListFragment")
+		Tab tabList = actionBar.newTab().setText("List").setTag("PoiListFragment")
 				.setIcon(R.drawable.ic_launcher).setTabListener(this);
 
-		Tab tabMentions = actionBar.newTab().setText("Map").setTag("PoiMapFragment")
+		Tab tabMap = actionBar.newTab().setText("Map").setTag("PoiMapFragment")
 				.setIcon(R.drawable.ic_launcher).setTabListener(this);
 		
-		actionBar.addTab(tabHome);
-		actionBar.addTab(tabMentions);
+		actionBar.addTab(tabList);
+		//no longer adding map fragment till things get a little more stable.  
+//		actionBar.addTab(tabMap);
 				
-		actionBar.selectTab(tabHome);
+		actionBar.selectTab(tabList);
 		
 		
 	}
@@ -97,7 +101,6 @@ public class MainActivity extends FragmentActivity implements TabListener {
 	public void addNewArt(MenuItem m) {
 		Intent i = new Intent(this, TakePhotoActivity.class);
 		startActivity(i);
-		Toast.makeText(getBaseContext(), "hello", Toast.LENGTH_LONG).show();
 	}
 
 	@Override
@@ -108,16 +111,20 @@ public class MainActivity extends FragmentActivity implements TabListener {
 
 	@Override
 	public void onTabSelected(Tab tab, FragmentTransaction ft) {
-		
-		
 		FragmentManager manager = getSupportFragmentManager();
 		
 		android.support.v4.app.FragmentTransaction fts = manager
 				.beginTransaction();
-
+		
+		
 		
 		//lazy instantiation for the win
 		if (tab.getTag() == "PoiListFragment") {
+			
+//			FragmentManager manager = getSupportFragmentManager();
+//			
+//			android.support.v4.app.FragmentTransaction fts = manager
+//					.beginTransaction();
 			
 //			fts.replace(R.id.frameContainer, new PoiListFragment());
 			if (lFrag == null) {
@@ -125,14 +132,32 @@ public class MainActivity extends FragmentActivity implements TabListener {
 			}
 			
 			fts.replace(R.id.frameContainer, lFrag, "HTL");
+			fts.commit();
 		} else {
-//			fts.replace(R.id.frameContainer, new PoiMapFragment());
+//			lFrag.
+			
+//			mMapFragment = MapFragment.newInstance();
+//			 FragmentTransaction fragmentTransaction =
+//			         getFragmentManager().beginTransaction();
+//			 fragmentTransaction.add(R.id.frameContainer, mMapFragment);
+////			 fragmentTransaction.rep
+//			 fragmentTransaction.commit();
+//			
+			
+			fts.replace(R.id.frameContainer, new PoiMapFragment());
 			if (mFrag == null) {
 				mFrag = new PoiMapFragment();
+//				 mMapFragment = MapFragment.newInstance();
+//				 fragmentTransaction.add(R.id.my_container, mMapFragment);
+//				 fts.(R.id.frameContainer, mMapFragment);
+//				 fts.commit();
+				
+				
 			}
 			fts.replace(R.id.frameContainer, mFrag, "MF");
+			fts.commit();
 		}
-		fts.commit();
+		
 	}
 		
 	
