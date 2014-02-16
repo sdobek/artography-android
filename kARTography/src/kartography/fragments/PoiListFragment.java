@@ -12,9 +12,20 @@ public class PoiListFragment extends Fragment{
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup parent,
 			Bundle savedInstanceState) {
+//		parent.removeAllViews();
+		
+//		if(view != null) { 
+//			return view; 
+//		}
 		//where you inflate xml
-		return inflater.inflate(R.layout.fragment_list_poi, parent);
+		return inflater.inflate(R.layout.fragment_list_poi, parent, false);
 	}
 	
+	
+	@Override
+	public void onActivityCreated(Bundle savedInstanceState) {
+	
+		super.onActivityCreated(savedInstanceState);
+	}
 	
 }

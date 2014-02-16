@@ -13,7 +13,9 @@ public class PoiMapFragment extends Fragment{
 	public View onCreateView(LayoutInflater inflater, ViewGroup parent,
 			Bundle savedInstanceState) {
 		//where you inflate xml
-		return inflater.inflate(R.layout.fragment_map_poi, parent);
+//		parent.removeAllViews();
+		View view = inflater.inflate(R.layout.fragment_map_poi, parent, false);
+		return view;
 	}
 	
 	

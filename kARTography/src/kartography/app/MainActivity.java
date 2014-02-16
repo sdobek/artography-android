@@ -118,6 +118,7 @@ public class MainActivity extends FragmentActivity implements TabListener {
 		
 		//lazy instantiation for the win
 		if (tab.getTag() == "PoiListFragment") {
+			
 //			fts.replace(R.id.frameContainer, new PoiListFragment());
 			if (lFrag == null) {
 				lFrag = new PoiListFragment();
