@@ -3,6 +3,8 @@ package kartography.app;
 
 import java.util.Date;
 
+import kartography.fragments.PoiListFragment;
+import kartography.fragments.PoiMapFragment;
 import kartography.models.Poi;
 import kartography.models.PoiLocation;
 import kartography.models.User;
@@ -20,6 +22,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
 
+
 import com.parse.Parse;
 import com.parse.ParseObject;
 
@@ -28,6 +31,9 @@ public class MainActivity extends FragmentActivity implements TabListener {
 
 	Poi art;
 	User user;
+	
+	private PoiListFragment lFrag = null;
+	private PoiMapFragment mFrag = null;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -102,24 +108,28 @@ public class MainActivity extends FragmentActivity implements TabListener {
 
 	@Override
 	public void onTabSelected(Tab tab, FragmentTransaction ft) {
+		
+		
 		FragmentManager manager = getSupportFragmentManager();
+		
 		android.support.v4.app.FragmentTransaction fts = manager
 				.beginTransaction();
 
+		
 		//lazy instantiation for the win
 		if (tab.getTag() == "PoiListFragment") {
-			fts.replace(R.id.frameContainer, new PoiListFragment());
-//			if (htlFrag == null) {
-//				htlFrag = new HomeTimelineFragment();
-//			}
+//			fts.replace(R.id.frameContainer, new PoiListFragment());
+			if (lFrag == null) {
+				lFrag = new PoiListFragment();
+			}
 			
-//			fts.replace(R.id.frameContainer, htlFrag, "HTL");
+			fts.replace(R.id.frameContainer, lFrag, "HTL");
 		} else {
-			fts.replace(R.id.frameContainer, new PoiMapFragment());
-//			if (mFrag == null) {
-//				mFrag = new MentionsFragment();
-//			}
-//			fts.replace(R.id.frameContainer, mFrag, "MF");
+//			fts.replace(R.id.frameContainer, new PoiMapFragment());
+			if (mFrag == null) {
+				mFrag = new PoiMapFragment();
+			}
+			fts.replace(R.id.frameContainer, mFrag, "MF");
 		}
 		fts.commit();
 	}
