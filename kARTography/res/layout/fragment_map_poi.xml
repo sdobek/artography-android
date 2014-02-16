@@ -6,12 +6,13 @@
     
     
     
-     <!-- <com.google.android.maps.MapView
+      <com.google.android.maps.MapView
         android:id="@+id/mapview" 
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content" 
+        android:layout_height="wrap_content"
         android:clickable="true"
-        android:apiKey="dirkadirka" /> -->
+        android:apiKey="AIzaSyCK3_sOcoo2pBhQZ-YYDuZyPRtAXZ134JE" />
+
 
      <Button
          android:id="@+id/button1234"
