@@ -46,36 +46,38 @@ public class Poi extends ParseObject {
 	}
 	
 	//minimum viable object
-	public Poi( Date createdAt, 
-			String artPhotoUrl, User uploadedByUser,
-			PoiLocation location, Boolean flagged) {
-		super();
-		this.title = "unknown";
-		this.artist = "unknown";
-		this.createdAt = createdAt;
-		this.description = "";
-		this.artPhotoUrl = artPhotoUrl;
-		this.uploadedByUser = uploadedByUser;
-		String[] tags = new String[]{"","","","","","","","",""};
-		this.tags = tags;
-		this.location = location;
-		this.flagged = flagged;
-	}
-
-	public Poi(String string, String string2, Date date, String string3,
-			String graffitiURL, User user, PoiLocation location2) {
-		super();
-		this.title = "unknown";
-		this.artist = "unknown";
-		this.createdAt = date;
-		this.description = "";
-		this.artPhotoUrl = graffitiURL;
-		this.uploadedByUser = user;
-		String[] tags = new String[]{"","","","","","","","",""};
-		this.tags = tags;
-		this.location = location2;
-		this.flagged = false;
-	}
+	
+	//These constructors may come in use later, but for now we'll just use the one. 
+//	public Poi( Date createdAt, 
+//			String artPhotoUrl, User uploadedByUser,
+//			PoiLocation location, Boolean flagged) {
+//		super();
+//		this.title = "unknown";
+//		this.artist = "unknown";
+//		this.createdAt = createdAt;
+//		this.description = "";
+//		this.artPhotoUrl = artPhotoUrl;
+//		this.uploadedByUser = uploadedByUser;
+//		String[] tags = new String[]{"","","","","","","","",""};
+//		this.tags = tags;
+//		this.location = location;
+//		this.flagged = flagged;
+//	}
+//
+//	public Poi(String string, String string2, Date date, String string3,
+//			String graffitiURL, User user, PoiLocation location2) {
+//		super();
+//		this.title = "unknown";
+//		this.artist = "unknown";
+//		this.createdAt = date;
+//		this.description = "";
+//		this.artPhotoUrl = graffitiURL;
+//		this.uploadedByUser = user;
+//		String[] tags = new String[]{"","","","","","","","",""};
+//		this.tags = tags;
+//		this.location = location2;
+//		this.flagged = false;
+//	}
 
 	public String getTitle() {
 		return title;

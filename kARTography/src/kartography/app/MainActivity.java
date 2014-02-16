@@ -20,11 +20,10 @@ import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.Toast;
 
 import com.google.android.gms.maps.MapFragment;
-import com.google.android.gms.maps.MapView;
 import com.parse.Parse;
+import com.parse.ParseAnalytics;
 import com.parse.ParseObject;
 
 @TargetApi(Build.VERSION_CODES.HONEYCOMB)
@@ -36,7 +35,7 @@ public class MainActivity extends FragmentActivity implements TabListener {
 	private PoiListFragment lFrag = null;
 	private PoiMapFragment mFrag = null;
 	private MapFragment mMapFragment = null;
-	
+	private ParseAnalytics ParseAnalytics = null;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -66,7 +65,11 @@ public class MainActivity extends FragmentActivity implements TabListener {
 		Long longitude =  Long.getLong("37.792962");
 		Long latidude = Long.getLong("-122.483236");
 		PoiLocation location = new PoiLocation(longitude, latidude);
-		art = new Poi("someart", "someartist", date, "test", graffitiURL, user, location);
+//		User u = new User("Steven Dobek", "Steven", "Dobek", null, null);
+		Poi pointOfInterest = new Poi("someart", "someartist", date, "test",graffitiURL, user, null, null);
+//				("someart", "someartist", date, "test", graffitiURL, user, location, false);
+//				
+		pointOfInterest.saveInBackground();
 		
 	}
 

@@ -57,8 +57,10 @@ public class TakePhotoActivity extends Activity {
 		
 	    Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
 	    if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
+	    	
 	    	takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, getPhotoFileUri("photo.jpg"));
 	        startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE);
+	        
 	    }
 	}
 	
