@@ -43,7 +43,7 @@ public class MainActivity extends FragmentActivity implements TabListener {
 		Parse.initialize(this, "wN6gpXkwVEF0d9eTw1YzE0ISX2WM8ACdXM0ueuiu", "dGycMyN2IxdihwSV6kzDiCufYAL9UBBQEpOiRmMn");
 		setContentView(R.layout.activity_main);
 		   
-		makeTestPoiObjectandUser();
+//		makeTestPoiObjectandUser();
 		
 		/*ParseObject testObject = new ParseObject("TestObject");
 		testObject.put("foo", "bar");
