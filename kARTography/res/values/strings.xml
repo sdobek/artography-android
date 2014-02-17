@@ -12,7 +12,8 @@
     <string name="hintDescription">Description</string>
     <string name="submitPhoto">Submit</string>
     <string name="photo">Photo</string>
-
-
+    <string name="app_id">266849720157825</string>
+    <string name="title_activity_login">LoginActivity</string>
+    <string name="login">Login w/ Facebook</string>
 
 </resources>
