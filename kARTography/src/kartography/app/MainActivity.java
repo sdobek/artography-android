@@ -42,39 +42,12 @@ public class MainActivity extends FragmentActivity implements TabListener {
 		ParseObject.registerSubclass(Poi.class);
 		Parse.initialize(this, "wN6gpXkwVEF0d9eTw1YzE0ISX2WM8ACdXM0ueuiu", "dGycMyN2IxdihwSV6kzDiCufYAL9UBBQEpOiRmMn");
 		setContentView(R.layout.activity_main);
-		   
-//		makeTestPoiObjectandUser();
-		
-		/*ParseObject testObject = new ParseObject("TestObject");
-		testObject.put("foo", "bar");
-		//right now these crash the app :( will 
-		//try to understand parse more. 
-		testObject.put("artObjectFoo", art);
-		testObject.add("user", user);
-		testObject.saveInBackground();*/
-		
+		  
 		setupNavigationTabs();
-		PoiHandler poiHandler = new PoiHandler();
-		poiHandler.getSinglePoi();
+
 		
 	}
 
-	private void makeTestPoiObjectandUser() {
-		Date date = new Date();
-		String profileURL = "https://pbs.twimg.com/profile_images/378800000504479551/6e237aa9c711a6d3b23ff2ed07e09648.png";
-		String graffitiURL = "http://www.thisiscolossal.com/wp-content/uploads/2012/04/tfs-1.jpg";
-		user = new User("thatdood", "johnny", "comelately", date, profileURL);
-		Long longitude =  Long.getLong("37.792962");
-		Long latidude = Long.getLong("-122.483236");
-		PoiLocation location = new PoiLocation(longitude, latidude);
-//		User u = new User("Steven Dobek", "Steven", "Dobek", null, null);
-		Poi pointOfInterest = new Poi("someart", "someartist", "test",graffitiURL, user, null, null);
-//				("someart", "someartist", date, "test", graffitiURL, user, location, false);
-//				
-
-		pointOfInterest.saveInBackground();
-		
-	}
 
 	private void setupNavigationTabs() {
 
@@ -84,12 +57,13 @@ public class MainActivity extends FragmentActivity implements TabListener {
 		actionBar.setDisplayShowTitleEnabled(true);
 		
 		Tab tabList = actionBar.newTab().setText("List").setTag("PoiListFragment")
-				.setIcon(R.drawable.ic_launcher).setTabListener(this);
+				.setIcon(R.drawable.ic_list).setTabListener(this);
 
-		Tab tabMap = actionBar.newTab().setText("Map").setTag("PoiMapFragment")
-				.setIcon(R.drawable.ic_launcher).setTabListener(this);
+//		Tab tabMap = actionBar.newTab().setText("Map").setTag("PoiMapFragment")
+//				.setIcon(R.drawable.ic_map).setTabListener(this);
 		
 		actionBar.addTab(tabList);
+		
 		//no longer adding map fragment till things get a little more stable.  
 //		actionBar.addTab(tabMap);
 				
