@@ -23,13 +23,13 @@ public class Poi extends ParseObject {
 		super();
 	}
 	
-	public Poi(String title, String artist, Date createdAt, String description,
+	public Poi(String title, String artist, String description,
 			String artPhotoUrl, User uploadedByUser, String[] tags,
 			PoiLocation location) {
 		super();
 		this.title = title;
 		this.artist = artist;
-		this.createdAt = createdAt;
+//		this.createdAt = createdAt;
 		this.description = description;
 		this.artPhotoUrl = artPhotoUrl;
 		this.uploadedByUser = uploadedByUser;
@@ -85,23 +85,27 @@ public class Poi extends ParseObject {
 
 	public void setTitle(String title) {
 		this.title = title;
+		put("title", title);
 	}
 
 	public String getArtist() {
 		return artist;
+		
 	}
 
 	public void setArtist(String artist) {
 		this.artist = artist;
+		put("artist", artist);
 	}
 
 	public Date getCreatedAt() {
 		return createdAt;
 	}
 
-	public void setCreatedAt(Date createdAt) {
-		this.createdAt = createdAt;
-	}
+//	public void setCreatedAt(Date createdAt) {
+//		this.createdAt = createdAt;
+		//no longer need as parse handles this	
+//	}
 
 	public String getDescription() {
 		return description;
@@ -109,6 +113,7 @@ public class Poi extends ParseObject {
 
 	public void setDescription(String description) {
 		this.description = description;
+		put("description", description);
 	}
 
 	public String getArtPhotoUrl() {
@@ -117,15 +122,17 @@ public class Poi extends ParseObject {
 
 	public void setArtPhotoUrl(String artPhotoUrl) {
 		this.artPhotoUrl = artPhotoUrl;
+		put("artPhotoUrl", artPhotoUrl);
 	}
 
 	public User getUploadedByUser() {
 		return uploadedByUser;
 	}
 
-	public void setUploadedByUser(User uploadedByUser) {
-		this.uploadedByUser = uploadedByUser;
-	}
+//	public void setUploadedByUser(User uploadedByUser) {
+//		this.uploadedByUser = uploadedByUser;
+	//probably won't need this one either.
+//	}
 
 	public String[] getTags() {
 		return tags;
@@ -149,6 +156,7 @@ public class Poi extends ParseObject {
 
 	public void setFlagged(Boolean flagged) {
 		this.flagged = flagged;
+		put("flagged", flagged);
 	}
 
 	@Override

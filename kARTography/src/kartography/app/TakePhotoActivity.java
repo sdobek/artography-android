@@ -76,7 +76,7 @@ public class TakePhotoActivity extends Activity {
 		//Some of the data is dummy to be replaced later
 		Date date = new Date();
 		User u = new User("Steven Dobek", "Steven", "Dobek", null, null);
-		Poi pointOfInterest = new Poi(title, author, date, description,
+		Poi pointOfInterest = new Poi(title, author, description,
 				fileUri.toString(), u, null,
 				null);
 		pointOfInterest.saveInBackground();

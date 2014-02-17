@@ -54,6 +54,8 @@ public class MainActivity extends FragmentActivity implements TabListener {
 		testObject.saveInBackground();*/
 		
 		setupNavigationTabs();
+		PoiHandler poiHandler = new PoiHandler();
+		poiHandler.getSinglePoi();
 		
 	}
 
@@ -66,9 +68,10 @@ public class MainActivity extends FragmentActivity implements TabListener {
 		Long latidude = Long.getLong("-122.483236");
 		PoiLocation location = new PoiLocation(longitude, latidude);
 //		User u = new User("Steven Dobek", "Steven", "Dobek", null, null);
-		Poi pointOfInterest = new Poi("someart", "someartist", date, "test",graffitiURL, user, null, null);
+		Poi pointOfInterest = new Poi("someart", "someartist", "test",graffitiURL, user, null, null);
 //				("someart", "someartist", date, "test", graffitiURL, user, location, false);
 //				
+
 		pointOfInterest.saveInBackground();
 		
 	}

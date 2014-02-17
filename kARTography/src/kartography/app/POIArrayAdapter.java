@@ -15,9 +15,9 @@ import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
 
-public class POIArrayAdapter extends ArrayAdapter<Poi> {
+public class PoiArrayAdapter extends ArrayAdapter<Poi> {
 
-    public POIArrayAdapter(Context context, List<Poi> images) {
+    public PoiArrayAdapter(Context context, List<Poi> images) {
         super(context, R.layout.item_list_poi, images);
     }
 
@@ -37,10 +37,17 @@ public class POIArrayAdapter extends ArrayAdapter<Poi> {
 
         ImageView ivImage = (ImageView) itemView.findViewById(R.id.ivThumbnail);
         TextView tvTitle = (TextView) itemView.findViewById(R.id.tvTitle);
-        tvTitle.setMaxLines(2);
+        TextView tvArtist = (TextView) itemView.findViewById(R.id.tvArtist);
+        TextView tvDistance = (TextView) itemView.findViewById(R.id.tvDistance);
+        tvTitle.setMaxLines(1);
         //probably won't need to truncate right away. Keeping line here for quick access.
         //tvTitle.setEllipsize(TextUtils.TruncateAt.END);
         tvTitle.setText(imageInfo.getTitle());
+        tvArtist.setText(imageInfo.getArtist());
+        
+        
+        // This will need to be altered when we 
+        tvDistance.setText("0.5 mi");
 
         ivImage.setImageResource(R.drawable.ican);
 
