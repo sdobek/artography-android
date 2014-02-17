@@ -13,16 +13,6 @@
         android:background="@android:color/darker_gray"
         android:scaleType="centerCrop" />
 
-	<TextView
-        android:id="@+id/tvTitle"
-        style="@style/ShadowText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/textView1"
-        android:layout_alignParentLeft="true"
-        android:text="Medium Text"
-        android:textAppearance="?android:attr/textAppearanceMedium" />
-
     <TextView
         android:id="@+id/tvArtist"
         android:layout_width="wrap_content"
@@ -31,15 +21,25 @@
         android:layout_alignBottom="@+id/ivThumbnail"
         android:layout_alignParentLeft="true"
         android:text="Small Text"
-        android:textAppearance="?android:attr/textAppearanceSmall" />  
+        android:textAppearance="?android:attr/textAppearanceSmall" />
+
+    <TextView
+        android:id="@+id/tvTitle"
+        style="@style/ShadowText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/tvArtist"
+        android:layout_marginBottom="10dp"
+        android:layout_alignParentLeft="true"
+        android:text="Medium Text"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
 
     <TextView
         android:id="@+id/tvDistance"
         style="@style/ShadowText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/textView1"
-        android:layout_alignBottom="@+id/textView1"
+        android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
         android:text="Large Text"
         android:textAppearance="?android:attr/textAppearanceLarge" />

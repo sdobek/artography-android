@@ -5,6 +5,7 @@ import java.util.List;
 import kartography.models.Poi;
 import android.content.Context;
 import android.util.Log;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.parse.FindCallback;
@@ -21,6 +22,7 @@ public class PoiHandler {
 	Parse parse;
 	ParseAnalytics pa;
 	ParseObject po;
+	List<Poi> ohHaiPoi;
 	
 	public static interface PoiHandlerCallback {
 	      public void onSuccess(List<Poi> results);
@@ -34,8 +36,27 @@ public class PoiHandler {
 	
 	public List<Poi> getPoi() {
 		//Parse magic. 
+		ohHaiPoi = null;
+		ParseQuery<Poi> query = ParseQuery.getQuery(Poi.class);
+		query.findInBackground(new FindCallback<Poi>() {
+		    public void done(List<Poi> itemList, ParseException e) {
+		        if (e == null) {
+		            // Access the array of results here
+		        	for(Poi poi: itemList){
+		        		String itemId = poi.getObjectId();
+			            Log.d("DEBUG", itemId + "ER MER GERD");	
+			            Log.d("DEBUG", poi.toString());
+		        	}
+		            ohHaiPoi = itemList;
+		        } else {
+		            Log.d("item", "Error: " + e.getMessage());
+		            Log.d("DEBUG", "Oh noooooooooooooooooooooooo");
+		        }
+		    }
+		});
 		
-		return null;	
+		
+		return ohHaiPoi;
 	}
 	
 	public Poi getSinglePoi(){
