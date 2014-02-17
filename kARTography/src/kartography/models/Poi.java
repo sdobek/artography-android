@@ -16,7 +16,7 @@ public class Poi extends ParseObject {
 	String artPhotoUrl;
 	User uploadedByUser;
 	String[] tags;
-	PoiLocation location;
+	String location;
 	Boolean flagged = false;
 	
 	public Poi(){
@@ -27,15 +27,6 @@ public class Poi extends ParseObject {
 			String artPhotoUrl, User uploadedByUser, String[] tags,
 			PoiLocation location) {
 		super();
-		this.title = title;
-		this.artist = artist;
-//		this.createdAt = createdAt;
-		this.description = description;
-		this.artPhotoUrl = artPhotoUrl;
-		this.uploadedByUser = uploadedByUser;
-		this.tags = tags;
-		this.location = location;
-		
 		put("title", title);
 		put("artist", artist);
 		put("description", description);
@@ -43,6 +34,14 @@ public class Poi extends ParseObject {
 		put("uploadedByUserId", uploadedByUser.getFullName());
 		put("locationId", "temp_loc");
 		put("flagged", false);
+		this.title = getTitle();
+		this.artist = getArtist();
+		this.createdAt = getCreatedAt();
+		this.description = getDescription();
+		this.artPhotoUrl = getArtPhotoUrl();
+		this.uploadedByUser = uploadedByUser;
+		this.tags = getTags();
+		this.location = getLocation();
 	}
 	
 	//minimum viable object
@@ -80,7 +79,8 @@ public class Poi extends ParseObject {
 //	}
 
 	public String getTitle() {
-		return title;
+		
+		return (String) get("title");
 	}
 
 	public void setTitle(String title) {
@@ -89,7 +89,7 @@ public class Poi extends ParseObject {
 	}
 
 	public String getArtist() {
-		return artist;
+		return (String) get("artist");
 		
 	}
 
@@ -99,7 +99,7 @@ public class Poi extends ParseObject {
 	}
 
 	public Date getCreatedAt() {
-		return createdAt;
+		return (Date) get("createdAt");
 	}
 
 //	public void setCreatedAt(Date createdAt) {
@@ -108,7 +108,7 @@ public class Poi extends ParseObject {
 //	}
 
 	public String getDescription() {
-		return description;
+		return (String) get("description");
 	}
 
 	public void setDescription(String description) {
@@ -117,7 +117,7 @@ public class Poi extends ParseObject {
 	}
 
 	public String getArtPhotoUrl() {
-		return artPhotoUrl;
+		return (String) get("artPhotoUrl");
 	}
 
 	public void setArtPhotoUrl(String artPhotoUrl) {
@@ -125,8 +125,8 @@ public class Poi extends ParseObject {
 		put("artPhotoUrl", artPhotoUrl);
 	}
 
-	public User getUploadedByUser() {
-		return uploadedByUser;
+	public String getUploadedByUser() {
+		return (String) get("uploadedByUser");
 	}
 
 //	public void setUploadedByUser(User uploadedByUser) {
@@ -142,16 +142,16 @@ public class Poi extends ParseObject {
 		this.tags = tags;
 	}
 
-	public PoiLocation getLocation() {
-		return location;
+	public String getLocation() {
+		return (String) get("location");
 	}
 
 	public void setLocation(PoiLocation location) {
-		this.location = location;
+		this.location = location.toString();
 	}
 
 	public Boolean getFlagged() {
-		return flagged;
+		return (Boolean) get("flagged");
 	}
 
 	public void setFlagged(Boolean flagged) {
@@ -161,11 +161,11 @@ public class Poi extends ParseObject {
 
 	@Override
 	public String toString() {
-		return "Poi [title=" + title + ", artist=" + artist + ", createdAt="
-				+ createdAt + ", description=" + description + ", artPhotoUrl="
-				+ artPhotoUrl + ", uploadedByUser=" + uploadedByUser
-				+ ", tags=" + Arrays.toString(tags) + ", location=" + location
-				+ ", flagged=" + flagged + "]";
+		return "Poi [title=" + getTitle() + ", artist=" + getArtist() + ", createdAt="
+				+ getCreatedAt() + ", description=" + getDescription() + ", artPhotoUrl="
+				+ getArtPhotoUrl() + ", uploadedByUser=" + uploadedByUser
+				+ ", tags=" + Arrays.toString(tags) + ", location=" + getLocation()
+				+ ", flagged=" + getFlagged() + "]";
 	}
 	
 	

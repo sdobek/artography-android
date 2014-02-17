@@ -6,6 +6,7 @@ import kartography.models.Poi;
 import android.content.Context;
 import android.net.Uri;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,10 +16,17 @@ import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
 
-public class PoiArrayAdapter extends ArrayAdapter<Poi> {
+public class POIArrayAdapter extends ArrayAdapter<Poi> {
 
-    public PoiArrayAdapter(Context context, List<Poi> images) {
+    public POIArrayAdapter(Context context, List<Poi> images) {
         super(context, R.layout.item_list_poi, images);
+       
+        if(images != null){
+        	Log.d("REBUG", images.toString());	
+        }else{
+        	Log.d("DEBUG", "ljkfgkljdfgkhj");
+        }
+        
     }
 
     @Override
@@ -46,17 +54,18 @@ public class PoiArrayAdapter extends ArrayAdapter<Poi> {
         tvArtist.setText(imageInfo.getArtist());
         
         
-        // This will need to be altered when we 
+        
+        // This will need to be altered when we get ParseGeoLocations into our DB. 
         tvDistance.setText("0.5 mi");
 
         ivImage.setImageResource(R.drawable.ican);
 
         Picasso.with(getContext())
                         .load(Uri.parse(imageInfo.getArtPhotoUrl()))
-                        .noFade()
-                        .centerCrop()
                         .into(ivImage);
         				//formerly .resize(100,100)
+//        				.noFade()
+//        				.centerCrop()
         
         return itemView;
     }
