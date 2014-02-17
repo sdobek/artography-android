@@ -8,7 +8,7 @@ import android.view.View;
 import com.parse.Parse;
 import com.parse.ParseAnalytics;
 
-public class SetPoiLocationActivity extends Activity {
+public class SetPoiLocation extends Activity {
 	PoiLocation loc;
 
 	@Override
@@ -16,6 +16,7 @@ public class SetPoiLocationActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		 Parse.initialize(this, "wN6gpXkwVEF0d9eTw1YzE0ISX2WM8ACdXM0ueuiu", "dGycMyN2IxdihwSV6kzDiCufYAL9UBBQEpOiRmMn");
 		setContentView(R.layout.activity_set_poilocation);
+		//
 	}
 
 	@Override
