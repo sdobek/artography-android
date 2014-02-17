@@ -8,7 +8,7 @@ import android.view.View;
 import com.parse.Parse;
 import com.parse.ParseAnalytics;
 
-public class SetPOILocationActivity extends Activity {
+public class SetPoiLocationActivity extends Activity {
 	PoiLocation loc;
 
 	@Override
