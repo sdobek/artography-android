@@ -29,3 +29,13 @@ Basic User Story:
 - if a user really likes the art, they can "favorite" it and keep those favorites stored. 
 
 - potential verification for the actual artist who made the piece to comment on it. 
+
+Installing FacebookSDK
+----------------------
+1. Download FacebookSDK from [here](https://developers.facebook.com/docs/android/)
+2. Import the FacebookSDK into Eclipse (you don't need to import the sample projects)
+3. Right click on kARTography. Select Properties->Android
+  1. Under library, click "Add," and select "FacebookSDK"
+  2. Make sure "Is Library" is not selected for kARTography
+4. You may get an error that there are multiple android-support-v4.jar files.  To solve this, copy the one in kARTography, delete the one in FacebookSDK, and paste the kARTography one in FacebookSDK.  They will now be using the same jar.
+
