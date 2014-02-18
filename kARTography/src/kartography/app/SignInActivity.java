@@ -18,7 +18,7 @@ import com.parse.Parse;
 import com.parse.ParseFacebookUtils;
 import com.parse.ParseUser;
 
-public class LoginActivity extends Activity {
+public class SignInActivity extends Activity {
 
 	private Button loginButton;
 

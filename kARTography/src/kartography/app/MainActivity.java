@@ -248,7 +248,7 @@ public class MainActivity extends FragmentActivity implements TabListener {
 	}
 
 	private void startLoginActivity() {
-		Intent intent = new Intent(this, LoginActivity.class);
+		Intent intent = new Intent(this, SignInActivity.class);
 		intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 		intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 		startActivity(intent);
