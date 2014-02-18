@@ -3,6 +3,7 @@ package kartography.app;
 
 import java.util.Date;
 
+import kartography.fragments.CustomMapFragment;
 import kartography.fragments.PoiListFragment;
 import kartography.fragments.PoiMapFragment;
 import kartography.models.Poi;
@@ -22,6 +23,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import com.google.android.gms.maps.MapFragment;
+import com.google.android.gms.maps.SupportMapFragment;
 import com.parse.Parse;
 import com.parse.ParseAnalytics;
 import com.parse.ParseObject;
@@ -33,8 +35,8 @@ public class MainActivity extends FragmentActivity implements TabListener {
 	User user;
 	
 	private PoiListFragment lFrag = null;
-	private PoiMapFragment mFrag = null;
-	private MapFragment mMapFragment = null;
+//	private PoiMapFragment mFrag = null;
+	private SupportMapFragment mMapFragment = null;
 	private ParseAnalytics ParseAnalytics = null;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -59,13 +61,13 @@ public class MainActivity extends FragmentActivity implements TabListener {
 		Tab tabList = actionBar.newTab().setText("List").setTag("PoiListFragment")
 				.setIcon(R.drawable.ic_list).setTabListener(this);
 
-//		Tab tabMap = actionBar.newTab().setText("Map").setTag("PoiMapFragment")
-//				.setIcon(R.drawable.ic_map).setTabListener(this);
+		Tab tabMap = actionBar.newTab().setText("Map").setTag("PoiMapFragment")
+				.setIcon(R.drawable.ic_map).setTabListener(this);
 		
 		actionBar.addTab(tabList);
 		
 		//no longer adding map fragment till things get a little more stable.  
-//		actionBar.addTab(tabMap);
+		actionBar.addTab(tabMap);
 				
 		actionBar.selectTab(tabList);
 		
@@ -125,9 +127,12 @@ public class MainActivity extends FragmentActivity implements TabListener {
 //			 fragmentTransaction.commit();
 //			
 			
-			fts.replace(R.id.frameContainer, new PoiMapFragment());
-			if (mFrag == null) {
-				mFrag = new PoiMapFragment();
+			
+			fts.replace(R.id.frameContainer, new CustomMapFragment());
+//			fts.replace(R.id.frameContainer, new PoiMapFragment());
+			if (mMapFragment == null) {
+				mMapFragment = new SupportMapFragment();
+//				mFrag = new PoiMapFragment();
 //				 mMapFragment = MapFragment.newInstance();
 //				 fragmentTransaction.add(R.id.my_container, mMapFragment);
 //				 fts.(R.id.frameContainer, mMapFragment);
@@ -135,7 +140,7 @@ public class MainActivity extends FragmentActivity implements TabListener {
 				
 				
 			}
-			fts.replace(R.id.frameContainer, mFrag, "MF");
+			fts.replace(R.id.frameContainer, mMapFragment, "MF");
 			fts.commit();
 		}
 		

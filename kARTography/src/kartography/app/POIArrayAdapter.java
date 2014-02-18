@@ -60,6 +60,7 @@ public class POIArrayAdapter extends ArrayAdapter<Poi> {
 
         ivImage.setImageResource(R.drawable.ican);
 
+        ///
         Picasso.with(getContext())
                         .load(Uri.parse(imageInfo.getArtPhotoUrl()))
                         .into(ivImage);
