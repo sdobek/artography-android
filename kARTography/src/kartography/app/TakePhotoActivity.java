@@ -80,6 +80,7 @@ public class TakePhotoActivity extends Activity {
 				fileUri.toString(), u, null,
 				null);
 		pointOfInterest.saveInBackground();
+		this.finish();
 	}
 	
 	@Override
