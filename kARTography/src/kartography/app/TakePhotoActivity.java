@@ -57,8 +57,10 @@ public class TakePhotoActivity extends Activity {
 		
 	    Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
 	    if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
+	    	
 	    	takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, getPhotoFileUri("photo.jpg"));
 	        startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE);
+	        
 	    }
 	}
 	
@@ -74,7 +76,7 @@ public class TakePhotoActivity extends Activity {
 		//Some of the data is dummy to be replaced later
 		Date date = new Date();
 		User u = new User("Steven Dobek", "Steven", "Dobek", null, null);
-		Poi pointOfInterest = new Poi(title, author, date, description,
+		Poi pointOfInterest = new Poi(title, author, description,
 				fileUri.toString(), u, null,
 				null);
 		pointOfInterest.saveInBackground();

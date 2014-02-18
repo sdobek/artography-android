@@ -2,6 +2,8 @@ package kartography.app;
 
 import java.util.Date;
 
+import kartography.fragments.PoiListFragment;
+import kartography.fragments.PoiMapFragment;
 import kartography.models.Poi;
 import kartography.models.PoiLocation;
 import kartography.models.User;
@@ -22,7 +24,6 @@ import android.support.v4.app.FragmentManager;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.Toast;
 
 import com.facebook.FacebookRequestError;
 import com.facebook.Request;
@@ -31,6 +32,8 @@ import com.facebook.Session;
 import com.facebook.model.GraphUser;
 import com.parse.Parse;
 import com.parse.ParseFacebookUtils;
+import com.google.android.gms.maps.MapFragment;
+import com.parse.ParseAnalytics;
 import com.parse.ParseObject;
 import com.parse.ParseUser;
 
@@ -39,6 +42,11 @@ public class MainActivity extends FragmentActivity implements TabListener {
 
 	Poi art;
 	User user;
+	
+	private PoiListFragment lFrag = null;
+	private PoiMapFragment mFrag = null;
+	private MapFragment mMapFragment = null;
+	private ParseAnalytics ParseAnalytics = null;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -116,18 +124,8 @@ public class MainActivity extends FragmentActivity implements TabListener {
 		
 	}
 
-	private void makeTestPoiObjectandUser() {
-		Date date = new Date();
-		String profileURL = "https://pbs.twimg.com/profile_images/378800000504479551/6e237aa9c711a6d3b23ff2ed07e09648.png";
-		String graffitiURL = "http://www.thisiscolossal.com/wp-content/uploads/2012/04/tfs-1.jpg";
-		user = new User("thatdood", "johnny", "comelately", date, profileURL);
-		Long longitude = Long.getLong("37.792962");
-		Long latidude = Long.getLong("-122.483236");
-		PoiLocation location = new PoiLocation(longitude, latidude);
-		art = new Poi("someart", "someartist", date, "test", graffitiURL, user,
-				location);
 
-	}
+
 
 	private void setupNavigationTabs() {
 
@@ -136,18 +134,20 @@ public class MainActivity extends FragmentActivity implements TabListener {
 
 		actionBar.setDisplayShowTitleEnabled(true);
 
-		Tab tabHome = actionBar.newTab().setText("List")
-				.setTag("PoiListFragment").setIcon(R.drawable.ic_launcher)
-				.setTabListener(this);
+		Tab tabList = actionBar.newTab().setText("List").setTag("PoiListFragment")
+				.setIcon(R.drawable.ic_list).setTabListener(this);
 
-		Tab tabMentions = actionBar.newTab().setText("Map")
-				.setTag("PoiMapFragment").setIcon(R.drawable.ic_launcher)
-				.setTabListener(this);
-
-		actionBar.addTab(tabHome);
-		actionBar.addTab(tabMentions);
-
-		actionBar.selectTab(tabHome);
+//		Tab tabMap = actionBar.newTab().setText("Map").setTag("PoiMapFragment")
+//				.setIcon(R.drawable.ic_map).setTabListener(this);
+		
+		actionBar.addTab(tabList);
+		
+		//no longer adding map fragment till things get a little more stable.  
+//		actionBar.addTab(tabMap);
+				
+		actionBar.selectTab(tabList);
+		
+		
 
 	}
 
@@ -161,7 +161,6 @@ public class MainActivity extends FragmentActivity implements TabListener {
 	public void addNewArt(MenuItem m) {
 		Intent i = new Intent(this, TakePhotoActivity.class);
 		startActivity(i);
-		Toast.makeText(getBaseContext(), "hello", Toast.LENGTH_LONG).show();
 	}
 
 	@Override
@@ -173,25 +172,55 @@ public class MainActivity extends FragmentActivity implements TabListener {
 	@Override
 	public void onTabSelected(Tab tab, FragmentTransaction ft) {
 		FragmentManager manager = getSupportFragmentManager();
+		
 		android.support.v4.app.FragmentTransaction fts = manager
 				.beginTransaction();
 
-		// lazy instantiation for the win
+		
+		
+		//lazy instantiation for the win
 		if (tab.getTag() == "PoiListFragment") {
-			fts.replace(R.id.frameContainer, new PoiListFragment());
-			// if (htlFrag == null) {
-			// htlFrag = new HomeTimelineFragment();
-			// }
+			
+//			FragmentManager manager = getSupportFragmentManager();
+//			
+//			android.support.v4.app.FragmentTransaction fts = manager
+//					.beginTransaction();
+			
+//			fts.replace(R.id.frameContainer, new PoiListFragment());
+			if (lFrag == null) {
+				lFrag = new PoiListFragment();
+			}
+			
+			fts.replace(R.id.frameContainer, lFrag, "HTL");
+			fts.commit();
 
-			// fts.replace(R.id.frameContainer, htlFrag, "HTL");
 		} else {
+//			lFrag.
+			
+//			mMapFragment = MapFragment.newInstance();
+//			 FragmentTransaction fragmentTransaction =
+//			         getFragmentManager().beginTransaction();
+//			 fragmentTransaction.add(R.id.frameContainer, mMapFragment);
+////			 fragmentTransaction.rep
+//			 fragmentTransaction.commit();
+//			
+			
 			fts.replace(R.id.frameContainer, new PoiMapFragment());
-			// if (mFrag == null) {
-			// mFrag = new MentionsFragment();
-			// }
-			// fts.replace(R.id.frameContainer, mFrag, "MF");
+
+			if (mFrag == null) {
+				mFrag = new PoiMapFragment();
+//				 mMapFragment = MapFragment.newInstance();
+//				 fragmentTransaction.add(R.id.my_container, mMapFragment);
+//				 fts.(R.id.frameContainer, mMapFragment);
+//				 fts.commit();
+				
+				
+			}
+			fts.replace(R.id.frameContainer, mFrag, "MF");
+			fts.commit();
+
 		}
-		fts.commit();
+		
 	}
 
 	@Override
