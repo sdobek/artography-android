@@ -46,17 +46,17 @@
             android:label="@string/title_activity_set_poilocation"
             android:screenOrientation="portrait" >
         </activity>
-
-        <meta-data
-            android:name="com.google.android.maps.v2.API_KEY"
-            android:value="AIzaSyBO1MMzQtpvvKTPh9Qa7O8ZF_2-DMjBS4k" />
-        
-          <meta-data android:name="com.google.android.gms.version" android:value="@integer/google_play_services_version" />
-
         <activity
             android:name="kartography.app.MapActivity"
-            android:label="@string/title_activity_map" >
+            android:label="@string/title_activity_map" 
+            android:screenOrientation="portrait">
         </activity>
+    
+            <meta-data
+            android:name="com.google.android.maps.v2.API_KEY"
+            android:value="AIzaSyBO1MMzQtpvvKTPh9Qa7O8ZF_2-DMjBS4k" />
+    <meta-data android:name="com.google.android.gms.version" android:value="@integer/google_play_services_version" />
+
     </application>
 
 </manifest>

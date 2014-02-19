@@ -34,43 +34,9 @@ public class Poi extends ParseObject {
 		put("flagged", false);
 	}
 	
-	//minimum viable object
-	
-	//These constructors may come in use later, but for now we'll just use the one. 
-//	public Poi( Date createdAt, 
-//			String artPhotoUrl, User uploadedByUser,
-//			PoiLocation location, Boolean flagged) {
-//		super();
-//		this.title = "unknown";
-//		this.artist = "unknown";
-//		this.createdAt = createdAt;
-//		this.description = "";
-//		this.artPhotoUrl = artPhotoUrl;
-//		this.uploadedByUser = uploadedByUser;
-//		String[] tags = new String[]{"","","","","","","","",""};
-//		this.tags = tags;
-//		this.location = location;
-//		this.flagged = flagged;
-//	}
-//
-//	public Poi(String string, String string2, Date date, String string3,
-//			String graffitiURL, User user, PoiLocation location2) {
-//		super();
-//		this.title = "unknown";
-//		this.artist = "unknown";
-//		this.createdAt = date;
-//		this.description = "";
-//		this.artPhotoUrl = graffitiURL;
-//		this.uploadedByUser = user;
-//		String[] tags = new String[]{"","","","","","","","",""};
-//		this.tags = tags;
-//		this.location = location2;
-//		this.flagged = false;
-//	}
 
 	public String getTitle() {
-		
-		return (String) get("title");
+		return getString("title");
 	}
 
 	public void setTitle(String title) {
@@ -79,7 +45,7 @@ public class Poi extends ParseObject {
 	}
 
 	public String getArtist() {
-		return (String) get("artist");
+		return getString("artist");
 		
 	}
 
@@ -163,10 +129,19 @@ public class Poi extends ParseObject {
 		
 	}
 	
+	public ParseFile getPhotoFile(){
+		return getParseFile("photoFile");
+	}
+	
 	public void setPhotoFileScaled(ParseFile photoFileScaled) {
 		put("photoFileScaled", photoFileScaled);
 		
 	}
+	
+	public ParseFile getPhotoFileScaled(){
+		return getParseFile("photoFileScaled");
+	}
+	
 	
 	public void setPhotoFileThumbnail(ParseFile photoFileThumbNail) {
 		put("photoFileThumbnail", photoFileThumbNail);

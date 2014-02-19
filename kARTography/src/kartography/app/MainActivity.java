@@ -33,7 +33,8 @@ public class MainActivity extends FragmentActivity implements TabListener {
 
 	Poi art;
 	User user;
-	
+	ActionBar actionBar;
+	Tab tabList;
 	private PoiListFragment lFrag = null;
 //	private PoiMapFragment mFrag = null;
 	private SupportMapFragment mMapFragment = null;
@@ -69,9 +70,17 @@ public class MainActivity extends FragmentActivity implements TabListener {
 		//no longer adding map fragment till things get a little more stable.  
 		actionBar.addTab(tabMap);
 				
-		actionBar.selectTab(tabMap);
+		actionBar.selectTab(tabList);
 		
 		
+	}
+	
+	@Override
+	protected void onResumeFragments() {
+		if(actionBar != null){
+			actionBar.selectTab(tabList);
+		}
+		super.onResumeFragments();
 	}
 
 	@Override
