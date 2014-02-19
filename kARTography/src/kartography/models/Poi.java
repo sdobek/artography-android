@@ -69,8 +69,7 @@ public class Poi extends ParseObject {
 //	}
 
 	public String getTitle() {
-		
-		return (String) get("title");
+		return getString("title");
 	}
 
 	public void setTitle(String title) {
@@ -79,7 +78,7 @@ public class Poi extends ParseObject {
 	}
 
 	public String getArtist() {
-		return (String) get("artist");
+		return getString("artist");
 		
 	}
 
@@ -163,10 +162,19 @@ public class Poi extends ParseObject {
 		
 	}
 	
+	public ParseFile getPhotoFile(){
+		return getParseFile("photoFile");
+	}
+	
 	public void setPhotoFileScaled(ParseFile photoFileScaled) {
 		put("photoFileScaled", photoFileScaled);
 		
 	}
+	
+	public ParseFile getPhotoFileScaled(){
+		return getParseFile("photoFileScaled");
+	}
+	
 	
 	public void setPhotoFileThumbnail(ParseFile photoFileThumbNail) {
 		put("photoFileThumbnail", photoFileThumbNail);
