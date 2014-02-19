@@ -69,7 +69,7 @@ public class MainActivity extends FragmentActivity implements TabListener {
 		//no longer adding map fragment till things get a little more stable.  
 		actionBar.addTab(tabMap);
 				
-		actionBar.selectTab(tabList);
+		actionBar.selectTab(tabMap);
 		
 		
 	}
@@ -126,12 +126,12 @@ public class MainActivity extends FragmentActivity implements TabListener {
 ////			 fragmentTransaction.rep
 //			 fragmentTransaction.commit();
 //			
-			
-			
-			fts.replace(R.id.frameContainer, new CustomMapFragment());
+			Intent i = new Intent(this, MapActivity.class);
+			startActivity(i);
+//			fts.replace(R.id.frameContainer, new CustomMapFragment());
 //			fts.replace(R.id.frameContainer, new PoiMapFragment());
-			if (mMapFragment == null) {
-				mMapFragment = new SupportMapFragment();
+//			if (mMapFragment == null) {
+//				mMapFragment = new SupportMapFragment();
 //				mFrag = new PoiMapFragment();
 //				 mMapFragment = MapFragment.newInstance();
 //				 fragmentTransaction.add(R.id.my_container, mMapFragment);
@@ -139,8 +139,8 @@ public class MainActivity extends FragmentActivity implements TabListener {
 //				 fts.commit();
 				
 				
-			}
-			fts.replace(R.id.frameContainer, mMapFragment, "MF");
+//			}
+//			fts.replace(R.id.frameContainer, mMapFragment, "MF");
 			fts.commit();
 		}
 		
