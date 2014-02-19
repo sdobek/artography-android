@@ -4,6 +4,7 @@ import java.util.Arrays;
 import java.util.Date;
 
 import com.parse.ParseClassName;
+import com.parse.ParseFile;
 import com.parse.ParseObject;
 
 @ParseClassName("POI")
@@ -23,25 +24,14 @@ public class Poi extends ParseObject {
 		super();
 	}
 	
-	public Poi(String title, String artist, String description,
-			String artPhotoUrl, User uploadedByUser, String[] tags,
-			PoiLocation location) {
-		super();
+	public void setFields(String title, String artist, String description,
+			User uploadedByUser, String[] tags,	PoiLocation location) {
 		put("title", title);
 		put("artist", artist);
 		put("description", description);
-		put("artPhotoUrl", artPhotoUrl);
 		put("uploadedByUserId", uploadedByUser.getFullName());
 		put("locationId", "temp_loc");
 		put("flagged", false);
-		this.title = getTitle();
-		this.artist = getArtist();
-		this.createdAt = getCreatedAt();
-		this.description = getDescription();
-		this.artPhotoUrl = getArtPhotoUrl();
-		this.uploadedByUser = uploadedByUser;
-		this.tags = getTags();
-		this.location = getLocation();
 	}
 	
 	//minimum viable object
@@ -167,6 +157,20 @@ public class Poi extends ParseObject {
 				+ ", tags=" + Arrays.toString(tags) + ", location=" + getLocation()
 				+ ", flagged=" + getFlagged() + "]";
 	}
+
+	public void setPhotoFile(ParseFile photoFile) {
+		put("photoFile", photoFile);
+		
+	}
 	
+	public void setPhotoFileScaled(ParseFile photoFileScaled) {
+		put("photoFileScaled", photoFileScaled);
+		
+	}
+	
+	public void setPhotoFileThumbnail(ParseFile photoFileThumbNail) {
+		put("photoFileThumbnail", photoFileThumbNail);
+		
+	}	
 	
 }

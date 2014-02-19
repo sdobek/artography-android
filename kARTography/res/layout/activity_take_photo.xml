@@ -79,7 +79,6 @@
 
             <requestFocus />
         </EditText>
-        
 
     </LinearLayout>
 
@@ -93,5 +92,14 @@
         android:layout_centerHorizontal="true"
         android:onClick="onSavePOI"
         android:text="@string/submitPhoto" />
+
+    <ProgressBar
+        android:id="@+id/pbLoading"
+  		android:visibility="invisible"
+        style="?android:attr/progressBarStyleLarge"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/ll_takePhoto"
+        android:layout_centerHorizontal="true" />
 
 </RelativeLayout>
