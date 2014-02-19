@@ -63,16 +63,25 @@ public class POIArrayAdapter extends ArrayAdapter<Poi> {
 
 
 //        ivImage.setImageResource(R.drawable.ican);
-
-        ParseFile pf = imageInfo.getPhotoFileScaled();
+        
+        
+        String pf = imageInfo.getPhotoFileScaled().getUrl();
+        Picasso.with(getContext()).load(Uri.parse(pf)).into(ivImage);
+      //formerly .resize(100,100)
+//		.noFade()
+//		.centerCrop()
+        
+        //hey steven, I managed to make this doable with picasso as seen above. 
+        /*ParseFile pf = imageInfo.getPhotoFileScaled();
         byte[] byteArray;
 		try {
 			byteArray = pf.getData();
 			Bitmap bmp = BitmapFactory.decodeByteArray(byteArray, 0, byteArray.length);
+			
 			ivImage.setImageBitmap(bmp);
 		} catch (ParseException e) {
 			e.printStackTrace();
-		}
+		}*/
         
 //        ivImage.setImageResource(R.drawable.ican);
 //
@@ -80,9 +89,7 @@ public class POIArrayAdapter extends ArrayAdapter<Poi> {
 //                        .load(Uri.parse(imageInfo.getArtPhotoUrl()))
 //                        .into(ivImage);
 
-        				//formerly .resize(100,100)
-//        				.noFade()
-//        				.centerCrop()
+        				
         
         return itemView;
     }
