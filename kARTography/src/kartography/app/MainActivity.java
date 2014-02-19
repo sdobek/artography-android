@@ -33,7 +33,8 @@ public class MainActivity extends FragmentActivity implements TabListener {
 
 	Poi art;
 	User user;
-	
+	ActionBar actionBar;
+	Tab tabList;
 	private PoiListFragment lFrag = null;
 //	private PoiMapFragment mFrag = null;
 	private SupportMapFragment mMapFragment = null;
@@ -72,6 +73,14 @@ public class MainActivity extends FragmentActivity implements TabListener {
 		actionBar.selectTab(tabList);
 		
 		
+	}
+	
+	@Override
+	protected void onResumeFragments() {
+		if(actionBar != null){
+			actionBar.selectTab(tabList);
+		}
+		super.onResumeFragments();
 	}
 
 	@Override
@@ -126,12 +135,12 @@ public class MainActivity extends FragmentActivity implements TabListener {
 ////			 fragmentTransaction.rep
 //			 fragmentTransaction.commit();
 //			
-			
-			
-			fts.replace(R.id.frameContainer, new CustomMapFragment());
+			Intent i = new Intent(this, MapActivity.class);
+			startActivity(i);
+//			fts.replace(R.id.frameContainer, new CustomMapFragment());
 //			fts.replace(R.id.frameContainer, new PoiMapFragment());
-			if (mMapFragment == null) {
-				mMapFragment = new SupportMapFragment();
+//			if (mMapFragment == null) {
+//				mMapFragment = new SupportMapFragment();
 //				mFrag = new PoiMapFragment();
 //				 mMapFragment = MapFragment.newInstance();
 //				 fragmentTransaction.add(R.id.my_container, mMapFragment);
@@ -139,8 +148,8 @@ public class MainActivity extends FragmentActivity implements TabListener {
 //				 fts.commit();
 				
 				
-			}
-			fts.replace(R.id.frameContainer, mMapFragment, "MF");
+//			}
+//			fts.replace(R.id.frameContainer, mMapFragment, "MF");
 			fts.commit();
 		}
 		

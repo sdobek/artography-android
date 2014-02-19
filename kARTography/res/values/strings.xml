@@ -12,7 +12,6 @@
     <string name="hintDescription">Description</string>
     <string name="submitPhoto">Submit</string>
     <string name="photo">Photo</string>
-
-
+    <string name="title_activity_map">MapActivity</string>
 
 </resources>

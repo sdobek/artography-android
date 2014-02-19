@@ -7,12 +7,15 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 
+import kartography.app.MapActivity.ErrorDialogFragment;
 import kartography.models.Poi;
 import kartography.models.PoiLocation;
 import kartography.models.User;
 import android.app.Activity;
+import android.app.Dialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.location.Location;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
@@ -26,23 +29,40 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.GooglePlayServicesClient;
+import com.google.android.gms.common.GooglePlayServicesUtil;
+import com.google.android.gms.location.LocationClient;
 import com.parse.ParseException;
 import com.parse.ParseFile;
+import com.parse.ParseGeoPoint;
 import com.parse.ParseObject;
 import com.parse.SaveCallback;
 
-public class TakePhotoActivity extends Activity {
+public class TakePhotoActivity extends Activity implements
+GooglePlayServicesClient.ConnectionCallbacks,
+GooglePlayServicesClient.OnConnectionFailedListener{
 	private static final int REQUEST_IMAGE_CAPTURE = 11;
 	Poi pntOfInterest;
 	PoiLocation loc;
 	ImageView photo;
-	private Uri fileUri;
+
+	//maps
+	private LocationClient mLocationClient;
+	/*
+	 * Define a request code to send to Google Play services This code is
+	 * returned in Activity.onActivityResult
+	 */
+	private final static int CONNECTION_FAILURE_RESOLUTION_REQUEST = 9000;
+	//
 	
+	private Uri fileUri;
 	//byte[] photoBytes;
 	private Poi pointOfInterest;
 	private ParseFile photoFile;
 	private ParseFile photoFileScaled;
 	private ParseFile photoFileThumbnail;
+	private ParseGeoPoint locationParse;
 	private Bitmap imageBitmap;
 	private Bitmap imageBitmapScaled;
 	private Bitmap imageBitmapThumbnail;
@@ -53,6 +73,10 @@ public class TakePhotoActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_take_photo);
+		
+		//maps
+		mLocationClient = new LocationClient(this, this, this);
+		//
 		
 		photo = (ImageView) findViewById(R.id.iv_Photo);
 		pb = (ProgressBar) findViewById(R.id.pbLoading);
@@ -85,6 +109,40 @@ public class TakePhotoActivity extends Activity {
 	    }
 	}
 	
+	@Override
+	protected void onStart() {
+		// TODO Auto-generated method stub
+		super.onStart();
+		if (isGooglePlayServicesAvailable()) {
+			mLocationClient.connect();
+		}
+	}
+	
+	private boolean isGooglePlayServicesAvailable() {
+		// Check that Google Play services is available
+		int resultCode = GooglePlayServicesUtil.isGooglePlayServicesAvailable(this);
+		// If Google Play services is available
+		if (ConnectionResult.SUCCESS == resultCode) {
+			// In debug mode, log the status
+			Log.d("Location Updates", "Google Play services is available.");
+			return true;
+		} else {
+			// Get the error dialog from Google Play services
+			Dialog errorDialog = GooglePlayServicesUtil.getErrorDialog(resultCode, this,
+					CONNECTION_FAILURE_RESOLUTION_REQUEST);
+
+			// If Google Play services can provide an error dialog
+			if (errorDialog != null) {
+				// Create a new DialogFragment for the error dialog
+				ErrorDialogFragment errorFragment = new ErrorDialogFragment();
+				errorFragment.setDialog(errorDialog);
+
+			}
+
+			return false;
+		}
+	}
+	
 	public void onSelectLocation(View v){
 		//Intent to set location of the POI
 		//Return location data
@@ -98,7 +156,13 @@ public class TakePhotoActivity extends Activity {
 		String description = ((EditText)findViewById(R.id.et_description)).getText().toString();
 		User u = new User("Steven Dobek", "Steven", "Dobek", null, null);
 		pointOfInterest = ParseObject.create(Poi.class);
-		pointOfInterest.setFields(title, author, description, u , null, null);
+		
+		Location lastloc = mLocationClient.getLastLocation();
+		
+		
+		ParseGeoPoint location = new ParseGeoPoint(lastloc.getLatitude(), lastloc.getLongitude());
+		
+		pointOfInterest.setFields(title, author, description, u , null, location);
 		
 		pb.setVisibility(ProgressBar.VISIBLE);
 		if (imageBitmap != null){
@@ -203,5 +267,23 @@ public class TakePhotoActivity extends Activity {
 		                fileName));
 		    return fileUri;
 		}
+
+	@Override
+	public void onConnectionFailed(ConnectionResult arg0) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void onConnected(Bundle arg0) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void onDisconnected() {
+		// TODO Auto-generated method stub
+		
+	}
 
 }
