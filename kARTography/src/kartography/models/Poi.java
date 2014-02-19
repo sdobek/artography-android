@@ -5,11 +5,13 @@ import java.util.Date;
 
 import com.parse.ParseClassName;
 import com.parse.ParseFile;
+import com.parse.ParseGeoPoint;
 import com.parse.ParseObject;
+import com.parse.ParseQuery;
 
 @ParseClassName("POI")
 public class Poi extends ParseObject {
-	
+
 	String title;
 	String artist;
 	Date createdAt;
@@ -19,21 +21,20 @@ public class Poi extends ParseObject {
 	String[] tags;
 	String location;
 	Boolean flagged = false;
-	
-	public Poi(){
+
+	public Poi() {
 		super();
 	}
-	
+
 	public void setFields(String title, String artist, String description,
-			User uploadedByUser, String[] tags,	PoiLocation location) {
+			User uploadedByUser, String[] tags, ParseGeoPoint location) {
 		put("title", title);
 		put("artist", artist);
 		put("description", description);
 		put("uploadedByUserId", uploadedByUser.getFullName());
-		put("locationId", "temp_loc");
+		put("location", location);
 		put("flagged", false);
 	}
-	
 
 	public String getTitle() {
 		return getString("title");
@@ -46,7 +47,7 @@ public class Poi extends ParseObject {
 
 	public String getArtist() {
 		return getString("artist");
-		
+
 	}
 
 	public void setArtist(String artist) {
@@ -58,10 +59,10 @@ public class Poi extends ParseObject {
 		return (Date) get("createdAt");
 	}
 
-//	public void setCreatedAt(Date createdAt) {
-//		this.createdAt = createdAt;
-		//no longer need as parse handles this	
-//	}
+	// public void setCreatedAt(Date createdAt) {
+	// this.createdAt = createdAt;
+	// no longer need as parse handles this
+	// }
 
 	public String getDescription() {
 		return (String) get("description");
@@ -85,10 +86,10 @@ public class Poi extends ParseObject {
 		return (String) get("uploadedByUser");
 	}
 
-//	public void setUploadedByUser(User uploadedByUser) {
-//		this.uploadedByUser = uploadedByUser;
-	//probably won't need this one either.
-//	}
+	// public void setUploadedByUser(User uploadedByUser) {
+	// this.uploadedByUser = uploadedByUser;
+	// probably won't need this one either.
+	// }
 
 	public String[] getTags() {
 		return tags;
@@ -98,13 +99,13 @@ public class Poi extends ParseObject {
 		this.tags = tags;
 	}
 
-	public String getLocation() {
-		return (String) get("location");
-	}
-
-	public void setLocation(PoiLocation location) {
-		this.location = location.toString();
-	}
+	// public String getLocation() {
+	// return (String) get("location");
+	// }
+	//
+	// public void setLocation(PoiLocation location) {
+	// this.location = location.toString();
+	// }
 
 	public Boolean getFlagged() {
 		return (Boolean) get("flagged");
@@ -117,35 +118,47 @@ public class Poi extends ParseObject {
 
 	@Override
 	public String toString() {
-		return "Poi [title=" + getTitle() + ", artist=" + getArtist() + ", createdAt="
-				+ getCreatedAt() + ", description=" + getDescription() + ", artPhotoUrl="
-				+ getArtPhotoUrl() + ", uploadedByUser=" + uploadedByUser
-				+ ", tags=" + Arrays.toString(tags) + ", location=" + getLocation()
+		return "Poi [title=" + getTitle() + ", artist=" + getArtist()
+				+ ", createdAt=" + getCreatedAt() + ", description="
+				+ getDescription() + ", artPhotoUrl=" + getArtPhotoUrl()
+				+ ", uploadedByUser=" + uploadedByUser + ", tags="
+				+ Arrays.toString(tags) + ", location=" + getLocation()
 				+ ", flagged=" + getFlagged() + "]";
 	}
 
 	public void setPhotoFile(ParseFile photoFile) {
 		put("photoFile", photoFile);
-		
+
 	}
-	
-	public ParseFile getPhotoFile(){
+
+	public ParseFile getPhotoFile() {
 		return getParseFile("photoFile");
 	}
-	
+
 	public void setPhotoFileScaled(ParseFile photoFileScaled) {
 		put("photoFileScaled", photoFileScaled);
-		
+
 	}
-	
-	public ParseFile getPhotoFileScaled(){
+
+	public ParseFile getPhotoFileScaled() {
 		return getParseFile("photoFileScaled");
 	}
-	
-	
+
 	public void setPhotoFileThumbnail(ParseFile photoFileThumbNail) {
 		put("photoFileThumbnail", photoFileThumbNail);
-		
-	}	
-	
+
+	}
+
+	public ParseGeoPoint getLocation() {
+		return getParseGeoPoint("location");
+	}
+
+	public void setLocation(ParseGeoPoint value) {
+		put("location", value);
+	}
+
+	public static ParseQuery<Poi> getQuery() {
+		return ParseQuery.getQuery(Poi.class);
+	}
+
 }
