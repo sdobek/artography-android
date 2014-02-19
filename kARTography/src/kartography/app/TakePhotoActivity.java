@@ -2,10 +2,10 @@ package kartography.app;
 
 
 
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.util.Date;
 
 import kartography.models.Poi;
 import kartography.models.PoiLocation;
@@ -20,12 +20,16 @@ import android.provider.MediaStore;
 import android.util.Log;
 import android.view.Menu;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
-import com.parse.Parse;
-import com.parse.ParseAnalytics;
+import com.parse.ParseException;
+import com.parse.ParseFile;
+import com.parse.ParseObject;
+import com.parse.SaveCallback;
 
 public class TakePhotoActivity extends Activity {
 	private static final int REQUEST_IMAGE_CAPTURE = 11;
@@ -33,6 +37,17 @@ public class TakePhotoActivity extends Activity {
 	PoiLocation loc;
 	ImageView photo;
 	private Uri fileUri;
+	
+	//byte[] photoBytes;
+	private Poi pointOfInterest;
+	private ParseFile photoFile;
+	private ParseFile photoFileScaled;
+	private ParseFile photoFileThumbnail;
+	private Bitmap imageBitmap;
+	private Bitmap imageBitmapScaled;
+	private Bitmap imageBitmapThumbnail;
+	ProgressBar pb;
+	Button submitBtn;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -40,6 +55,12 @@ public class TakePhotoActivity extends Activity {
 		setContentView(R.layout.activity_take_photo);
 		
 		photo = (ImageView) findViewById(R.id.iv_Photo);
+		pb = (ProgressBar) findViewById(R.id.pbLoading);
+		submitBtn = (Button) findViewById(R.id.btn_submitPhoto);
+		submitBtn.setEnabled(false);
+		imageBitmap = null;
+		imageBitmapScaled = null;
+		
 	}
 
 	@Override
@@ -70,27 +91,93 @@ public class TakePhotoActivity extends Activity {
 	}
 	
 	public void onSavePOI(View v){
+		submitBtn.setEnabled(false);
+		
 		String author = ((EditText)findViewById(R.id.et_author)).getText().toString();
 		String title = ((EditText)findViewById(R.id.et_title)).getText().toString();
 		String description = ((EditText)findViewById(R.id.et_description)).getText().toString();
-		//Some of the data is dummy to be replaced later
-		Date date = new Date();
 		User u = new User("Steven Dobek", "Steven", "Dobek", null, null);
-		Poi pointOfInterest = new Poi(title, author, description,
-				fileUri.toString(), u, null,
-				null);
-		pointOfInterest.saveInBackground();
-		this.finish();
+		pointOfInterest = ParseObject.create(Poi.class);
+		pointOfInterest.setFields(title, author, description, u , null, null);
+		
+		pb.setVisibility(ProgressBar.VISIBLE);
+		if (imageBitmap != null){
+			ByteArrayOutputStream stream = new ByteArrayOutputStream();
+			imageBitmap.compress(Bitmap.CompressFormat.PNG, 100, stream);
+			byte[] photoBytes = stream.toByteArray();
+			photoFile = new ParseFile("photo2.png", photoBytes);
+			photoFile.saveInBackground(new SaveCallback() {
+				@Override
+				public void done(ParseException e) {
+					if (e != null) {
+			            Toast.makeText(TakePhotoActivity.this,
+			                    "Error saving: " + e.getMessage(), Toast.LENGTH_LONG).show();
+			            pb.setVisibility(ProgressBar.INVISIBLE);
+			            submitBtn.setEnabled(false);
+			        } else {
+			            pointOfInterest.setPhotoFile(photoFile);
+			            //Now try to upload the scaled image
+			            ByteArrayOutputStream stream = new ByteArrayOutputStream();
+			            imageBitmapScaled.compress(Bitmap.CompressFormat.PNG, 100, stream);
+						byte[] photoBytes = stream.toByteArray();
+			            photoFileScaled = new ParseFile("photo3.png", photoBytes);
+						photoFileScaled.saveInBackground(new SaveCallback() {
+							@Override
+							public void done(ParseException e) {
+								if (e != null) {
+						            Toast.makeText(TakePhotoActivity.this,
+						                    "Error saving scaled: " + e.getMessage(), Toast.LENGTH_LONG).show();
+						            pb.setVisibility(ProgressBar.INVISIBLE);
+						            submitBtn.setEnabled(false);
+						        } else {
+						            pointOfInterest.setPhotoFileScaled(photoFileScaled);
+						            //Lastly the thumbnail image
+						            ByteArrayOutputStream stream = new ByteArrayOutputStream();
+						            imageBitmapThumbnail.compress(Bitmap.CompressFormat.PNG, 100, stream);
+									byte[] photoBytes = stream.toByteArray();
+						            photoFileThumbnail = new ParseFile("photo4.png", photoBytes);
+									photoFileThumbnail.saveInBackground(new SaveCallback() {
+										@Override
+										public void done(ParseException e) {
+											if (e != null) {
+									            Toast.makeText(TakePhotoActivity.this,
+									                    "Error saving thumb: " + e.getMessage(), Toast.LENGTH_LONG).show();
+									            pb.setVisibility(ProgressBar.INVISIBLE);
+									            submitBtn.setEnabled(false);
+									        } else {
+									            pointOfInterest.setPhotoFileThumbnail(photoFileThumbnail);
+									            pointOfInterest.saveInBackground();
+									            pb.setVisibility(ProgressBar.INVISIBLE);
+									            TakePhotoActivity.this.finish();
+									        }
+											
+										}
+									});
+						        }
+								
+							}
+						});
+			        }
+					
+				}
+			});
+			
+			
+		}
 	}
 	
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 	    if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
 	        Uri takenPhotoUri = getPhotoFileUri("photo.jpg");
-	        Bitmap imageBitmap;
-			try {
+	        try {
 				imageBitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), takenPhotoUri);
-				photo.setImageBitmap(imageBitmap);
+				imageBitmapScaled = Bitmap.createScaledBitmap(imageBitmap, 
+						imageBitmap.getWidth()/2, imageBitmap.getHeight()/2, false);
+				imageBitmapThumbnail = Bitmap.createScaledBitmap(imageBitmap, 
+						imageBitmap.getWidth()/6, imageBitmap.getHeight()/6, false);
+				photo.setImageBitmap(imageBitmapScaled);
+				submitBtn.setEnabled(true);
 			} catch (FileNotFoundException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
