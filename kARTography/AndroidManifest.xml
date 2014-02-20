@@ -54,7 +54,11 @@
     
             <meta-data
             android:name="com.google.android.maps.v2.API_KEY"
-            android:value="AIzaSyBO1MMzQtpvvKTPh9Qa7O8ZF_2-DMjBS4k" />
+            android:value="AIzaSyAHiAg777ZwSzLJN414trmNu8LQU-pTUPc" />
+            <!-- 
+            Steven's id - "AIzaSyAHiAg777ZwSzLJN414trmNu8LQU-pTUPc"
+            Michael's id - "AIzaSyBO1MMzQtpvvKTPh9Qa7O8ZF_2-DMjBS4k"
+             -->
     <meta-data android:name="com.google.android.gms.version" android:value="@integer/google_play_services_version" />
 
     </application>
