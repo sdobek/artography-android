@@ -13,5 +13,18 @@
     <string name="submitPhoto">Submit</string>
     <string name="photo">Photo</string>
     <string name="title_activity_map">MapActivity</string>
+    <string name="title_activity_sign_in">SignInActivity</string>
+    <string name="login">LOGIN</string>
+    <string name="username">Username</string>
+    <string name="password">Password</string>
+    <string name="signin">Sign In</string>
+    <string name="forgotLogin">Forgot Username or Password?</string>
+    <string name="newAccount">Create New Account</string>
+    <string name="title_activity_new_user">NewUserActivity</string>
+    <string name="enterUsername">Enter Username</string>
+    <string name="enterEmail">Enter Email</string>
+    <string name="enterPassword">Enter Password</string>
+    <string name="reenterpassword">Re-enter Password</string>
+    <string name="createAccount">Create</string>
 
 </resources>
