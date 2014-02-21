@@ -45,6 +45,7 @@ public class SignInActivity extends Activity {
 							// Hooray! The user is logged in.
 							Intent i = new Intent(SignInActivity.this, MainActivity.class);
 							startActivity(i);
+							SignInActivity.this.finish();
 						} else {
 							// Signup failed. Look at the ParseException to see
 							// what happened.

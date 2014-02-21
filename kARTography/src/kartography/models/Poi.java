@@ -8,6 +8,7 @@ import com.parse.ParseFile;
 import com.parse.ParseGeoPoint;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
+import com.parse.ParseUser;
 
 @ParseClassName("POI")
 public class Poi extends ParseObject {
@@ -27,14 +28,15 @@ public class Poi extends ParseObject {
 	}
 
 	public void setFields(String title, String artist, String description,
-			User uploadedByUser, String[] tags, ParseGeoPoint location) {
-		put("title", title);
-		put("artist", artist);
-		put("description", description);
-		put("uploadedByUserId", uploadedByUser.getFullName());
-		put("location", location);
-		put("flagged", false);
-	}
+            ParseUser user, ParseGeoPoint location) {
+        put("title", title);
+        put("artist", artist);
+        put("description", description);
+        //put("user", user);
+        put("uploadedByUsername", user.getUsername());
+        put("location", location);
+        put("flagged", false);
+    }
 
 	public String getTitle() {
 		return getString("title");
