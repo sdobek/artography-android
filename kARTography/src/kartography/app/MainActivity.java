@@ -76,7 +76,9 @@ public class MainActivity extends FragmentActivity implements TabListener {
 	
 	@Override
 	protected void onResumeFragments() {
-		if(actionBar != null){
+		
+		// hrm, this totally isn't working. 
+		if(actionBar != null){ 
 			actionBar.selectTab(tabList);
 		}
 		super.onResumeFragments();

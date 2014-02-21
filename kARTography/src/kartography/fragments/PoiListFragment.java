@@ -3,15 +3,19 @@ package kartography.fragments;
 import java.util.List;
 
 import kartography.app.POIArrayAdapter;
+import kartography.app.PoiDetailActivity;
 import kartography.app.PoiHandler;
 import kartography.app.R;
 import kartography.models.Poi;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 
@@ -38,7 +42,29 @@ public class PoiListFragment extends Fragment{
 		
 
 		
+		lvPoi.setOnItemClickListener(new OnItemClickListener() {
 
+			@Override
+			public void onItemClick(AdapterView<?> arg0, View view, int position,
+					long arg3) {
+				Poi poi = (Poi) arg0.getItemAtPosition(position);
+				String id = poi.getObjectId();
+//				ParseFile pf = poi.getPhotoFile();
+				
+				Intent i = new Intent(getActivity(), PoiDetailActivity.class);
+				
+				i.putExtra("id", id);
+				
+				startActivity(i);
+				
+			}
+			
+		});
+		
+			
+				
+				
+			
        
 //    for later    lvPoi.setOnScrollListener(endlessScrollListener);
 		return view;

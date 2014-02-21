@@ -26,5 +26,6 @@
     <string name="enterPassword">Enter Password</string>
     <string name="reenterpassword">Re-enter Password</string>
     <string name="createAccount">Create</string>
+    <string name="title_activity_poi_detail">PoiDetailActivity</string>
 
 </resources>

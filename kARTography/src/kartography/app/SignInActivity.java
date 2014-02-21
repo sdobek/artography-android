@@ -25,7 +25,6 @@ public class SignInActivity extends Activity {
 		if (ParseUser.getCurrentUser() != null) {
 			Intent i = new Intent(this, MainActivity.class);
 			startActivity(i);
-			SignInActivity.this.finish();
 		}
 		username = (EditText) findViewById(R.id.etUsername);
 		password = (EditText) findViewById(R.id.etPassword);
@@ -46,7 +45,6 @@ public class SignInActivity extends Activity {
 							// Hooray! The user is logged in.
 							Intent i = new Intent(SignInActivity.this, MainActivity.class);
 							startActivity(i);
-							SignInActivity.this.finish();
 						} else {
 							// Signup failed. Look at the ParseException to see
 							// what happened.

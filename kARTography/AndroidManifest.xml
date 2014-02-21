@@ -29,7 +29,6 @@
             android:name="kartography.app.MainActivity"
             android:label="@string/app_name"
             android:screenOrientation="portrait" >
-            
         </activity>
         <activity
             android:name="kartography.app.TakePhotoActivity"
@@ -63,12 +62,17 @@
             android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
         <activity
             android:name="kartography.app.NewUserActivity"
             android:label="@string/title_activity_new_user" >
+        </activity>
+        <activity
+            android:name="kartography.app.PoiDetailActivity"
+            android:label="@string/title_activity_poi_detail" >
         </activity>
     </application>
 
