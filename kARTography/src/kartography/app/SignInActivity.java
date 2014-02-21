@@ -25,7 +25,6 @@ public class SignInActivity extends Activity {
 		if (ParseUser.getCurrentUser() != null) {
 			Intent i = new Intent(this, MainActivity.class);
 			startActivity(i);
-			SignInActivity.this.finish();
 		}
 		username = (EditText) findViewById(R.id.etUsername);
 		password = (EditText) findViewById(R.id.etPassword);

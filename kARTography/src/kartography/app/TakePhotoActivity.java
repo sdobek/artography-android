@@ -38,7 +38,6 @@ import com.parse.ParseFile;
 import com.parse.ParseGeoPoint;
 import com.parse.ParseObject;
 import com.parse.ParseUser;
-import com.parse.ParseAnalytics;
 import com.parse.SaveCallback;
 
 public class TakePhotoActivity extends Activity implements
@@ -164,7 +163,7 @@ GooglePlayServicesClient.OnConnectionFailedListener{
 		
 		ParseGeoPoint location = new ParseGeoPoint(lastloc.getLatitude(), lastloc.getLongitude());
 		
-		pointOfInterest.setFields(title, author, description, user, location);
+		pointOfInterest.setFields(title, author, description, user , location);
 		
 		pb.setVisibility(ProgressBar.VISIBLE);
 		if (imageBitmap != null){
