@@ -37,6 +37,8 @@ import com.parse.ParseException;
 import com.parse.ParseFile;
 import com.parse.ParseGeoPoint;
 import com.parse.ParseObject;
+import com.parse.ParseUser;
+import com.parse.ParseAnalytics;
 import com.parse.SaveCallback;
 
 public class TakePhotoActivity extends Activity implements
@@ -154,7 +156,7 @@ GooglePlayServicesClient.OnConnectionFailedListener{
 		String author = ((EditText)findViewById(R.id.et_author)).getText().toString();
 		String title = ((EditText)findViewById(R.id.et_title)).getText().toString();
 		String description = ((EditText)findViewById(R.id.et_description)).getText().toString();
-		User u = new User("Steven Dobek", "Steven", "Dobek", null, null);
+		ParseUser user = ParseUser.getCurrentUser();
 		pointOfInterest = ParseObject.create(Poi.class);
 		
 		Location lastloc = mLocationClient.getLastLocation();
@@ -162,7 +164,7 @@ GooglePlayServicesClient.OnConnectionFailedListener{
 		
 		ParseGeoPoint location = new ParseGeoPoint(lastloc.getLatitude(), lastloc.getLongitude());
 		
-		pointOfInterest.setFields(title, author, description, u , null, location);
+		pointOfInterest.setFields(title, author, description, user, location);
 		
 		pb.setVisibility(ProgressBar.VISIBLE);
 		if (imageBitmap != null){
