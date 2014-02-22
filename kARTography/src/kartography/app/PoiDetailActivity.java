@@ -65,6 +65,8 @@ public class PoiDetailActivity extends Activity {
 //		           tvDate.setText(sdf.format(poi.getCreatedAt()));
 		           String pf = poi.getPhotoFileScaled().getUrl();
 		           Picasso.with(getBaseContext()).load(Uri.parse(pf)).into(ivImage);
+//		           .resize(100, 100)
+//		           .centerCrop()
 //		           Toast.makeText(PoiDetailActivity.this, poi.getArtist(), Toast.LENGTH_LONG).show();
 		        } else {
 		            Log.d("item", "Error: " + e.getMessage());
