@@ -7,7 +7,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 
-import kartography.app.MapActivity.ErrorDialogFragment;
+import kartography.app.MainActivity.ErrorDialogFragment;
 import kartography.models.Poi;
 import kartography.models.PoiLocation;
 import android.app.Activity;
