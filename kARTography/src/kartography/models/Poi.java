@@ -150,8 +150,6 @@ public class Poi extends ParseObject {
 		put("location", value);
 	}
 
-	public static ParseQuery<Poi> getQuery() {
-		return ParseQuery.getQuery(Poi.class);
-	}
+	
 
 }
