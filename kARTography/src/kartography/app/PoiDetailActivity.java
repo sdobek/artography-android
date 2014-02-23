@@ -63,6 +63,7 @@ public class PoiDetailActivity extends FragmentActivity implements ConfirmFlagLi
 		ParseQuery<Poi> query = ParseQuery.getQuery(Poi.class).whereEqualTo(
 				"objectId", objectId);
 		query.findInBackground(new FindCallback<Poi>() {
+
 			@SuppressLint("NewApi")
 			public void done(List<Poi> itemList, ParseException e) {
 				if (e == null) {
@@ -93,6 +94,7 @@ public class PoiDetailActivity extends FragmentActivity implements ConfirmFlagLi
 					Log.d("DEBUG", "Oh noooooooooooooooooooooooo");
 				}
 			}
+
 		});
 
 	}
