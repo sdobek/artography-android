@@ -15,6 +15,7 @@ import android.app.Dialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.location.Location;
+import android.media.ImageReader;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
@@ -42,9 +43,9 @@ import com.parse.SaveCallback;
 public class TakePhotoActivity extends Activity implements
 GooglePlayServicesClient.ConnectionCallbacks,
 GooglePlayServicesClient.OnConnectionFailedListener{
-	private final int PHOTO_DETAIL_PIXELS = 500;
-	private final int PHOTO_SCALED_PIXELS = 100;
-	private final int PHOTO_THUMBNAIL_PIXELS = 50;
+	private final int PHOTO_DETAIL_PIXELS = 1024;
+	private final int PHOTO_SCALED_PIXELS = 512;
+	private final int PHOTO_THUMBNAIL_PIXELS = 128;
 	
 	private static final int REQUEST_IMAGE_CAPTURE = 11;
 	Poi pntOfInterest;
@@ -253,6 +254,12 @@ GooglePlayServicesClient.OnConnectionFailedListener{
 	        Uri takenPhotoUri = getPhotoFileUri("photo.jpg");
 	        try {
 				imageBitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), takenPhotoUri);
+				
+				imageBitmap.getHeight();
+				imageBitmap.getWidth();
+				//^^ use these parameters to tell if photo is portrait or landscape 
+				//	 and scale accordingly. 
+				
 				imageBitmapScaled = Bitmap.createScaledBitmap(imageBitmap, 
 						PHOTO_SCALED_PIXELS, PHOTO_SCALED_PIXELS, false);
 				imageBitmapThumbnail = Bitmap.createScaledBitmap(imageBitmap, 
