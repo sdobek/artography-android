@@ -74,6 +74,11 @@
             android:name="kartography.app.PoiDetailActivity"
             android:label="@string/title_activity_poi_detail" >
         </activity>
+         <activity
+            android:name="kartography.app.EditDetailsActivity"
+            android:label="@string/title_activity_take_photo"
+            android:screenOrientation="portrait" >
+        </activity>
     </application>
 
 </manifest>
