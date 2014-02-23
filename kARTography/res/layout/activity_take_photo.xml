@@ -33,6 +33,8 @@
             android:layout_width="250dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
+            android:imeOptions="actionNext"
+            android:singleLine="true"
             android:layout_marginBottom="20dp"
             android:background="#ccc"
             android:ems="10"
@@ -57,9 +59,11 @@
         <EditText
             android:id="@+id/et_author"
             android:layout_width="250dp"
+            android:imeOptions="actionNext"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginBottom="20dp"
+            android:singleLine="true"
             android:background="#ccc"
             android:ems="10"
             android:hint="@string/hintAuthor" >
@@ -71,6 +75,7 @@
             android:id="@+id/et_description"
             android:layout_width="250dp"
             android:layout_height="wrap_content"
+            android:imeOptions="actionDone"
             android:layout_gravity="center"
             android:layout_marginBottom="20dp"
             android:background="#ccc"

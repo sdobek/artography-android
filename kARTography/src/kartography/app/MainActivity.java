@@ -277,29 +277,7 @@ public class MainActivity extends FragmentActivity implements
 							.position(new LatLng(poi.getLocation()
 									.getLatitude(), poi.getLocation()
 									.getLongitude()));
-					// Set up the marker properties based on if it is within the
-					// search radius
-					if (poi.getLocation().distanceInKilometersTo(myPoint) > radius
-							* METERS_PER_FEET / METERS_PER_KILOMETER) {
-						// Check for an existing out of range marker
-						if (oldMarker != null) {
-							if (oldMarker.getSnippet() == null) {
-								// Out of range marker already exists, skip
-								// adding it
-								continue;
-							} else {
-								// Marker now out of range, needs to be
-								// refreshed
-								oldMarker.remove();
-							}
-						}
-						// Display a red marker with a predefined title and no
-						// snippet
-						markerOpts = markerOpts
-								.title("Poi is out of range")
-								.icon(BitmapDescriptorFactory
-										.defaultMarker(BitmapDescriptorFactory.HUE_RED));
-					} else {
+					
 						// Check for an existing in range marker
 						if (oldMarker != null) {
 							if (oldMarker.getSnippet() != null) {
@@ -317,7 +295,7 @@ public class MainActivity extends FragmentActivity implements
 								.snippet(poi.getArtist())
 								.icon(BitmapDescriptorFactory
 										.defaultMarker(BitmapDescriptorFactory.HUE_GREEN));
-					}
+					
 					// Add a new marker
 					
 					
