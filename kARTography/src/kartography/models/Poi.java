@@ -1,5 +1,6 @@
 package kartography.models;
 
+import java.io.Serializable;
 import java.util.Arrays;
 import java.util.Date;
 
@@ -11,15 +12,12 @@ import com.parse.ParseQuery;
 import com.parse.ParseUser;
 
 @ParseClassName("POI")
-public class Poi extends ParseObject {
-
+public class Poi extends ParseObject {	
 	String title;
 	String artist;
-	Date createdAt;
 	String description;
 	String artPhotoUrl;
 	User uploadedByUser;
-	String[] tags;
 	String location;
 	Boolean flagged = false;
 
@@ -37,6 +35,7 @@ public class Poi extends ParseObject {
         put("location", location);
         put("flagged", false);
     }
+	
 
 	public String getTitle() {
 		return getString("title");
@@ -85,7 +84,7 @@ public class Poi extends ParseObject {
 	}
 
 	public String getUploadedByUser() {
-		return (String) get("uploadedByUser");
+		return (String) get("uploadedByUsername");
 	}
 
 	// public void setUploadedByUser(User uploadedByUser) {
@@ -93,13 +92,6 @@ public class Poi extends ParseObject {
 	// probably won't need this one either.
 	// }
 
-	public String[] getTags() {
-		return tags;
-	}
-
-	public void setTags(String[] tags) {
-		this.tags = tags;
-	}
 
 	// public String getLocation() {
 	// return (String) get("location");
@@ -123,8 +115,7 @@ public class Poi extends ParseObject {
 		return "Poi [title=" + getTitle() + ", artist=" + getArtist()
 				+ ", createdAt=" + getCreatedAt() + ", description="
 				+ getDescription() + ", artPhotoUrl=" + getArtPhotoUrl()
-				+ ", uploadedByUser=" + uploadedByUser + ", tags="
-				+ Arrays.toString(tags) + ", location=" + getLocation()
+				+ ", uploadedByUser=" + uploadedByUser + ", location=" + getLocation()
 				+ ", flagged=" + getFlagged() + "]";
 	}
 
