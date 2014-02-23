@@ -42,10 +42,15 @@ import com.parse.SaveCallback;
 public class TakePhotoActivity extends Activity implements
 GooglePlayServicesClient.ConnectionCallbacks,
 GooglePlayServicesClient.OnConnectionFailedListener{
+	private final int PHOTO_DETAIL_PIXELS = 500;
+	private final int PHOTO_SCALED_PIXELS = 100;
+	private final int PHOTO_THUMBNAIL_PIXELS = 50;
+	
 	private static final int REQUEST_IMAGE_CAPTURE = 11;
 	Poi pntOfInterest;
 	PoiLocation loc;
 	ImageView photo;
+	EditText etTitle;
 
 	//maps
 	private LocationClient mLocationClient;
@@ -77,7 +82,7 @@ GooglePlayServicesClient.OnConnectionFailedListener{
 		//maps
 		mLocationClient = new LocationClient(this, this, this);
 		//
-		
+		etTitle = (EditText) findViewById(R.id.et_title);
 		photo = (ImageView) findViewById(R.id.iv_Photo);
 		pb = (ProgressBar) findViewById(R.id.pbLoading);
 		submitBtn = (Button) findViewById(R.id.btn_submitPhoto);
@@ -85,6 +90,8 @@ GooglePlayServicesClient.OnConnectionFailedListener{
 		imageBitmap = null;
 		imageBitmapScaled = null;
 		
+		
+//		etTitle.setImeActionLabel(label, actionId)
 	}
 
 	@Override
@@ -237,9 +244,12 @@ GooglePlayServicesClient.OnConnectionFailedListener{
 	        try {
 				imageBitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), takenPhotoUri);
 				imageBitmapScaled = Bitmap.createScaledBitmap(imageBitmap, 
-						imageBitmap.getWidth()/2, imageBitmap.getHeight()/2, false);
+						PHOTO_SCALED_PIXELS, PHOTO_SCALED_PIXELS, false);
 				imageBitmapThumbnail = Bitmap.createScaledBitmap(imageBitmap, 
-						imageBitmap.getWidth()/6, imageBitmap.getHeight()/6, false);
+						PHOTO_THUMBNAIL_PIXELS, PHOTO_THUMBNAIL_PIXELS, false);
+				//lastly scale the original bitmap
+				imageBitmap =Bitmap.createScaledBitmap(imageBitmap, 
+						PHOTO_DETAIL_PIXELS, PHOTO_DETAIL_PIXELS, false);
 				photo.setImageBitmap(imageBitmapScaled);
 				submitBtn.setEnabled(true);
 			} catch (FileNotFoundException e) {
