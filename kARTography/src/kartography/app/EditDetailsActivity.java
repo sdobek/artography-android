@@ -57,6 +57,15 @@ public class EditDetailsActivity extends Activity {
 		String author = ((EditText)findViewById(R.id.et_author)).getText().toString();
 		String title = ((EditText)findViewById(R.id.et_title)).getText().toString();
 		String description = ((EditText)findViewById(R.id.et_description)).getText().toString();
+
+		// guards against empty fields. 
+		if(title.isEmpty()){
+			title = "Unknown";
+		}
+		
+		if(author.isEmpty()){
+			author = "Unknown";
+		}
 		
 		Intent poi_data = new Intent();
 		poi_data.putExtra("artist", author);

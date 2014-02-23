@@ -164,6 +164,16 @@ GooglePlayServicesClient.OnConnectionFailedListener{
 		ParseUser user = ParseUser.getCurrentUser();
 		pointOfInterest = ParseObject.create(Poi.class);
 		
+		// guards against empty fields. 
+		if(title.isEmpty()){
+			title = "Unknown";
+		}
+		
+		if(author.isEmpty()){
+			author = "Unknown";
+		}
+		
+		
 		Location lastloc = mLocationClient.getLastLocation();
 		
 		
