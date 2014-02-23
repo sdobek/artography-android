@@ -27,5 +27,8 @@
     <string name="reenterpassword">Re-enter Password</string>
     <string name="createAccount">Create</string>
     <string name="title_activity_poi_detail">PoiDetailActivity</string>
+    <string name="confirmFlag">This image will be put under review and be removed for the time being.  Are you sure you wish to flag this image?</string>
+    <string name="flag">Flag</string>
+    <string name="cancel">Cancel</string>
 
 </resources>

@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+    
+    <RelativeLayout
+    android:layout_width="match_parent"
+    android:layout_height="386dp" >
+	
+	    <ImageView
+	        android:id="@+id/imageView1"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_alignParentLeft="true"
+	        android:layout_below="@+id/ivArt"
+	        android:layout_marginLeft="38dp"
+	        android:src="@drawable/ic_map" />
+	
+	    <ImageView
+	        android:id="@+id/ImageView01"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_alignParentLeft="true"
+	        android:layout_below="@+id/imageView1"
+	        android:layout_marginLeft="38dp"
+	        android:src="@drawable/ic_map" />
+	
+	    <ImageView
+	        android:id="@+id/ImageView02"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_alignParentLeft="true"
+	        android:layout_below="@+id/ImageView01"
+	        android:layout_marginLeft="38dp"
+	        android:src="@drawable/ic_map" />
+
+	    <TextView
+	        android:id="@+id/tvTitle"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_alignTop="@+id/imageView1"
+	        android:layout_marginTop="15dp"
+	        android:layout_toRightOf="@+id/imageView1"
+	        android:text="Title"
+	        android:textAppearance="?android:attr/textAppearanceMedium"
+	         />
+
+	    <TextView
+	        android:id="@+id/tvDescription"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_alignLeft="@+id/ImageView02"
+	        android:layout_alignParentBottom="true"
+	        android:layout_alignRight="@+id/textView3"
+	        android:text="description"
+	        android:textAppearance="?android:attr/textAppearanceLarge" />
+
+	    <ImageView
+	        android:id="@+id/ivArt"
+	        android:layout_width="match_parent"
+	        android:layout_height="200dp"
+	        android:layout_alignParentLeft="true"
+	        android:layout_alignParentTop="true"
+	        android:src="@drawable/ican" />
+
+	    <TextView
+	        android:id="@+id/tvDate"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_alignParentRight="true"
+	        android:layout_alignTop="@+id/imageView1"
+	        android:layout_marginRight="44dp"
+	        android:text="date uploaded"
+	        android:textAppearance="?android:attr/textAppearanceSmall" />
+
+	    <TextView
+	        android:id="@+id/tvDistance"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_alignBottom="@+id/ImageView02"
+	        android:layout_alignLeft="@+id/tvArtist"
+	        android:text="Magic that doesn&apos;t exist yet"
+	        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+	    <TextView
+	        android:id="@+id/tvArtist"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_alignBottom="@+id/ImageView01"
+	        android:layout_alignLeft="@+id/tvTitle"
+	        android:text="Artist"
+	        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+	</RelativeLayout>
+    
+
+</LinearLayout>

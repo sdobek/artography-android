@@ -10,7 +10,6 @@ import java.io.IOException;
 import kartography.app.MapActivity.ErrorDialogFragment;
 import kartography.models.Poi;
 import kartography.models.PoiLocation;
-import kartography.models.User;
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.Intent;
