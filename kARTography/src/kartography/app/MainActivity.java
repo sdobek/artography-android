@@ -243,6 +243,7 @@ public class MainActivity extends FragmentActivity implements
 		// Set up additional query filters
 		mapQuery.whereWithinKilometers("location", myPoint,
 				MAX_POST_SEARCH_DISTANCE);
+		mapQuery.whereNotEqualTo("flagged", true);
 		mapQuery.include("user");
 		mapQuery.orderByDescending("createdAt");
 //		mapQuery.setLimit(MAX_POST_SEARCH_RESULTS);
