@@ -21,7 +21,7 @@ public class POIArrayAdapter extends ArrayAdapter<Poi> {
         super(context, R.layout.item_list_poi, images);
        
         if(images != null){
-        	Log.d("REBUG", images.toString());	
+//        	Log.d("REBUG", images.toString());	
         }else{
         	Log.d("DEBUG", "ljkfgkljdfgkhj");
         }

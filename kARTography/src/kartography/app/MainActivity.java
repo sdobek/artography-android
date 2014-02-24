@@ -6,7 +6,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import kartography.app.R.drawable;
 import kartography.fragments.PoiListFragment;
 import kartography.models.Poi;
 import kartography.models.User;
@@ -19,10 +18,11 @@ import android.app.Dialog;
 import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.content.IntentSender;
-import android.graphics.drawable.Drawable;
+import android.graphics.Color;
 import android.location.Location;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
@@ -39,7 +39,6 @@ import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.GoogleMap.OnInfoWindowClickListener;
-import com.google.android.gms.maps.GoogleMap.OnMarkerClickListener;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
@@ -61,6 +60,7 @@ public class MainActivity extends FragmentActivity implements
 	User user;
 	ActionBar actionBar;
 	Tab tabList;
+	private Tab tabMap;
 	private PoiListFragment lFrag = null;
 	// all dem maps
 	private SupportMapFragment mMapFragment = null;
@@ -85,6 +85,7 @@ public class MainActivity extends FragmentActivity implements
 	private final static int CONNECTION_FAILURE_RESOLUTION_REQUEST = 9000;
 	// end of maps maps
 	private ParseAnalytics ParseAnalytics = null;
+	
 
 	// Maximum results returned from a Parse query
 	private static final int MAX_POST_SEARCH_RESULTS = 20;
@@ -148,9 +149,9 @@ public class MainActivity extends FragmentActivity implements
 	protected void onResumeFragments() {
 
 		// hrm, this totally isn't working.
-		if (actionBar != null) {
-			actionBar.selectTab(tabList);
-		}
+//		if (actionBar != null) {
+//			actionBar.selectTab(tabList);
+//		}
 		super.onResumeFragments();
 	}
 
@@ -163,7 +164,7 @@ public class MainActivity extends FragmentActivity implements
 
 	public void addNewArt(MenuItem m) {
 		Intent i = new Intent(this, TakePhotoActivity.class);
-		startActivity(i);
+		startActivityForResult(i, 7);
 	}
 
 	@Override
@@ -178,7 +179,7 @@ public class MainActivity extends FragmentActivity implements
 
 		android.support.v4.app.FragmentTransaction fts = manager
 				.beginTransaction();
-
+		
 		// lazy instantiation for the win
 		if (tab.getTag() == "PoiListFragment") {
 
@@ -196,9 +197,6 @@ public class MainActivity extends FragmentActivity implements
 			fts.commit();
 		} else {
 
-			// this worked
-			// Intent i = new Intent(this, MapActivity.class);
-			// startActivity(i);
 
 			fts.replace(R.id.frameContainer, mMapFragment, "MF");
 			fts.commit();
@@ -227,8 +225,8 @@ public class MainActivity extends FragmentActivity implements
 		}
 
 	}
-
-	/*
+	
+	/* 
 	 * Set up the query to update the map view
 	 */
 	private void doMapQuery() {
@@ -385,17 +383,41 @@ public class MainActivity extends FragmentActivity implements
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		// Decide what to do based on the original request code
+
 		switch (requestCode) {
 
+		case 7:
+			if(resultCode == 55){
+			//evil android magic to wait for the parse server to update
+			final Handler handler = new Handler();
+			handler.postDelayed(new Runnable() {
+			    @Override
+			    public void run() {
+//			    	actionBar.selectTab(tabList);
+			    	FragmentManager manager = getSupportFragmentManager();
+
+					android.support.v4.app.FragmentTransaction fts = manager
+							.beginTransaction();
+					fts.replace(R.id.frameContainer, new PoiListFragment());
+					fts.commitAllowingStateLoss();
+					
+			        
+			    }
+			}, 500);
+			}
+			break;
 		case CONNECTION_FAILURE_RESOLUTION_REQUEST:
 			/*
 			 * If the result code is Activity.RESULT_OK, try to connect again
 			 */
 			switch (resultCode) {
+			
 			case Activity.RESULT_OK:
 				mLocationClient.connect();
 				break;
 			}
+			default:
+			break;
 
 		}
 	}

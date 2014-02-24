@@ -92,15 +92,21 @@ GooglePlayServicesClient.OnConnectionFailedListener{
 		imageBitmapScaled = null;
 		
 		
-//		etTitle.setImeActionLabel(label, actionId)
+
 	}
 
 	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.take_photo, menu);
-		return true;
+	public void onBackPressed() {
+		setResult(99);
+		super.onBackPressed();
 	}
+	
+//	@Override
+//	public boolean onCreateOptionsMenu(Menu menu) {
+//		// Inflate the menu; this adds items to the action bar if it is present.
+//		getMenuInflater().inflate(R.menu.take_photo, menu);
+//		return true;
+//	}
 	
 	public void onTakePicture(View v){
 		//Intent to take photo using android camera
@@ -120,6 +126,7 @@ GooglePlayServicesClient.OnConnectionFailedListener{
 	@Override
 	protected void onStart() {
 		// TODO Auto-generated method stub
+		////
 		super.onStart();
 		if (isGooglePlayServicesAvailable()) {
 			mLocationClient.connect();
@@ -230,7 +237,14 @@ GooglePlayServicesClient.OnConnectionFailedListener{
 									            pointOfInterest.setPhotoFileThumbnail(photoFileThumbnail);
 									            pointOfInterest.saveInBackground();
 									            pb.setVisibility(ProgressBar.INVISIBLE);
+									            
+//									            Intent data = new Intent();
+									            // Pass relevant data back as a result
+									           
+									            // Activity finished ok, return the data
+									            setResult(55);
 									            TakePhotoActivity.this.finish();
+									            
 									        }
 											
 										}

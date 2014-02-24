@@ -83,15 +83,15 @@ public class PoiListFragment extends Fragment{
 		//tried to do this with the PoiHandler object doing the call, but don't know callbacks yet. 
 		List<Poi> ohHaiPoi = null;
 		ParseQuery<Poi> query = ParseQuery.getQuery(Poi.class);
-		query.whereNotEqualTo("flagged", true);
+		query.whereNotEqualTo("flagged", true).orderByDescending("updatedAt");
 		query.findInBackground(new FindCallback<Poi>() {
 		    public void done(List<Poi> itemList, ParseException e) {
 		        if (e == null) {
 		            // Access the array of results here
 		        	for(Poi poi: itemList){
 		        		String itemId = poi.getObjectId();
-			            Log.d("DEBUG", itemId + "ER MER GERD");	
-			            Log.d("DEBUG", poi.toString());
+//			            Log.d("DEBUG", itemId + "ER MER GERD");	
+//			            Log.d("DEBUG", poi.toString());
 		        	}
 		        	pBar.setVisibility(View.INVISIBLE);
 		            images = itemList;
@@ -108,6 +108,10 @@ public class PoiListFragment extends Fragment{
 		
 	
 		super.onActivityCreated(savedInstanceState);
+	}
+	
+	public POIArrayAdapter returnAdapter(){
+		return poiAdapter;
 	}
 	
 }
