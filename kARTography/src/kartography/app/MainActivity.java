@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import kartography.app.R.drawable;
 import kartography.fragments.PoiListFragment;
 import kartography.models.Poi;
 import kartography.models.User;
@@ -18,6 +19,7 @@ import android.app.Dialog;
 import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.content.IntentSender;
+import android.graphics.drawable.Drawable;
 import android.location.Location;
 import android.os.Build;
 import android.os.Bundle;
@@ -294,16 +296,17 @@ public class MainActivity extends FragmentActivity implements
 						markerOpts = markerOpts
 								.title(poi.getTitle())
 								.snippet(poi.getArtist())
-								.icon(BitmapDescriptorFactory
-										.defaultMarker(BitmapDescriptorFactory.HUE_GREEN));
+								.icon(BitmapDescriptorFactory.fromResource(R.drawable.ican_pin));
+						//former icon
+//						BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN)
+					
+					
 					
 					// Add a new marker
-					
-					
-					
 					Marker marker = myMap.addMarker(markerOpts);
 					mapMarkers.put(poi.getObjectId(), marker);
 					//made in reverse bc steven and I don't understand hashmaps
+					// also so we can start detail activity dependent on the marker
 					reversedMapMarker.put(marker, poi.getObjectId());
 					if (poi.getObjectId().equals(selectedObjectId)) {
 						marker.showInfoWindow();

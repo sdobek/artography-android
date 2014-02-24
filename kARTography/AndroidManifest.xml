@@ -68,11 +68,15 @@
         </activity>
         <activity
             android:name="kartography.app.NewUserActivity"
-            android:label="@string/title_activity_new_user" >
+            android:label="@string/title_activity_new_user" 
+            android:screenOrientation="portrait"
+            >
         </activity>
         <activity
             android:name="kartography.app.PoiDetailActivity"
-            android:label="@string/title_activity_poi_detail" >
+            android:label="@string/title_activity_poi_detail" 
+            android:screenOrientation="portrait"
+            >
         </activity>
          <activity
             android:name="kartography.app.EditDetailsActivity"
