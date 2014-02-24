@@ -79,6 +79,11 @@
             android:label="@string/title_activity_take_photo"
             android:screenOrientation="portrait" >
         </activity>
+        <activity
+            android:name="kartography.app.DisplayDetailedPhotoActivity"
+            android:label="@string/title_activity_take_photo"
+          	>
+        </activity>
     </application>
 
 </manifest>
