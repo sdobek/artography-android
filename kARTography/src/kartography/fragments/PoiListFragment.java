@@ -83,6 +83,7 @@ public class PoiListFragment extends Fragment{
 		//tried to do this with the PoiHandler object doing the call, but don't know callbacks yet. 
 		List<Poi> ohHaiPoi = null;
 		ParseQuery<Poi> query = ParseQuery.getQuery(Poi.class);
+		query.whereNotEqualTo("flagged", true);
 		query.findInBackground(new FindCallback<Poi>() {
 		    public void done(List<Poi> itemList, ParseException e) {
 		        if (e == null) {
