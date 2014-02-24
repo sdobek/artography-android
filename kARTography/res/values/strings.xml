@@ -30,5 +30,8 @@
     <string name="confirmFlag">This image will be put under review and be removed for the time being.  Are you sure you wish to flag this image?</string>
     <string name="flag">Flag</string>
     <string name="cancel">Cancel</string>
+    <string name="title_activity_display_detailed_photo">DisplayDetailedPhotoActivity</string>
+    <string name="dummy_button">Dummy Button</string>
+    <string name="dummy_content">DUMMY\nCONTENT</string>
 
 </resources>

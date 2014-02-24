@@ -9,16 +9,16 @@ import kartography.models.Poi;
 import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
 import android.app.ActionBar;
-import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
-import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.FragmentManager;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -118,10 +118,15 @@ public class PoiDetailActivity extends FragmentActivity implements ConfirmFlagLi
 	}
 
 	public void onFlagPoi(MenuItem mi) {
-
 		FragmentManager fm = getSupportFragmentManager();
 		ConfirmFlag confirmFlagDialog = ConfirmFlag.newInstance("Some Title");
 		confirmFlagDialog.show(fm, "fragment_edit_name");
+	}
+	
+	public void onShowFullscreen(View v){
+		Intent i = new Intent(this, DisplayDetailedPhotoActivity.class);
+		i.putExtra("photoUrl", poi.getPhotoFile().getUrl());
+		startActivity(i);
 	}
 
 	@TargetApi(Build.VERSION_CODES.HONEYCOMB)
