@@ -265,9 +265,7 @@ public class MainActivity extends FragmentActivity implements
 				 * Make sure we're processing results from the most recent
 				 * update, in case there may be more than one in progress.
 				 */
-				// if (myUpdateNumber != mostRecentMapUpdate) {
-				// return;
-				// }
+
 				// Posts to show on the map
 				
 				Set<String> toKeep = new HashSet<String>();
@@ -302,36 +300,14 @@ public class MainActivity extends FragmentActivity implements
 
 					// add
 					String uriThumbNail = poi.getPhotoFileThumbnail().getUrl();
-//					InputStream in;
-//					Bitmap mIcon11 = null;
-//					try {
-//						in = new java.net.URL(uriThumbNail).openStream();
-//						 mIcon11 = BitmapFactory.decodeStream(in);
-//					} catch (MalformedURLException e1) {
-//						// TODO Auto-generated catch block
-//						e1.printStackTrace();
-//					} catch (IOException e1) {
-//						// TODO Auto-generated catch block
-//						e1.printStackTrace();
-//					}
-		            
 					imageStringMapMarker.put(marker,uriThumbNail);
 					ImageView imageview = new ImageView(getApplicationContext());
-//					imageview.se
-					//
+
 					
 					if (poi.getObjectId().equals(selectedObjectId)) {
 						marker.showInfoWindow();
 						
-//						myMap.setOnInfoWindowClickListener(new OnInfoWindowClickListener() {
-//							
-//							@Override
-//							public void onInfoWindowClick(Marker arg0) {
-//								Log.d("DEBUG", poi.getObjectId().toString());
-//								
-//								
-//							}
-//						});
+
 						selectedObjectId = null;
 					}
 				}
@@ -347,19 +323,7 @@ public class MainActivity extends FragmentActivity implements
 		return new ParseGeoPoint(loc.getLatitude(), loc.getLongitude());
 	}
 
-	/*
-	 * Helper method to clean up old markers
-	 */
-//	private void cleanUpMarkers(Set<String> markersToKeep) {
-//		for (String objId : new HashSet<String>(mapMarkers.keySet())) {
-//			if (!markersToKeep.contains(objId)) {
-//				Marker marker = mapMarkers.get(objId);
-//				marker.remove();
-//				mapMarkers.get(objId).remove();
-//				mapMarkers.remove(objId);
-//			}
-//		}
-//	}
+
 
 	@Override
 	public void onTabUnselected(Tab tab, FragmentTransaction ft) {
@@ -464,53 +428,6 @@ public class MainActivity extends FragmentActivity implements
 		}
 	}
 
-	
-//	private class DownloadImageTask extends AsyncTask<String, Void, Bitmap> {
-//	      ImageView bmImage;
-//	      Marker marker;
-//	      boolean refresh;
-//
-//	      public DownloadImageTask(final ImageView bmImage, final Marker marker) {
-//	          this.bmImage = bmImage;
-//	          this.marker=marker;
-//	          this.refresh=false;
-//	      }
-//
-//	     public void SetRefresh(boolean refresh ){
-//	         this.refresh=true;
-//
-//	     }
-//
-//	    /*  @Override
-//	      protected void onPreExecute() 
-//	      {
-//	          super.onPreExecute();
-//	          bmImage.setImageBitmap(null);
-//	      }*/
-//
-//	      @Override
-//	      protected Bitmap doInBackground(String... urls) {
-//	          String urldisplay = urls[0];
-//	          Bitmap mIco77n11 = null;
-//	          try {
-//	            InputStream in = new java.net.URL(urldisplay).openStream();
-//	            Bitmap mIcon11 = BitmapFactory.decodeStream(in);
-//	          } catch (Exception e) {
-//	              Log.e("Error", e.getMessage());
-//	              e.printStackTrace();
-//	          }
-//	          return mIcon11;
-//	      }
-//	      @Override
-//	      protected void onPostExecute(Bitmap result) {
-//	          if(!refresh){
-//	              SetRefresh(refresh);
-//	              bmImage.setImageBitmap(result);
-//	              marker.showInfoWindow();
-//	          }
-//	      }
-//	    }
-	
 	/*
 	 * Called by Location Services when the request to connect the client
 	 * finishes successfully. At this point, you can request the current
@@ -554,25 +471,15 @@ public class MainActivity extends FragmentActivity implements
 					    	
 				 	steve.showInfoWindow();
 				 	
-//			        if(qwerty){
 			        final Handler handler = new Handler();
 					handler.postDelayed(new Runnable() {
 					    @Override
 					    public void run() {
-//					
 					    	steve.showInfoWindow();
-//					   
-//					    	
-////					    	qwerty = false;
+
 					    }
 					}, 200);
-//			        }else{
-			        	
-//			        	qwerty = true;
-//			        }
-					
-					
-//					Toast.makeText(getBaseContext(), reversedMapMarker.get(steve).toString(), Toast.LENGTH_LONG).show();
+
 					return true;
 				}
 			});
