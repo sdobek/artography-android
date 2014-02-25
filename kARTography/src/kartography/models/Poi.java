@@ -141,6 +141,11 @@ public class Poi extends ParseObject {
 		put("photoFileThumbnail", photoFileThumbNail);
 
 	}
+	public ParseFile getPhotoFileThumbnail() {
+//		put("photoFileThumbnail", photoFileThumbNail);
+		return getParseFile("photoFileThumbnail");
+
+	}
 
 	public ParseGeoPoint getLocation() {
 		return getParseGeoPoint("location");

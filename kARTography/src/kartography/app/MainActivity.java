@@ -1,5 +1,8 @@
 package kartography.app;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.MalformedURLException;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -18,8 +21,10 @@ import android.app.Dialog;
 import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.content.IntentSender;
-import android.graphics.Color;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.location.Location;
+import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
@@ -29,6 +34,7 @@ import android.support.v4.app.FragmentManager;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.google.android.gms.common.ConnectionResult;
@@ -39,6 +45,7 @@ import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.GoogleMap.OnInfoWindowClickListener;
+import com.google.android.gms.maps.GoogleMap.OnMarkerClickListener;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
@@ -70,6 +77,8 @@ public class MainActivity extends FragmentActivity implements
 
 	private final Map<String, Marker> mapMarkers = new HashMap<String, Marker>();
 	private final Map<Marker, String> reversedMapMarker = new HashMap<Marker, String>();
+	private final Map<Marker, String> imageStringMapMarker = new HashMap<Marker, String>();
+//	private final Map<Marker, Bitmap> imageStringMapMarker = new HashMap<Marker, Bitmap>();
 	private int mostRecentMapUpdate = 0;
 	private boolean hasSetUpInitialLocation = false;
 	private String selectedObjectId;
@@ -148,10 +157,6 @@ public class MainActivity extends FragmentActivity implements
 	@Override
 	protected void onResumeFragments() {
 
-		// hrm, this totally isn't working.
-//		if (actionBar != null) {
-//			actionBar.selectTab(tabList);
-//		}
 		super.onResumeFragments();
 	}
 
@@ -196,7 +201,7 @@ public class MainActivity extends FragmentActivity implements
 			fts.replace(R.id.frameContainer, lFrag, "HTL");
 			fts.commit();
 		} else {
-
+			
 
 			fts.replace(R.id.frameContainer, mMapFragment, "MF");
 			fts.commit();
@@ -234,7 +239,7 @@ public class MainActivity extends FragmentActivity implements
 		Location myLoc = (myLocation == null) ? lastLocation : myLocation;
 		// If location info isn't available, clean up any existing markers
 		if (myLoc == null) {
-			cleanUpMarkers(new HashSet<String>());
+//			cleanUpMarkers(new HashSet<String>());
 			return;
 		}
 		final ParseGeoPoint myPoint = geoPointFromLocation(myLoc);
@@ -272,24 +277,12 @@ public class MainActivity extends FragmentActivity implements
 					toKeep.add(poi.getObjectId());
 					// Check for an existing marker for this post
 					
-					Marker oldMarker = mapMarkers.get(poi.getObjectId());
 					// Set up the map marker's location
 					MarkerOptions markerOpts = new MarkerOptions()
 							.position(new LatLng(poi.getLocation()
 									.getLatitude(), poi.getLocation()
 									.getLongitude()));
 					
-						// Check for an existing in range marker
-						if (oldMarker != null) {
-							if (oldMarker.getSnippet() != null) {
-								// In range marker already exists, skip adding
-								// it
-								continue;
-							} else {
-								// Marker now in range, needs to be refreshed
-								oldMarker.remove();
-							}
-						}
 						// Display a green marker with the post information
 						markerOpts = markerOpts
 								.title(poi.getTitle())
@@ -306,6 +299,27 @@ public class MainActivity extends FragmentActivity implements
 					//made in reverse bc steven and I don't understand hashmaps
 					// also so we can start detail activity dependent on the marker
 					reversedMapMarker.put(marker, poi.getObjectId());
+
+					// add
+					String uriThumbNail = poi.getPhotoFileThumbnail().getUrl();
+//					InputStream in;
+//					Bitmap mIcon11 = null;
+//					try {
+//						in = new java.net.URL(uriThumbNail).openStream();
+//						 mIcon11 = BitmapFactory.decodeStream(in);
+//					} catch (MalformedURLException e1) {
+//						// TODO Auto-generated catch block
+//						e1.printStackTrace();
+//					} catch (IOException e1) {
+//						// TODO Auto-generated catch block
+//						e1.printStackTrace();
+//					}
+		            
+					imageStringMapMarker.put(marker,uriThumbNail);
+					ImageView imageview = new ImageView(getApplicationContext());
+//					imageview.se
+					//
+					
 					if (poi.getObjectId().equals(selectedObjectId)) {
 						marker.showInfoWindow();
 						
@@ -321,8 +335,7 @@ public class MainActivity extends FragmentActivity implements
 						selectedObjectId = null;
 					}
 				}
-				// Clean up old markers.
-				cleanUpMarkers(toKeep);
+				
 			}
 		});
 	}
@@ -337,16 +350,16 @@ public class MainActivity extends FragmentActivity implements
 	/*
 	 * Helper method to clean up old markers
 	 */
-	private void cleanUpMarkers(Set<String> markersToKeep) {
-		for (String objId : new HashSet<String>(mapMarkers.keySet())) {
-			if (!markersToKeep.contains(objId)) {
-				Marker marker = mapMarkers.get(objId);
-				marker.remove();
-				mapMarkers.get(objId).remove();
-				mapMarkers.remove(objId);
-			}
-		}
-	}
+//	private void cleanUpMarkers(Set<String> markersToKeep) {
+//		for (String objId : new HashSet<String>(mapMarkers.keySet())) {
+//			if (!markersToKeep.contains(objId)) {
+//				Marker marker = mapMarkers.get(objId);
+//				marker.remove();
+//				mapMarkers.get(objId).remove();
+//				mapMarkers.remove(objId);
+//			}
+//		}
+//	}
 
 	@Override
 	public void onTabUnselected(Tab tab, FragmentTransaction ft) {
@@ -393,18 +406,20 @@ public class MainActivity extends FragmentActivity implements
 			handler.postDelayed(new Runnable() {
 			    @Override
 			    public void run() {
-//			    	actionBar.selectTab(tabList);
+			    	
+
+//					getActionBar().selectTab(tabList);
+			    	
 			    	FragmentManager manager = getSupportFragmentManager();
 
 					android.support.v4.app.FragmentTransaction fts = manager
 							.beginTransaction();
 					fts.replace(R.id.frameContainer, new PoiListFragment());
 					fts.commitAllowingStateLoss();
-					
-			        
 			    }
-			}, 500);
+			}, 100);
 			}
+			
 			break;
 		case CONNECTION_FAILURE_RESOLUTION_REQUEST:
 			/*
@@ -449,6 +464,53 @@ public class MainActivity extends FragmentActivity implements
 		}
 	}
 
+	
+//	private class DownloadImageTask extends AsyncTask<String, Void, Bitmap> {
+//	      ImageView bmImage;
+//	      Marker marker;
+//	      boolean refresh;
+//
+//	      public DownloadImageTask(final ImageView bmImage, final Marker marker) {
+//	          this.bmImage = bmImage;
+//	          this.marker=marker;
+//	          this.refresh=false;
+//	      }
+//
+//	     public void SetRefresh(boolean refresh ){
+//	         this.refresh=true;
+//
+//	     }
+//
+//	    /*  @Override
+//	      protected void onPreExecute() 
+//	      {
+//	          super.onPreExecute();
+//	          bmImage.setImageBitmap(null);
+//	      }*/
+//
+//	      @Override
+//	      protected Bitmap doInBackground(String... urls) {
+//	          String urldisplay = urls[0];
+//	          Bitmap mIco77n11 = null;
+//	          try {
+//	            InputStream in = new java.net.URL(urldisplay).openStream();
+//	            Bitmap mIcon11 = BitmapFactory.decodeStream(in);
+//	          } catch (Exception e) {
+//	              Log.e("Error", e.getMessage());
+//	              e.printStackTrace();
+//	          }
+//	          return mIcon11;
+//	      }
+//	      @Override
+//	      protected void onPostExecute(Bitmap result) {
+//	          if(!refresh){
+//	              SetRefresh(refresh);
+//	              bmImage.setImageBitmap(result);
+//	              marker.showInfoWindow();
+//	          }
+//	      }
+//	    }
+	
 	/*
 	 * Called by Location Services when the request to connect the client
 	 * finishes successfully. At this point, you can request the current
@@ -470,6 +532,9 @@ public class MainActivity extends FragmentActivity implements
 			// very important method
 			doMapQuery();
 			//
+			
+			
+			myMap.setInfoWindowAdapter(new CustomWindowAdapter(this.getLayoutInflater(), imageStringMapMarker, getApplicationContext()));
 			myMap.setOnInfoWindowClickListener(new OnInfoWindowClickListener() {
 				
 				@Override
@@ -481,15 +546,36 @@ public class MainActivity extends FragmentActivity implements
 					
 				}
 			});
-//			myMap.setOnMarkerClickListener(new OnMarkerClickListener() {
-//				
-//				@Override
-//				public boolean onMarkerClick(Marker steve) {
+			myMap.setOnMarkerClickListener(new OnMarkerClickListener() {
+				
+				@Override
+				public boolean onMarkerClick(final Marker steve) {
+					
+					    	
+				 	steve.showInfoWindow();
+				 	
+//			        if(qwerty){
+			        final Handler handler = new Handler();
+					handler.postDelayed(new Runnable() {
+					    @Override
+					    public void run() {
 //					
-////					Toast.makeText(getBaseContext(), reversedMapMarker.get(steve).toString(), Toast.LENGTH_LONG).show();
-//					return false;
-//				}
-//			});
+					    	steve.showInfoWindow();
+//					   
+//					    	
+////					    	qwerty = false;
+					    }
+					}, 200);
+//			        }else{
+			        	
+//			        	qwerty = true;
+//			        }
+					
+					
+//					Toast.makeText(getBaseContext(), reversedMapMarker.get(steve).toString(), Toast.LENGTH_LONG).show();
+					return true;
+				}
+			});
 		} else {
 			// Toast.makeText(this,
 			// "Current location was null, enable GPS on emulator!",
