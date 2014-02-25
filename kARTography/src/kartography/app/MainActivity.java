@@ -285,7 +285,7 @@ public class MainActivity extends FragmentActivity implements
 						markerOpts = markerOpts
 								.title(poi.getTitle())
 								.snippet(poi.getArtist())
-								.icon(BitmapDescriptorFactory.fromResource(R.drawable.ican_pin));
+								.icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_paint_maps));
 						//former icon
 //						BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN)
 					
