@@ -28,6 +28,7 @@ public class SignInActivity extends Activity {
 		if (ParseUser.getCurrentUser() != null) {
 			Intent i = new Intent(this, MainActivity.class);
 			startActivity(i);
+			finish();
 		}
 		username = (EditText) findViewById(R.id.etUsername);
 		username.addTextChangedListener(new TextWatcher() {

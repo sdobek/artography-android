@@ -1,7 +1,5 @@
 package kartography.app;
 
-
-
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -41,19 +39,22 @@ import com.parse.ParseUser;
 import com.parse.SaveCallback;
 
 public class TakePhotoActivity extends Activity implements
-GooglePlayServicesClient.ConnectionCallbacks,
-GooglePlayServicesClient.OnConnectionFailedListener{
-	private final int PHOTO_DETAIL_PIXELS = 1024;
-	private final int PHOTO_SCALED_PIXELS = 512;
-	private final int PHOTO_THUMBNAIL_PIXELS = 128;
-	
+		GooglePlayServicesClient.ConnectionCallbacks,
+		GooglePlayServicesClient.OnConnectionFailedListener {
+	// private final int PHOTO_DETAIL_PIXELS = 1024;
+	// private final int PHOTO_SCALED_PIXELS = 512;
+	// private final int PHOTO_THUMBNAIL_PIXELS = 128;
+	private final float PHOTO_PRCNT = .8f;
+	private final float PHOTO_SCALED_PRCNT = .5f;
+	private final float PHOTO_THUMB_PRCNT = .15f;
+
 	private static final int REQUEST_IMAGE_CAPTURE = 11;
 	Poi pntOfInterest;
 	PoiLocation loc;
 	ImageView photo;
 	EditText etTitle;
 
-	//maps
+	// maps
 	private LocationClient mLocationClient;
 	/*
 	 * Define a request code to send to Google Play services This code is
@@ -61,9 +62,9 @@ GooglePlayServicesClient.OnConnectionFailedListener{
 	 */
 	private final static int CONNECTION_FAILURE_RESOLUTION_REQUEST = 9000;
 	//
-	
+
 	private Uri fileUri;
-	//byte[] photoBytes;
+	// byte[] photoBytes;
 	private Poi pointOfInterest;
 	private ParseFile photoFile;
 	private ParseFile photoFileScaled;
@@ -79,8 +80,8 @@ GooglePlayServicesClient.OnConnectionFailedListener{
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_take_photo);
-		
-		//maps
+
+		// maps
 		mLocationClient = new LocationClient(this, this, this);
 		//
 		etTitle = (EditText) findViewById(R.id.et_title);
@@ -90,8 +91,6 @@ GooglePlayServicesClient.OnConnectionFailedListener{
 		submitBtn.setEnabled(false);
 		imageBitmap = null;
 		imageBitmapScaled = null;
-		
-		
 
 	}
 
@@ -100,42 +99,44 @@ GooglePlayServicesClient.OnConnectionFailedListener{
 		setResult(99);
 		super.onBackPressed();
 	}
-	
-//	@Override
-//	public boolean onCreateOptionsMenu(Menu menu) {
-//		// Inflate the menu; this adds items to the action bar if it is present.
-//		getMenuInflater().inflate(R.menu.take_photo, menu);
-//		return true;
-//	}
-	
-	public void onTakePicture(View v){
-		//Intent to take photo using android camera
-		//Return data to store photo
-		Toast.makeText(getBaseContext(), "Loading Camera", Toast.LENGTH_SHORT).show();
-		
-		
-	    Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-	    if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
-	    	
-	    	takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, getPhotoFileUri("photo.jpg"));
-	        startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE);
-	        
-	    }
+
+	// @Override
+	// public boolean onCreateOptionsMenu(Menu menu) {
+	// // Inflate the menu; this adds items to the action bar if it is present.
+	// getMenuInflater().inflate(R.menu.take_photo, menu);
+	// return true;
+	// }
+
+	public void onTakePicture(View v) {
+		// Intent to take photo using android camera
+		// Return data to store photo
+		Toast.makeText(getBaseContext(), "Loading Camera", Toast.LENGTH_SHORT)
+				.show();
+
+		Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+		if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
+
+			takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT,
+					getPhotoFileUri("photo.jpg"));
+			startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE);
+
+		}
 	}
-	
+
 	@Override
 	protected void onStart() {
 		// TODO Auto-generated method stub
-		////
+		// //
 		super.onStart();
 		if (isGooglePlayServicesAvailable()) {
 			mLocationClient.connect();
 		}
 	}
-	
+
 	private boolean isGooglePlayServicesAvailable() {
 		// Check that Google Play services is available
-		int resultCode = GooglePlayServicesUtil.isGooglePlayServicesAvailable(this);
+		int resultCode = GooglePlayServicesUtil
+				.isGooglePlayServicesAvailable(this);
 		// If Google Play services is available
 		if (ConnectionResult.SUCCESS == resultCode) {
 			// In debug mode, log the status
@@ -143,8 +144,8 @@ GooglePlayServicesClient.OnConnectionFailedListener{
 			return true;
 		} else {
 			// Get the error dialog from Google Play services
-			Dialog errorDialog = GooglePlayServicesUtil.getErrorDialog(resultCode, this,
-					CONNECTION_FAILURE_RESOLUTION_REQUEST);
+			Dialog errorDialog = GooglePlayServicesUtil.getErrorDialog(
+					resultCode, this, CONNECTION_FAILURE_RESOLUTION_REQUEST);
 
 			// If Google Play services can provide an error dialog
 			if (errorDialog != null) {
@@ -157,130 +158,146 @@ GooglePlayServicesClient.OnConnectionFailedListener{
 			return false;
 		}
 	}
-	
-	public void onSelectLocation(View v){
-		//Intent to set location of the POI
-		//Return location data
+
+	public void onSelectLocation(View v) {
+		// Intent to set location of the POI
+		// Return location data
 	}
-	
-	public void onSavePOI(View v){
+
+	public void onSavePOI(View v) {
 		submitBtn.setEnabled(false);
-		
-		String author = ((EditText)findViewById(R.id.et_author)).getText().toString();
-		String title = ((EditText)findViewById(R.id.et_title)).getText().toString();
-		String description = ((EditText)findViewById(R.id.et_description)).getText().toString();
+
+		String author = ((EditText) findViewById(R.id.et_author)).getText()
+				.toString();
+		String title = ((EditText) findViewById(R.id.et_title)).getText()
+				.toString();
+		String description = ((EditText) findViewById(R.id.et_description))
+				.getText().toString();
 		ParseUser user = ParseUser.getCurrentUser();
 		pointOfInterest = ParseObject.create(Poi.class);
-		
-		// guards against empty fields. 
-		if(title.isEmpty()){
+
+		// guards against empty fields.
+		if (title.isEmpty()) {
 			title = "Unknown";
 		}
-		
-		if(author.isEmpty()){
+
+		if (author.isEmpty()) {
 			author = "Unknown";
 		}
-		
-		
+
 		Location lastloc = mLocationClient.getLastLocation();
-		
-		
-		ParseGeoPoint location = new ParseGeoPoint(lastloc.getLatitude(), lastloc.getLongitude());
-		
-		pointOfInterest.setFields(title, author, description, user , location);
-		
+
+		ParseGeoPoint location = new ParseGeoPoint(lastloc.getLatitude(),
+				lastloc.getLongitude());
+
+		pointOfInterest.setFields(title, author, description, user, location);
+
 		pb.setVisibility(ProgressBar.VISIBLE);
-		if (imageBitmap != null){
-			ByteArrayOutputStream stream = new ByteArrayOutputStream();
-			imageBitmap.compress(Bitmap.CompressFormat.PNG, 100, stream);
-			byte[] photoBytes = stream.toByteArray();
-			photoFile = new ParseFile("photo2.png", photoBytes);
-			photoFile.saveInBackground(new SaveCallback() {
-				@Override
-				public void done(ParseException e) {
-					if (e != null) {
-			            Toast.makeText(TakePhotoActivity.this,
-			                    "Error saving: " + e.getMessage(), Toast.LENGTH_LONG).show();
-			            pb.setVisibility(ProgressBar.INVISIBLE);
-			            submitBtn.setEnabled(false);
-			        } else {
-			            pointOfInterest.setPhotoFile(photoFile);
-			            //Now try to upload the scaled image
-			            ByteArrayOutputStream stream = new ByteArrayOutputStream();
-			            imageBitmapScaled.compress(Bitmap.CompressFormat.PNG, 100, stream);
-						byte[] photoBytes = stream.toByteArray();
-			            photoFileScaled = new ParseFile("photo3.png", photoBytes);
-						photoFileScaled.saveInBackground(new SaveCallback() {
-							@Override
-							public void done(ParseException e) {
-								if (e != null) {
-						            Toast.makeText(TakePhotoActivity.this,
-						                    "Error saving scaled: " + e.getMessage(), Toast.LENGTH_LONG).show();
-						            pb.setVisibility(ProgressBar.INVISIBLE);
-						            submitBtn.setEnabled(false);
-						        } else {
-						            pointOfInterest.setPhotoFileScaled(photoFileScaled);
-						            //Lastly the thumbnail image
-						            ByteArrayOutputStream stream = new ByteArrayOutputStream();
-						            imageBitmapThumbnail.compress(Bitmap.CompressFormat.PNG, 100, stream);
-									byte[] photoBytes = stream.toByteArray();
-						            photoFileThumbnail = new ParseFile("photo4.png", photoBytes);
-									photoFileThumbnail.saveInBackground(new SaveCallback() {
-										@Override
-										public void done(ParseException e) {
-											if (e != null) {
-									            Toast.makeText(TakePhotoActivity.this,
-									                    "Error saving thumb: " + e.getMessage(), Toast.LENGTH_LONG).show();
-									            pb.setVisibility(ProgressBar.INVISIBLE);
-									            submitBtn.setEnabled(false);
-									        } else {
-									            pointOfInterest.setPhotoFileThumbnail(photoFileThumbnail);
-									            pointOfInterest.saveInBackground();
-									            pb.setVisibility(ProgressBar.INVISIBLE);
-									            
-//									            Intent data = new Intent();
-									            // Pass relevant data back as a result
-									           
-									            // Activity finished ok, return the data
-									            setResult(55);
-									            TakePhotoActivity.this.finish();
-									            
-									        }
-											
-										}
-									});
-						        }
-								
-							}
-						});
-			        }
-					
-				}
-			});
-			
-			
+		if (imageBitmap != null) {
+			savePhoto();
+			savePhotoScaled();
+			savePhotoThumb();
 		}
 	}
-	
+
+	protected void savePhoto() {
+		ByteArrayOutputStream stream = new ByteArrayOutputStream();
+		imageBitmap.compress(Bitmap.CompressFormat.PNG, 100, stream);
+		byte[] photoBytes = stream.toByteArray();
+		photoFile = new ParseFile("photo2.png", photoBytes);
+		photoFile.saveInBackground(new SaveCallback() {
+			@Override
+			public void done(ParseException e) {
+				if (e != null) {
+					Toast.makeText(TakePhotoActivity.this,
+							"Error saving: " + e.getMessage(),
+							Toast.LENGTH_LONG).show();
+					pb.setVisibility(ProgressBar.INVISIBLE);
+					submitBtn.setEnabled(false);
+				} else {
+					pointOfInterest.setPhotoFile(photoFile);
+					pointOfInterest.saveInBackground();
+				}
+
+			}
+		});
+	}
+
+	protected void savePhotoScaled() {
+		// Now try to upload the scaled image
+		ByteArrayOutputStream stream = new ByteArrayOutputStream();
+		imageBitmapScaled.compress(Bitmap.CompressFormat.PNG, 100, stream);
+		byte[] photoBytes = stream.toByteArray();
+		photoFileScaled = new ParseFile("photo3.png", photoBytes);
+		photoFileScaled.saveInBackground(new SaveCallback() {
+			@Override
+			public void done(ParseException e) {
+				if (e != null) {
+					Toast.makeText(TakePhotoActivity.this,
+							"Error saving scaled: " + e.getMessage(),
+							Toast.LENGTH_LONG).show();
+					pb.setVisibility(ProgressBar.INVISIBLE);
+					submitBtn.setEnabled(false);
+				} else {
+					// Activity finished ok, return the data
+					pointOfInterest.setPhotoFileScaled(photoFileScaled);
+					pointOfInterest.saveInBackground();
+					setResult(55);
+					pb.setVisibility(ProgressBar.INVISIBLE);
+					TakePhotoActivity.this.finish();
+				}
+
+			}
+		});
+	}
+
+	public void savePhotoThumb() {
+		// Lastly the thumbnail image
+		ByteArrayOutputStream stream = new ByteArrayOutputStream();
+		imageBitmapThumbnail.compress(Bitmap.CompressFormat.PNG, 100, stream);
+		byte[] photoBytes = stream.toByteArray();
+		photoFileThumbnail = new ParseFile("photo4.png", photoBytes);
+		photoFileThumbnail.saveInBackground(new SaveCallback() {
+			@Override
+			public void done(ParseException e) {
+				if (e != null) {
+					Toast.makeText(TakePhotoActivity.this,
+							"Error saving thumb: " + e.getMessage(),
+							Toast.LENGTH_LONG).show();
+					pb.setVisibility(ProgressBar.INVISIBLE);
+					submitBtn.setEnabled(false);
+				} else {
+					pointOfInterest.setPhotoFileThumbnail(photoFileThumbnail);
+					pointOfInterest.saveInBackground();
+				}
+
+			}
+		});
+	}
+
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-	    if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
-	        Uri takenPhotoUri = getPhotoFileUri("photo.jpg");
-	        try {
-				imageBitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), takenPhotoUri);
-				
-				imageBitmap.getHeight();
-				imageBitmap.getWidth();
-				//^^ use these parameters to tell if photo is portrait or landscape 
-				//	 and scale accordingly. 
-				
-				imageBitmapScaled = Bitmap.createScaledBitmap(imageBitmap, 
-						PHOTO_SCALED_PIXELS, PHOTO_SCALED_PIXELS, false);
-				imageBitmapThumbnail = Bitmap.createScaledBitmap(imageBitmap, 
-						PHOTO_THUMBNAIL_PIXELS, PHOTO_THUMBNAIL_PIXELS, false);
-				//lastly scale the original bitmap
-				imageBitmap =Bitmap.createScaledBitmap(imageBitmap, 
-						PHOTO_DETAIL_PIXELS, PHOTO_DETAIL_PIXELS, false);
+		if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
+			Uri takenPhotoUri = getPhotoFileUri("photo.jpg");
+			try {
+				imageBitmap = MediaStore.Images.Media.getBitmap(
+						this.getContentResolver(), takenPhotoUri);
+
+				int imgH = imageBitmap.getHeight();
+				int imgW = imageBitmap.getWidth();
+				// ^^ use these parameters to tell if photo is portrait or
+				// landscape
+				// and scale accordingly.
+				imageBitmapScaled = Bitmap.createScaledBitmap(imageBitmap,
+						(Math.round(imgW * PHOTO_SCALED_PRCNT)),
+						(Math.round(imgH * PHOTO_SCALED_PRCNT)), true);
+				imageBitmapThumbnail = Bitmap.createScaledBitmap(imageBitmap,
+						(Math.round(imgW * PHOTO_THUMB_PRCNT)),
+						(Math.round(imgH * PHOTO_THUMB_PRCNT)), true);
+				// lastly scale the original bitmap
+				imageBitmap = Bitmap.createScaledBitmap(imageBitmap,
+						(Math.round(imgW * PHOTO_PRCNT)),
+						(Math.round(imgH * PHOTO_PRCNT)), true);
 				photo.setImageBitmap(imageBitmapScaled);
 				submitBtn.setEnabled(true);
 			} catch (FileNotFoundException e) {
@@ -290,41 +307,42 @@ GooglePlayServicesClient.OnConnectionFailedListener{
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-	        
-	    }
-	}
-	
-	public Uri getPhotoFileUri(String fileName) {
-		  File mediaStorageDir = new File(
-		        Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES),
-		        "MyCameraApp");
 
-		    // Create the storage directory if it does not exist
-		    if (!mediaStorageDir.exists() && !mediaStorageDir.mkdirs()){
-		        Log.d("MyCameraApp", "failed to create directory");
-		    }
-		    // Specify the file target for the photo
-		    fileUri = Uri.fromFile(new File(mediaStorageDir.getPath() + File.separator +
-		                fileName));
-		    return fileUri;
 		}
+	}
+
+	public Uri getPhotoFileUri(String fileName) {
+		File mediaStorageDir = new File(
+				Environment
+						.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES),
+				"MyCameraApp");
+
+		// Create the storage directory if it does not exist
+		if (!mediaStorageDir.exists() && !mediaStorageDir.mkdirs()) {
+			Log.d("MyCameraApp", "failed to create directory");
+		}
+		// Specify the file target for the photo
+		fileUri = Uri.fromFile(new File(mediaStorageDir.getPath()
+				+ File.separator + fileName));
+		return fileUri;
+	}
 
 	@Override
 	public void onConnectionFailed(ConnectionResult arg0) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void onConnected(Bundle arg0) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void onDisconnected() {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 }
