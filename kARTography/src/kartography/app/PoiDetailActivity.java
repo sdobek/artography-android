@@ -61,7 +61,7 @@ public class PoiDetailActivity extends FragmentActivity implements ConfirmFlagLi
 		tvArtist = (TextView) findViewById(R.id.tvArtist);
 		tvDate = (TextView) findViewById(R.id.tvDate);
 		tvDescription = (TextView) findViewById(R.id.tvDescriptionText);
-		tvLocation = (TextView) findViewById(R.id.tvLocationTitle);
+//		tvLocation = (TextView) findViewById(R.id.tvLocationTitle);
 		tvDistance = (TextView) findViewById(R.id.tvDistance);
 		ActionBar actionb = getActionBar();
 		actionb.setDisplayHomeAsUpEnabled(true);
@@ -91,11 +91,10 @@ public class PoiDetailActivity extends FragmentActivity implements ConfirmFlagLi
 					SimpleDateFormat sdf = new SimpleDateFormat();
 					// give null right now :(
 					// tvDate.setText(sdf.format(poi.getCreatedAt()));
-					String pf = poi.getPhotoFile().getUrl(); // I dont think it
-																// should be
-																// scaled
+					String pfUrl = poi.getPhotoFile().getUrl();
+
 					pfs = poi.getPhotoFileScaled().getUrl();
-					Picasso.with(getBaseContext()).load(Uri.parse(pf))
+					Picasso.with(getBaseContext()).load(Uri.parse(pfUrl))
 							.into(ivImage);
 					// Toast.makeText(PoiDetailActivity.this, poi.getArtist(),
 					// Toast.LENGTH_LONG).show();
@@ -140,6 +139,13 @@ public class PoiDetailActivity extends FragmentActivity implements ConfirmFlagLi
 		i.putExtra("description", poi.getDescription());
 		i.putExtra("photoUrl", pfs);
 		startActivityForResult(i, UPDATE_POI);
+	}
+	public void onShareDetails(MenuItem mi) {
+		Intent sendIntent = new Intent();
+		sendIntent.setAction(Intent.ACTION_SEND);
+		sendIntent.putExtra(Intent.EXTRA_TEXT, poi.getPhotoFile().getUrl());
+//		sendIntent.setType("text/plain");
+		startActivity(sendIntent);
 	}
 
 	public void onFlagPoi(MenuItem mi) {

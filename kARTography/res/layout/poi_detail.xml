@@ -2,14 +2,15 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical" >
+    android:orientation="vertical"
+    android:background="@android:color/white"
+     >
 
     <ImageView
         android:id="@+id/ivArt"
         android:layout_width="match_parent"
-        android:layout_height="200dp"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true"
+        android:layout_height="330dp"
+       
         android:onClick="onShowFullscreen"
         android:background="@drawable/black_bottom_gradient"
         android:src="@drawable/ican" />
@@ -85,22 +86,12 @@
                             android:src="@drawable/ic_location_mini" />
 
                         <TextView
-                            android:id="@+id/tvLocationTitle"
+                            android:id="@+id/tvDistance"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_alignBottom="@+id/ivPin"
-                            android:layout_marginLeft="15dp"
+                            android:layout_alignParentRight="true"
                             android:layout_toRightOf="@+id/ivPin"
-                            android:text="@string/location" />
-
-                        <TextView
-                            android:id="@+id/tvDistance"
-                            android:layout_width="200px"
-                            android:layout_height="wrap_content"
                             android:ellipsize="end"
-                           
-                            android:layout_alignLeft="@+id/tvLocationTitle"
-                            android:layout_below="@+id/tvLocationTitle"
                             android:text="This is where the magic happens" />
 
                     </RelativeLayout>
@@ -126,7 +117,7 @@
                             android:layout_height="wrap_content"
                             android:layout_alignParentLeft="true"
                             android:layout_alignParentTop="true"
-                            android:src="@drawable/ic_draw" />
+                            android:src="@drawable/ic_artist" />
                     </RelativeLayout>
                 </LinearLayout>
 
