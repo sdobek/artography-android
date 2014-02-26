@@ -94,8 +94,10 @@
 
                         <TextView
                             android:id="@+id/tvDistance"
-                            android:layout_width="wrap_content"
+                            android:layout_width="200px"
                             android:layout_height="wrap_content"
+                            android:ellipsize="end"
+                           
                             android:layout_alignLeft="@+id/tvLocationTitle"
                             android:layout_below="@+id/tvLocationTitle"
                             android:text="This is where the magic happens" />

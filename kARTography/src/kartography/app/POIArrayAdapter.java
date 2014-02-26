@@ -1,9 +1,13 @@
 package kartography.app;
 
+import java.io.IOException;
 import java.util.List;
+import java.util.Locale;
 
 import kartography.models.Poi;
 import android.content.Context;
+import android.location.Address;
+import android.location.Geocoder;
 import android.net.Uri;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -52,10 +56,13 @@ public class POIArrayAdapter extends ArrayAdapter<Poi> {
         tvTitle.setText(imageInfo.getTitle());
         tvArtist.setText(imageInfo.getArtist());
         
-        
+        double lat = imageInfo.getLocation().getLatitude();
+		double longitude = imageInfo.getLocation().getLongitude();
+		String address = getAddress(lat, longitude);
+		tvDistance.setText(address);
         
         // This will need to be altered when we get ParseGeoLocations into our DB. 
-        tvDistance.setText("0.5 mi");
+//        tvDistance.setText("0.5 mi");
 
 
 //        ivImage.setImageResource(R.drawable.ican);
@@ -88,5 +95,25 @@ public class POIArrayAdapter extends ArrayAdapter<Poi> {
         				
         
         return itemView;
+    }
+    
+    private String getAddress(double latitude, double longitude) {
+        StringBuilder result = new StringBuilder();
+        try {
+            Geocoder geocoder = new Geocoder(getContext(), Locale.getDefault());
+            List<Address> addresses = geocoder.getFromLocation(latitude, longitude, 1);
+            if (addresses.size() > 0) {
+                Address address = addresses.get(0);
+                result.append(address.getThoroughfare()).append("\n");
+//                result.append(address.getFeatureName()).append("\n");
+                result.append(address.getLocality());
+//                .append("\n");
+//                result.append(address.getCountryName());
+            }
+        } catch (IOException e) {
+            Log.e("tag", e.getMessage());
+        }
+
+        return result.toString();
     }
 }
