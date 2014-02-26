@@ -27,6 +27,7 @@ import com.parse.ParseException;
 import com.parse.ParseQuery;
 import com.squareup.picasso.Picasso;
 
+@TargetApi(Build.VERSION_CODES.HONEYCOMB)
 public class PoiDetailActivity extends FragmentActivity implements ConfirmFlagListener{
 	private final int UPDATE_POI = 24;
 
@@ -57,7 +58,8 @@ public class PoiDetailActivity extends FragmentActivity implements ConfirmFlagLi
 		tvArtist = (TextView) findViewById(R.id.tvArtist);
 		tvDate = (TextView) findViewById(R.id.tvDate);
 		tvDescription = (TextView) findViewById(R.id.tvDescription);
-
+		ActionBar actionb = getActionBar();
+		actionb.setDisplayHomeAsUpEnabled(true);
 		Intent i = getIntent();
 		objectId = (String) i.getStringExtra("id");
 		ParseQuery<Poi> query = ParseQuery.getQuery(Poi.class).whereEqualTo(
@@ -108,6 +110,20 @@ public class PoiDetailActivity extends FragmentActivity implements ConfirmFlagLi
 		return true;
 	}
 
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		switch (item.getItemId()) {
+        case android.R.id.home:
+            // app icon in action bar clicked; go home
+            Intent intent = new Intent(this, MainActivity.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(intent);
+            return true;
+        default:
+            return super.onOptionsItemSelected(item);
+    }
+	}
+	
 	public void onEditDetails(MenuItem mi) {
 		Intent i = new Intent(this, EditDetailsActivity.class);
 		i.putExtra("artist", poi.getArtist());

@@ -3,11 +3,15 @@ package kartography.app;
 
 
 import kartography.models.Poi;
+import android.annotation.TargetApi;
+import android.app.ActionBar;
 import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -16,6 +20,7 @@ import android.widget.ProgressBar;
 
 import com.squareup.picasso.Picasso;
 
+@TargetApi(Build.VERSION_CODES.HONEYCOMB)
 public class EditDetailsActivity extends Activity {	
 	private ProgressBar pb;
 	private Button submitBtn;
@@ -23,6 +28,7 @@ public class EditDetailsActivity extends Activity {
 	private EditText title;
 	private EditText description;
 
+	@TargetApi(Build.VERSION_CODES.HONEYCOMB)
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -42,6 +48,8 @@ public class EditDetailsActivity extends Activity {
 		title.setText(getIntent().getStringExtra("title"));
 		description = (EditText)findViewById(R.id.et_description);
 		description.setText(getIntent().getStringExtra("description"));		
+		ActionBar actionb = getActionBar();
+		actionb.setDisplayHomeAsUpEnabled(true);
 	}
 
 	@Override
@@ -51,6 +59,20 @@ public class EditDetailsActivity extends Activity {
 		return true;
 	}
 	
+	
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		switch (item.getItemId()) {
+        case android.R.id.home:
+            // app icon in action bar clicked; go home
+            Intent intent = new Intent(this, MainActivity.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(intent);
+            return true;
+        default:
+            return super.onOptionsItemSelected(item);
+    }
+	}
 	public void onSavePOI(View v){
 		submitBtn.setEnabled(false);
 		

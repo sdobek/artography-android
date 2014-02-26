@@ -8,6 +8,8 @@ import java.io.IOException;
 import kartography.app.MainActivity.ErrorDialogFragment;
 import kartography.models.Poi;
 import kartography.models.PoiLocation;
+import android.annotation.TargetApi;
+import android.app.ActionBar;
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.Intent;
@@ -15,11 +17,13 @@ import android.graphics.Bitmap;
 import android.location.Location;
 import android.media.ImageReader;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
 import android.util.Log;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -38,6 +42,7 @@ import com.parse.ParseObject;
 import com.parse.ParseUser;
 import com.parse.SaveCallback;
 
+@TargetApi(Build.VERSION_CODES.HONEYCOMB)
 public class TakePhotoActivity extends Activity implements
 		GooglePlayServicesClient.ConnectionCallbacks,
 		GooglePlayServicesClient.OnConnectionFailedListener {
@@ -76,6 +81,7 @@ public class TakePhotoActivity extends Activity implements
 	ProgressBar pb;
 	Button submitBtn;
 
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -83,6 +89,7 @@ public class TakePhotoActivity extends Activity implements
 
 		// maps
 		mLocationClient = new LocationClient(this, this, this);
+		
 		//
 		etTitle = (EditText) findViewById(R.id.et_title);
 		photo = (ImageView) findViewById(R.id.iv_Photo);
@@ -91,6 +98,8 @@ public class TakePhotoActivity extends Activity implements
 		submitBtn.setEnabled(false);
 		imageBitmap = null;
 		imageBitmapScaled = null;
+		ActionBar actionb = getActionBar();
+		actionb.setDisplayHomeAsUpEnabled(true);
 
 	}
 
@@ -100,13 +109,28 @@ public class TakePhotoActivity extends Activity implements
 		super.onBackPressed();
 	}
 
-	// @Override
-	// public boolean onCreateOptionsMenu(Menu menu) {
-	// // Inflate the menu; this adds items to the action bar if it is present.
-	// getMenuInflater().inflate(R.menu.take_photo, menu);
-	// return true;
-	// }
+//	 @Override
+//	 public boolean onCreateOptionsMenu(Menu menu) {
+//	 // Inflate the menu; this adds items to the action bar if it is present.
+////	 getMenuInflater().inflate(R.menu.take_photo, menu);
+//		 
+//	 return true;
+//	 }
 
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		switch (item.getItemId()) {
+        case android.R.id.home:
+            // app icon in action bar clicked; go home
+            Intent intent = new Intent(this, MainActivity.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(intent);
+            return true;
+        default:
+            return super.onOptionsItemSelected(item);
+    }
+	}
+	
 	public void onTakePicture(View v) {
 		// Intent to take photo using android camera
 		// Return data to store photo
