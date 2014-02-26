@@ -27,7 +27,7 @@ public class ConfirmFlag extends DialogFragment {
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
 		View view = inflater.inflate(R.layout.confirm_flag, container);
-		getDialog().setTitle("Please Confirm");
+		getDialog().setTitle("Flag as False");
 		Button confirm = (Button) view.findViewById(R.id.btnConfirm);
 		confirm.setOnClickListener(new OnClickListener() {
 			@Override

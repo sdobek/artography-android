@@ -1,8 +1,10 @@
 package kartography.app;
 
+import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 import kartography.app.ConfirmFlag.ConfirmFlagListener;
 import kartography.models.Poi;
@@ -10,6 +12,8 @@ import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
 import android.app.ActionBar;
 import android.content.Intent;
+import android.location.Address;
+import android.location.Geocoder;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -38,6 +42,7 @@ public class PoiDetailActivity extends FragmentActivity implements ConfirmFlagLi
 	TextView tvLocation;
 	TextView tvDate;
 	TextView tvDescription;
+	TextView tvDistance;
 	Date dateUploaded;
 	String title;
 	String artist;
@@ -57,6 +62,7 @@ public class PoiDetailActivity extends FragmentActivity implements ConfirmFlagLi
 		tvTitle = (TextView) findViewById(R.id.tvTitle);
 		tvArtist = (TextView) findViewById(R.id.tvArtist);
 		tvDate = (TextView) findViewById(R.id.tvDate);
+		tvDistance = (TextView) findViewById(R.id.tvDistance);
 		tvDescription = (TextView) findViewById(R.id.tvDescription);
 		ActionBar actionb = getActionBar();
 		actionb.setDisplayHomeAsUpEnabled(true);
@@ -79,6 +85,11 @@ public class PoiDetailActivity extends FragmentActivity implements ConfirmFlagLi
 					}
 					tvArtist.setText(poi.getArtist());
 					tvDescription.setText(poi.getDescription());
+					
+					double lat = poi.getLocation().getLatitude();
+					double longitude = poi.getLocation().getLongitude();
+					String address = getAddress(lat, longitude);
+					tvDistance.setText(address);
 					SimpleDateFormat sdf = new SimpleDateFormat();
 					// give null right now :(
 					// tvDate.setText(sdf.format(poi.getCreatedAt()));
@@ -168,6 +179,26 @@ public class PoiDetailActivity extends FragmentActivity implements ConfirmFlagLi
 
 		}
 	}
+	
+	private String getAddress(double latitude, double longitude) {
+        StringBuilder result = new StringBuilder();
+        try {
+            Geocoder geocoder = new Geocoder(this, Locale.getDefault());
+            List<Address> addresses = geocoder.getFromLocation(latitude, longitude, 1);
+            if (addresses.size() > 0) {
+                Address address = addresses.get(0);
+                result.append(address.getThoroughfare()).append("\n");
+//                result.append(address.getFeatureName()).append("\n");
+                result.append(address.getLocality());
+//                .append("\n");
+//                result.append(address.getCountryName());
+            }
+        } catch (IOException e) {
+            Log.e("tag", e.getMessage());
+        }
+
+        return result.toString();
+    }
 	
 	public void onFlagSuccess(){
 		poi.setFlagged(true);

@@ -49,9 +49,9 @@ public class TakePhotoActivity extends Activity implements
 	// private final int PHOTO_DETAIL_PIXELS = 1024;
 	// private final int PHOTO_SCALED_PIXELS = 512;
 	// private final int PHOTO_THUMBNAIL_PIXELS = 128;
-	private final float PHOTO_PRCNT = .8f;
-	private final float PHOTO_SCALED_PRCNT = .5f;
-	private final float PHOTO_THUMB_PRCNT = .15f;
+	private final float PHOTO_PRCNT = .5f;
+	private final float PHOTO_SCALED_PRCNT = .25f;
+	private final float PHOTO_THUMB_PRCNT = .05f;
 
 	private static final int REQUEST_IMAGE_CAPTURE = 11;
 	Poi pntOfInterest;
