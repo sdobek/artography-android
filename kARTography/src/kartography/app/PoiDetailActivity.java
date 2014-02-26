@@ -1,6 +1,11 @@
 package kartography.app;
 
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
@@ -12,11 +17,14 @@ import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
 import android.app.ActionBar;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.location.Address;
 import android.location.Geocoder;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Environment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.util.Log;
@@ -140,12 +148,29 @@ public class PoiDetailActivity extends FragmentActivity implements ConfirmFlagLi
 		i.putExtra("photoUrl", pfs);
 		startActivityForResult(i, UPDATE_POI);
 	}
-	public void onShareDetails(MenuItem mi) {
-		Intent sendIntent = new Intent();
-		sendIntent.setAction(Intent.ACTION_SEND);
-		sendIntent.putExtra(Intent.EXTRA_TEXT, poi.getPhotoFile().getUrl());
-//		sendIntent.setType("text/plain");
-		startActivity(sendIntent);
+	public void onShareDetails(MenuItem mi) throws IOException {
+//		Intent sendIntent = new Intent();
+//		sendIntent.setAction(Intent.ACTION_SEND);
+//		sendIntent.putExtra(Intent.EXTRA_TEXT, poi.getPhotoFile().getUrl());
+////		sendIntent.setType("text/plain");
+//		startActivity(sendIntent);
+		URL url = new URL(poi.getPhotoFile().getUrl());
+		
+		Bitmap icon = BitmapFactory.decodeStream(url.openConnection().getInputStream());
+		Intent share = new Intent(Intent.ACTION_SEND);
+		share.setType("image/jpeg");
+		ByteArrayOutputStream bytes = new ByteArrayOutputStream();
+		icon.compress(Bitmap.CompressFormat.JPEG, 100, bytes);
+		File f = new File(Environment.getExternalStorageDirectory() + File.separator + "temporary_file.jpg");
+		try {
+		    f.createNewFile();
+		    FileOutputStream fo = new FileOutputStream(f);
+		    fo.write(bytes.toByteArray());
+		} catch (IOException e) {                       
+		        e.printStackTrace();
+		}
+		share.putExtra(Intent.EXTRA_STREAM, Uri.parse("file:///sdcard/temporary_file.jpg"));
+		startActivity(Intent.createChooser(share, "Share Image"));
 	}
 
 	public void onFlagPoi(MenuItem mi) {
