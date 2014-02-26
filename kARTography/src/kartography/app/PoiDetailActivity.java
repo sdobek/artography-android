@@ -37,7 +37,6 @@ public class PoiDetailActivity extends FragmentActivity implements ConfirmFlagLi
 
 	String objectId;
 	ImageView ivImage;
-	TextView tvTitle;
 	TextView tvArtist;
 	TextView tvLocation;
 	TextView tvDate;
@@ -59,11 +58,11 @@ public class PoiDetailActivity extends FragmentActivity implements ConfirmFlagLi
 
 		// initialize
 		ivImage = (ImageView) findViewById(R.id.ivArt);
-		tvTitle = (TextView) findViewById(R.id.tvTitle);
 		tvArtist = (TextView) findViewById(R.id.tvArtist);
 		tvDate = (TextView) findViewById(R.id.tvDate);
+		tvDescription = (TextView) findViewById(R.id.tvDescriptionText);
+		tvLocation = (TextView) findViewById(R.id.tvLocationTitle);
 		tvDistance = (TextView) findViewById(R.id.tvDistance);
-		tvDescription = (TextView) findViewById(R.id.tvDescription);
 		ActionBar actionb = getActionBar();
 		actionb.setDisplayHomeAsUpEnabled(true);
 		Intent i = getIntent();
@@ -76,7 +75,6 @@ public class PoiDetailActivity extends FragmentActivity implements ConfirmFlagLi
 			public void done(List<Poi> itemList, ParseException e) {
 				if (e == null) {
 					poi = itemList.get(0);
-					tvTitle.setText(poi.getTitle());
 					ActionBar ab = getActionBar();
 					if (poi.getTitle() != "") {
 						ab.setTitle(poi.getTitle());
@@ -167,7 +165,6 @@ public class PoiDetailActivity extends FragmentActivity implements ConfirmFlagLi
 			poi.put("description", data.getStringExtra("description"));
 			poi.saveInBackground();
 
-			tvTitle.setText(poi.getTitle());
 			ActionBar ab = getActionBar();
 			if (poi.getTitle() != "") {
 				ab.setTitle(poi.getTitle());
