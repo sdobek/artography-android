@@ -50,6 +50,7 @@ public class PoiDetailActivity extends FragmentActivity implements ConfirmFlagLi
 	TextView tvDate;
 	TextView tvDescription;
 	TextView tvDistance;
+	TextView tvUser;
 	Date dateUploaded;
 	String title;
 	String artist;
@@ -66,8 +67,9 @@ public class PoiDetailActivity extends FragmentActivity implements ConfirmFlagLi
 
 		// initialize
 		ivImage = (ImageView) findViewById(R.id.ivArt);
+		tvUser = (TextView) findViewById(R.id.tvUploader);
 		tvArtist = (TextView) findViewById(R.id.tvArtist);
-		tvDate = (TextView) findViewById(R.id.tvDate);
+		tvDate = (TextView) findViewById(R.id.tvDateText);
 		tvDescription = (TextView) findViewById(R.id.tvDescriptionText);
 //		tvLocation = (TextView) findViewById(R.id.tvLocationTitle);
 		tvDistance = (TextView) findViewById(R.id.tvDistance);
@@ -91,14 +93,16 @@ public class PoiDetailActivity extends FragmentActivity implements ConfirmFlagLi
 					}
 					tvArtist.setText(poi.getArtist());
 					tvDescription.setText(poi.getDescription());
-					
+					tvUser.setText(poi.getUploadedByUser());
 					double lat = poi.getLocation().getLatitude();
 					double longitude = poi.getLocation().getLongitude();
 					String address = getAddress(lat, longitude);
 					tvDistance.setText(address);
-					SimpleDateFormat sdf = new SimpleDateFormat();
+					SimpleDateFormat sdf = new SimpleDateFormat("dd/M/yyyy");
 					// give null right now :(
-					// tvDate.setText(sdf.format(poi.getCreatedAt()));
+					Date date = (Date) poi.getCreatedAt();
+					
+					tvDate.setText(sdf.format(date));
 					String pfUrl = poi.getPhotoFile().getUrl();
 
 					pfs = poi.getPhotoFileScaled().getUrl();

@@ -10,7 +10,9 @@
         android:id="@+id/ivArt"
         android:layout_width="match_parent"
         android:layout_height="330dp"
+       
         android:onClick="onShowFullscreen"
+        android:background="@drawable/black_angled_gradient"
         android:src="@drawable/ican" />
 
     <ScrollView
@@ -34,7 +36,7 @@
                 <RelativeLayout
                     android:id="@+id/rlUpload"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content" >
+                    android:layout_height="52dp" >
 
                     <ImageView
                         android:id="@+id/ivUploader"
@@ -48,19 +50,27 @@
                         android:id="@+id/tvUploader"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_alignParentBottom="true"
-                        android:layout_marginLeft="17dp"
+                        android:layout_alignBottom="@+id/ivUploader"
                         android:layout_toRightOf="@+id/ivUploader"
                         android:text="@string/uploader" />
 
                     <TextView
-                        android:id="@+id/tvDate"
+                        android:id="@+id/tvDateText"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentBottom="true"
                         android:layout_alignParentRight="true"
                         android:layout_marginRight="22dp"
+                        android:text="sadf" />
+
+                    <TextView
+                        android:id="@+id/tvDate"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignRight="@+id/tvDateText"
+                        android:layout_centerVertical="true"
                         android:text="@string/uploadDate" />
+
                 </RelativeLayout>
 
                 <LinearLayout
@@ -100,15 +110,6 @@
                         android:layout_height="match_parent"
                         android:layout_weight=".5" >
 
-                        <TextView
-                            android:id="@+id/tvArtist"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_alignBottom="@+id/iv_draw"
-                            android:layout_marginLeft="17dp"
-                            android:layout_toRightOf="@+id/iv_draw"
-                            android:text="@string/artist" />
-
                         <ImageView
                             android:id="@+id/iv_draw"
                             android:layout_width="wrap_content"
@@ -116,6 +117,15 @@
                             android:layout_alignParentLeft="true"
                             android:layout_alignParentTop="true"
                             android:src="@drawable/ic_artist" />
+
+                        <TextView
+                            android:id="@+id/tvArtist"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:layout_toRightOf="@+id/iv_draw"
+                            android:text="@string/artist" />
+
                     </RelativeLayout>
                 </LinearLayout>
 

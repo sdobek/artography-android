@@ -48,7 +48,7 @@ class CustomWindowAdapter implements InfoWindowAdapter{
         String urlImage = imageStringMapMarker.get(marker).toString();
 //          Bitmap bmImage = imageStringMapMarker.get(marker);  //.toString();
 //        ivThumbnail.setImageBitmap(bm);
-        Picasso.with(ceeernterrxt).load(Uri.parse(urlImage)).resize(250, 250).into(ivThumbnail);
+        Picasso.with(ceeernterrxt).load(Uri.parse(urlImage)).resize(260, 250).into(ivThumbnail);
 //        .placeholder(R.drawable.ic_flag)
 //        Picasso.with(ceeernterrxt).load(urlImage)  
 //        .centerCrop().noFade()

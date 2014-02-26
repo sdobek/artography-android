@@ -56,14 +56,6 @@ public class Poi extends ParseObject {
 		put("artist", artist);
 	}
 
-	public Date getCreatedAt() {
-		return (Date) get("createdAt");
-	}
-
-	// public void setCreatedAt(Date createdAt) {
-	// this.createdAt = createdAt;
-	// no longer need as parse handles this
-	// }
 
 	public String getDescription() {
 		return (String) get("description");
