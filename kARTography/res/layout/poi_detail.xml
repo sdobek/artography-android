@@ -93,7 +93,7 @@
                             android:text="@string/location" />
 
                         <TextView
-                            android:id="@+id/tvLocation"
+                            android:id="@+id/tvDistance"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_alignLeft="@+id/tvLocationTitle"

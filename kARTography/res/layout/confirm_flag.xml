@@ -11,7 +11,7 @@
         android:layout_height="wrap_content"
         android:text="@string/confirmFlag" />
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
@@ -22,6 +22,9 @@
             style="?android:attr/buttonStyleSmall"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginRight="80dp"
             android:text="@string/flag" />
 
         <Button
@@ -29,8 +32,11 @@
             style="?android:attr/buttonStyleSmall"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_marginRight="43dp"
+            android:layout_toLeftOf="@+id/btnConfirm"
             android:text="@string/cancel" />
 
-    </LinearLayout>
+    </RelativeLayout>
 
 </LinearLayout>

@@ -478,7 +478,7 @@ public class MainActivity extends FragmentActivity implements
 					    	steve.showInfoWindow();
 
 					    }
-					}, 200);
+					}, 400);
 
 					return true;
 				}

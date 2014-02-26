@@ -1,8 +1,10 @@
 package kartography.app;
 
+import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 import kartography.app.ConfirmFlag.ConfirmFlagListener;
 import kartography.models.Poi;
@@ -10,6 +12,8 @@ import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
 import android.app.ActionBar;
 import android.content.Intent;
+import android.location.Address;
+import android.location.Geocoder;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -27,6 +31,7 @@ import com.parse.ParseException;
 import com.parse.ParseQuery;
 import com.squareup.picasso.Picasso;
 
+@TargetApi(Build.VERSION_CODES.HONEYCOMB)
 public class PoiDetailActivity extends FragmentActivity implements ConfirmFlagListener{
 	private final int UPDATE_POI = 24;
 
@@ -36,6 +41,7 @@ public class PoiDetailActivity extends FragmentActivity implements ConfirmFlagLi
 	TextView tvLocation;
 	TextView tvDate;
 	TextView tvDescription;
+	TextView tvDistance;
 	Date dateUploaded;
 	String title;
 	String artist;
@@ -56,7 +62,9 @@ public class PoiDetailActivity extends FragmentActivity implements ConfirmFlagLi
 		tvDate = (TextView) findViewById(R.id.tvDate);
 		tvDescription = (TextView) findViewById(R.id.tvDescriptionText);
 		tvLocation = (TextView) findViewById(R.id.tvLocationTitle);
-
+		tvDistance = (TextView) findViewById(R.id.tvDistance);
+		ActionBar actionb = getActionBar();
+		actionb.setDisplayHomeAsUpEnabled(true);
 		Intent i = getIntent();
 		objectId = (String) i.getStringExtra("id");
 		ParseQuery<Poi> query = ParseQuery.getQuery(Poi.class).whereEqualTo(
@@ -75,6 +83,11 @@ public class PoiDetailActivity extends FragmentActivity implements ConfirmFlagLi
 					}
 					tvArtist.setText(poi.getArtist());
 					tvDescription.setText(poi.getDescription());
+					
+					double lat = poi.getLocation().getLatitude();
+					double longitude = poi.getLocation().getLongitude();
+					String address = getAddress(lat, longitude);
+					tvDistance.setText(address);
 					SimpleDateFormat sdf = new SimpleDateFormat();
 					// give null right now :(
 					// tvDate.setText(sdf.format(poi.getCreatedAt()));
@@ -106,6 +119,20 @@ public class PoiDetailActivity extends FragmentActivity implements ConfirmFlagLi
 		return true;
 	}
 
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		switch (item.getItemId()) {
+        case android.R.id.home:
+            // app icon in action bar clicked; go home
+            Intent intent = new Intent(this, MainActivity.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(intent);
+            return true;
+        default:
+            return super.onOptionsItemSelected(item);
+    }
+	}
+	
 	public void onEditDetails(MenuItem mi) {
 		Intent i = new Intent(this, EditDetailsActivity.class);
 		i.putExtra("artist", poi.getArtist());
@@ -149,6 +176,26 @@ public class PoiDetailActivity extends FragmentActivity implements ConfirmFlagLi
 
 		}
 	}
+	
+	private String getAddress(double latitude, double longitude) {
+        StringBuilder result = new StringBuilder();
+        try {
+            Geocoder geocoder = new Geocoder(this, Locale.getDefault());
+            List<Address> addresses = geocoder.getFromLocation(latitude, longitude, 1);
+            if (addresses.size() > 0) {
+                Address address = addresses.get(0);
+                result.append(address.getThoroughfare()).append("\n");
+//                result.append(address.getFeatureName()).append("\n");
+                result.append(address.getLocality());
+//                .append("\n");
+//                result.append(address.getCountryName());
+            }
+        } catch (IOException e) {
+            Log.e("tag", e.getMessage());
+        }
+
+        return result.toString();
+    }
 	
 	public void onFlagSuccess(){
 		poi.setFlagged(true);
