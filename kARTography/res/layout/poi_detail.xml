@@ -12,6 +12,7 @@
         android:layout_height="330dp"
        
         android:onClick="onShowFullscreen"
+        android:background="@drawable/black_bottom_gradient"
         android:src="@drawable/ican" />
 
     <ScrollView
