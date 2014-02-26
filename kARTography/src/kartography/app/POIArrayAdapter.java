@@ -44,7 +44,7 @@ public class POIArrayAdapter extends ArrayAdapter<Poi> {
 
         ImageView ivImage = (ImageView) itemView.findViewById(R.id.ivThumbnail);
         TextView tvTitle = (TextView) itemView.findViewById(R.id.tvTitle);
-        TextView tvArtist = (TextView) itemView.findViewById(R.id.tvArtist);
+        TextView tvArtist = (TextView) itemView.findViewById(R.id.tvAddress);
         TextView tvDistance = (TextView) itemView.findViewById(R.id.tvDistance);
         tvTitle.setMaxLines(1);
         //probably won't need to truncate right away. Keeping line here for quick access.

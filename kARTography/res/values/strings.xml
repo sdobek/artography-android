@@ -33,5 +33,11 @@
     <string name="title_activity_display_detailed_photo">DisplayDetailedPhotoActivity</string>
     <string name="dummy_button">Dummy Button</string>
     <string name="dummy_content">DUMMY\nCONTENT</string>
+    <string name="uploader">uploader</string>
+    <string name="uploadDate">uploaded on...</string>
+    <string name="location">Location</string>
+    <string name="locationText">Whatever the magic is</string>
+    <string name="artist">Artist</string>
+    <string name="description">Description</string>
 
 </resources>

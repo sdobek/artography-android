@@ -1,96 +1,158 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent" >
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
 
-<RelativeLayout
-    android:layout_width="match_parent"
-    android:layout_height="386dp" >
-	
-	    <ImageView
-	        android:id="@+id/ivFullPhoto"
-	        android:layout_width="wrap_content"
-	        android:layout_height="wrap_content"
-	        android:layout_alignParentLeft="true"
-	        android:layout_below="@+id/ivArt"
-	        android:layout_marginLeft="38dp"
-	        android:src="@drawable/ic_map" />
-	
-	    <ImageView
-	        android:id="@+id/ImageView01"
-	        android:layout_width="wrap_content"
-	        android:layout_height="wrap_content"
-	        android:layout_alignParentLeft="true"
-	        android:layout_below="@+id/ivFullPhoto"
-	        android:layout_marginLeft="38dp"
-	        android:src="@drawable/ic_map" />
-	
-	    <ImageView
-	        android:id="@+id/ImageView02"
-	        android:layout_width="wrap_content"
-	        android:layout_height="wrap_content"
-	        android:layout_alignParentLeft="true"
-	        android:layout_below="@+id/ImageView01"
-	        android:layout_marginLeft="38dp"
-	        android:src="@drawable/ic_map" />
+    <ImageView
+        android:id="@+id/ivArt"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:onClick="onShowFullscreen"
+        android:src="@drawable/ican" />
 
-	    <TextView
-	        android:id="@+id/tvTitle"
-	        android:layout_width="wrap_content"
-	        android:layout_height="wrap_content"
-	        android:layout_alignTop="@+id/ivFullPhoto"
-	        android:layout_marginTop="15dp"
-	        android:layout_toRightOf="@+id/ivFullPhoto"
-	        android:text="Title"
-	        android:textAppearance="?android:attr/textAppearanceMedium"
-	         />
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" >
 
-	    <TextView
-	        android:id="@+id/tvDescription"
-	        android:layout_width="wrap_content"
-	        android:layout_height="wrap_content"
-	        android:layout_alignLeft="@+id/ImageView02"
-	        android:layout_alignParentBottom="true"
-	        android:layout_alignRight="@+id/textView3"
-	        android:text="description"
-	        android:textAppearance="?android:attr/textAppearanceLarge" />
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" >
 
-	    <ImageView
-	        android:id="@+id/ivArt"
-	        android:layout_width="match_parent"
-	        android:layout_height="200dp"
-	        android:layout_alignParentLeft="true"
-	        android:layout_alignParentTop="true"
-	        android:onClick="onShowFullscreen"
-	        android:src="@drawable/ican" />
+           
+            <LinearLayout
+                android:id="@+id/linearLayout1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentTop="true"
+                android:orientation="vertical" >
 
-	    <TextView
-	        android:id="@+id/tvDate"
-	        android:layout_width="wrap_content"
-	        android:layout_height="wrap_content"
-	        android:layout_alignParentRight="true"
-	        android:layout_alignTop="@+id/ivFullPhoto"
-	        android:layout_marginRight="44dp"
-	        android:text="date uploaded"
-	        android:textAppearance="?android:attr/textAppearanceSmall" />
+                <RelativeLayout
+                    android:id="@+id/rlUpload"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" >
 
-	    <TextView
-	        android:id="@+id/tvDistance"
-	        android:layout_width="wrap_content"
-	        android:layout_height="wrap_content"
-	        android:layout_alignBottom="@+id/ImageView02"
-	        android:layout_alignLeft="@+id/tvArtist"
-	        android:text="Magic that doesn&apos;t exist yet"
-	        android:textAppearance="?android:attr/textAppearanceMedium" />
+                    <ImageView
+                        android:id="@+id/ivUploader"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentLeft="true"
+                        android:layout_centerVertical="true"
+                        android:src="@drawable/ic_user_mini" />
 
-	    <TextView
-	        android:id="@+id/tvArtist"
-	        android:layout_width="wrap_content"
-	        android:layout_height="wrap_content"
-	        android:layout_alignBottom="@+id/ImageView01"
-	        android:layout_alignLeft="@+id/tvTitle"
-	        android:text="Artist"
-	        android:textAppearance="?android:attr/textAppearanceMedium" />
+                    <TextView
+                        android:id="@+id/tvUploader"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentBottom="true"
+                        android:layout_marginLeft="17dp"
+                        android:layout_toRightOf="@+id/ivUploader"
+                        android:text="@string/uploader" />
 
-	</RelativeLayout>
-</ScrollView>
+                    <TextView
+                        android:id="@+id/tvDate"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentBottom="true"
+                        android:layout_alignParentRight="true"
+                        android:layout_marginRight="22dp"
+                        android:text="@string/uploadDate" />
+                </RelativeLayout>
+
+                <LinearLayout
+                    android:id="@+id/llLocAndArtist"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal" >
+
+                    <RelativeLayout
+                        android:id="@+id/rl_loc"
+                        android:layout_width="0dip"
+                        android:layout_height="match_parent"
+                        android:layout_weight=".5" >
+
+                        <ImageView
+                            android:id="@+id/ivPin"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentLeft="true"
+                            android:layout_alignParentTop="true"
+                            android:src="@drawable/ic_location_mini" />
+
+                        <TextView
+                            android:id="@+id/tvLocationTitle"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignBottom="@+id/ivPin"
+                            android:layout_marginLeft="15dp"
+                            android:layout_toRightOf="@+id/ivPin"
+                            android:text="@string/location" />
+
+                        <TextView
+                            android:id="@+id/tvLocation"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignLeft="@+id/tvLocationTitle"
+                            android:layout_below="@+id/tvLocationTitle"
+                            android:text="This is where the magic happens" />
+
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:id="@+id/rl_artist"
+                        android:layout_width="0dip"
+                        android:layout_height="match_parent"
+                        android:layout_weight=".5" >
+
+                        <TextView
+                            android:id="@+id/tvArtist"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignBottom="@+id/iv_draw"
+                            android:layout_marginLeft="17dp"
+                            android:layout_toRightOf="@+id/iv_draw"
+                            android:text="@string/artist" />
+
+                        <ImageView
+                            android:id="@+id/iv_draw"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentLeft="true"
+                            android:layout_alignParentTop="true"
+                            android:src="@drawable/ic_draw" />
+                    </RelativeLayout>
+                </LinearLayout>
+
+                <RelativeLayout
+                    android:id="@+id/rl_description"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" >
+
+                    <TextView
+                        android:id="@+id/tvDecriptionHeader"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentLeft="true"
+                        android:layout_alignParentTop="true"
+                        android:text="@string/description" />
+
+                    <TextView
+                        android:id="@+id/tvDescriptionText"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentBottom="true"
+                        android:layout_alignParentLeft="true"
+                        android:layout_alignParentRight="true"
+                        android:layout_below="@+id/tvDecriptionHeader"
+                        android:layout_marginLeft="24dp"
+                        android:text="TextView" />
+                </RelativeLayout>
+            </LinearLayout>
+        </RelativeLayout>
+    </ScrollView>
+
+</LinearLayout>

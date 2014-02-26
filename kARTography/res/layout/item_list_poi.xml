@@ -14,7 +14,7 @@
         android:scaleType="centerCrop" />
 
     <TextView
-        android:id="@+id/tvArtist"
+        android:id="@+id/tvAddress"
         android:layout_width="wrap_content"
         style="@style/ShadowText"
         android:layout_height="wrap_content"
@@ -28,7 +28,7 @@
         style="@style/ShadowText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/tvArtist"
+        android:layout_above="@+id/tvAddress"
         android:layout_marginBottom="10dp"
         android:layout_alignParentLeft="true"
         android:text="Medium Text"
