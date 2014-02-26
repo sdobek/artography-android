@@ -104,7 +104,7 @@ public class POIArrayAdapter extends ArrayAdapter<Poi> {
             List<Address> addresses = geocoder.getFromLocation(latitude, longitude, 1);
             if (addresses.size() > 0) {
                 Address address = addresses.get(0);
-                result.append(address.getThoroughfare()).append("\n");
+//                result.append(address.getThoroughfare()).append("\n");
 //                result.append(address.getFeatureName()).append("\n");
                 result.append(address.getLocality());
 //                .append("\n");
