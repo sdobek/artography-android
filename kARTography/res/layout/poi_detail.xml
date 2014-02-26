@@ -11,6 +11,7 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
         android:onClick="onShowFullscreen"
+        android:background="@drawable/black_bottom_gradient"
         android:src="@drawable/ican" />
 
     <ScrollView

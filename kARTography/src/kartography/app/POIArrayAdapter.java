@@ -6,6 +6,7 @@ import java.util.Locale;
 
 import kartography.models.Poi;
 import android.content.Context;
+import android.graphics.Color;
 import android.location.Address;
 import android.location.Geocoder;
 import android.net.Uri;
@@ -15,8 +16,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.parse.ParseFile;
 import com.squareup.picasso.Picasso;
 
 public class POIArrayAdapter extends ArrayAdapter<Poi> {
@@ -45,7 +48,8 @@ public class POIArrayAdapter extends ArrayAdapter<Poi> {
         } else {
             itemView = convertView;
         }
-
+        
+        
         ImageView ivImage = (ImageView) itemView.findViewById(R.id.ivThumbnail);
         TextView tvTitle = (TextView) itemView.findViewById(R.id.tvTitle);
         TextView tvArtist = (TextView) itemView.findViewById(R.id.tvAddress);
@@ -55,6 +59,7 @@ public class POIArrayAdapter extends ArrayAdapter<Poi> {
         //tvTitle.setEllipsize(TextUtils.TruncateAt.END);
         tvTitle.setText(imageInfo.getTitle());
         tvArtist.setText(imageInfo.getArtist());
+        
         
         double lat = imageInfo.getLocation().getLatitude();
 		double longitude = imageInfo.getLocation().getLongitude();
@@ -66,8 +71,8 @@ public class POIArrayAdapter extends ArrayAdapter<Poi> {
 
 
 //        ivImage.setImageResource(R.drawable.ican);
-        
-        
+        		
+		
         String pf = imageInfo.getPhotoFileScaled().getUrl();
         Picasso.with(getContext()).load(Uri.parse(pf)).into(ivImage);
       //formerly .resize(100,100)

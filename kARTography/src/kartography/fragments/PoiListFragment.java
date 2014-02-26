@@ -22,6 +22,7 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
 import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
 
 import com.parse.FindCallback;
 import com.parse.ParseException;
@@ -34,6 +35,7 @@ public class PoiListFragment extends Fragment{
 	PoiHandler poiHandler;
 	List<Poi> images;
 	ProgressBar pBar;
+	RelativeLayout gradientOverlay;
 	
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup parent,
