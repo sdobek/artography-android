@@ -67,7 +67,7 @@ public class PoiDetailActivity extends FragmentActivity implements ConfirmFlagLi
 
 		// initialize
 		ivImage = (ImageView) findViewById(R.id.ivArt);
-		tvUser = (TextView) findViewById(R.id.tvUploader);
+		tvUser = (TextView) findViewById(R.id.tvUploaderHeader);
 		tvArtist = (TextView) findViewById(R.id.tvArtist);
 		tvDate = (TextView) findViewById(R.id.tvDateText);
 		tvDescription = (TextView) findViewById(R.id.tvDescriptionText);

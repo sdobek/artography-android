@@ -24,9 +24,13 @@ import com.squareup.picasso.Picasso;
 
 public class POIArrayAdapter extends ArrayAdapter<Poi> {
 
+	private static LayoutInflater inflator = null;
+	
+	
     public POIArrayAdapter(Context context, List<Poi> images) {
         super(context, R.layout.item_list_poi, images);
        
+         inflator = LayoutInflater.from(getContext());
         if(images != null){
 //        	Log.d("REBUG", images.toString());	
         }else{
@@ -38,22 +42,23 @@ public class POIArrayAdapter extends ArrayAdapter<Poi> {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
 
-        Poi imageInfo = this.getItem(position);
+        
 
 
         View itemView;
+        Poi imageInfo = this.getItem(position);
         if(convertView == null){
-            LayoutInflater inflator = LayoutInflater.from(getContext());
-            itemView = inflator.inflate(R.layout.item_list_poi, parent,  false);
-        } else {
-            itemView = convertView;
-        }
+//            LayoutInflater inflator = LayoutInflater.from(getContext());
+            convertView = inflator.inflate(R.layout.item_list_poi, parent,  false);
+        } 
+            
         
         
-        ImageView ivImage = (ImageView) itemView.findViewById(R.id.ivThumbnail);
-        TextView tvTitle = (TextView) itemView.findViewById(R.id.tvTitle);
-        TextView tvArtist = (TextView) itemView.findViewById(R.id.tvAddress);
-        TextView tvDistance = (TextView) itemView.findViewById(R.id.tvDistance);
+        
+        ImageView ivImage = (ImageView) convertView.findViewById(R.id.ivThumbnail);
+        TextView tvTitle = (TextView) convertView.findViewById(R.id.tvTitle);
+        TextView tvArtist = (TextView) convertView.findViewById(R.id.tvAddress);
+        TextView tvDistance = (TextView) convertView.findViewById(R.id.tvDistance);
         tvTitle.setMaxLines(1);
         //probably won't need to truncate right away. Keeping line here for quick access.
         //tvTitle.setEllipsize(TextUtils.TruncateAt.END);
@@ -74,10 +79,11 @@ public class POIArrayAdapter extends ArrayAdapter<Poi> {
         		
 		
         String pf = imageInfo.getPhotoFileScaled().getUrl();
-        Picasso.with(getContext()).load(Uri.parse(pf)).into(ivImage);
-      //formerly .resize(100,100)
-//		.noFade()
-//		.centerCrop()
+        Picasso.with(getContext()).load(Uri.parse(pf))
+        .noFade().resize(500,500)
+		.centerCrop().placeholder(R.drawable.ican).into(ivImage);
+      
+		
         
         //hey steven, I managed to make this doable with picasso as seen above. 
         /*ParseFile pf = imageInfo.getPhotoFileScaled();
@@ -99,7 +105,7 @@ public class POIArrayAdapter extends ArrayAdapter<Poi> {
 
         				
         
-        return itemView;
+        return convertView;
     }
     
     private String getAddress(double latitude, double longitude) {
