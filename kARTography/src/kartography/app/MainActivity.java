@@ -67,7 +67,6 @@ public class MainActivity extends FragmentActivity implements
 	User user;
 	ActionBar actionBar;
 	Tab tabList;
-	private Tab tabMap;
 	private PoiListFragment lFrag = null;
 	// all dem maps
 	private SupportMapFragment mMapFragment = null;
