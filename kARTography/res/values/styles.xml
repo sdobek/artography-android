@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources>
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
 
     <!--
         Base application theme, dependent on API level. This theme is replaced
@@ -16,6 +16,7 @@
     <!-- Application theme. -->
     <style name="AppTheme" parent="AppBaseTheme">
         <!-- All customizations that are NOT specific to a particular API-level can go here. -->
+        <!-- <item name="android:textSize">@style/SmallFont</item>-->
     </style>
 
     <style name="ShadowText">
@@ -26,6 +27,22 @@
         <item name="android:shadowDx">2</item>
         <item name="android:shadowDy">2</item>
         <item name="android:shadowRadius">2</item>
+    </style>
+    
+    <style name="micro_font">
+        <item name="android:textSize">12sp</item>
+    </style>
+    
+    <style name="small_font">
+        <item name="android:textSize">14sp</item>
+    </style>
+    
+    <style name="medium_font">
+        <item name="android:textSize">18sp</item>
+    </style>
+    
+    <style name="large_font">
+        <item name="android:textSize">22sp</item>
     </style>
 
     <style name="FullscreenTheme" parent="android:Theme.NoTitleBar">

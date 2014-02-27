@@ -3,18 +3,20 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="@android:color/white"
+    android:background="#efefef"
      >
 
     <ImageView
         android:id="@+id/ivArt"
         android:layout_width="match_parent"
-        android:layout_height="330dp"
-       
+        android:layout_height="200dp"
         android:onClick="onShowFullscreen"
-        android:background="@drawable/black_angled_gradient"
+        android:layout_marginBottom="2dp"
         android:src="@drawable/ican" />
-
+        
+        <!--  android:maxHeight="330dp"
+        android:layout_height="wrap_content"-->
+        
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent" >
@@ -36,7 +38,11 @@
                 <RelativeLayout
                     android:id="@+id/rlUpload"
                     android:layout_width="match_parent"
-                    android:layout_height="52dp" >
+                    android:layout_height="52dp" 
+                    android:layout_marginBottom="2dp"
+                    android:layout_marginLeft="2dp"
+                    android:layout_marginRight="2dp"
+                    android:background="@drawable/layout_border">
 
                     <ImageView
                         android:id="@+id/ivUploader"
@@ -44,6 +50,7 @@
                         android:layout_height="wrap_content"
                         android:layout_alignParentLeft="true"
                         android:layout_centerVertical="true"
+                        android:paddingLeft="10dp"
                         android:src="@drawable/ic_user_mini" />
 
                     <TextView
@@ -52,24 +59,31 @@
                         android:layout_height="wrap_content"
                         android:layout_alignBottom="@+id/ivUploader"
                         android:layout_toRightOf="@+id/ivUploader"
+                        android:layout_centerVertical="true"
+                        android:paddingLeft="8dp"
+                        android:textSize="14sp"
+                        android:textStyle="bold"
                         android:text="@string/uploader" />
-
-                    <TextView
-                        android:id="@+id/tvDateText"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentBottom="true"
-                        android:layout_alignParentRight="true"
-                        android:layout_marginRight="22dp"
-                        android:text="sadf" />
 
                     <TextView
                         android:id="@+id/tvDate"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignRight="@+id/tvDateText"
-                        android:layout_centerVertical="true"
+                        android:paddingTop="3dp"
+                        android:textSize="12sp"
+                        android:textStyle="italic"
                         android:text="@string/uploadDate" />
+
+                    <TextView
+                        android:id="@+id/tvDateText"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_below="@+id/tvDate"
+                        android:layout_marginRight="21dp"
+                        android:text="sadf"
+                        android:textSize="14sp" />
 
                 </RelativeLayout>
 
@@ -77,13 +91,18 @@
                     android:id="@+id/llLocAndArtist"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginBottom="2dp"
+                    android:layout_marginLeft="2dp"
+                    android:layout_marginRight="2dp"
                     android:orientation="horizontal" >
 
                     <RelativeLayout
                         android:id="@+id/rl_loc"
                         android:layout_width="0dip"
                         android:layout_height="match_parent"
-                        android:layout_weight=".5" >
+                        android:background="@drawable/layout_border"
+                        android:layout_weight=".5" 
+                        android:paddingTop="6dp">
 
                         <ImageView
                             android:id="@+id/ivPin"
@@ -91,6 +110,9 @@
                             android:layout_height="wrap_content"
                             android:layout_alignParentLeft="true"
                             android:layout_alignParentTop="true"
+                            android:layout_centerVertical="true"
+                            android:paddingTop="6dp"
+                            android:paddingLeft="10dp"
                             android:src="@drawable/ic_location_mini" />
 
                         <TextView
@@ -99,7 +121,11 @@
                             android:layout_height="wrap_content"
                             android:layout_alignParentRight="true"
                             android:layout_toRightOf="@+id/ivPin"
+                            android:textSize="14sp"
+                            android:paddingLeft="8dp"
+                            android:layout_centerVertical="true"
                             android:ellipsize="end"
+                            android:textStyle="bold"
                             android:text="This is where the magic happens" />
 
                     </RelativeLayout>
@@ -108,15 +134,9 @@
                         android:id="@+id/rl_artist"
                         android:layout_width="0dip"
                         android:layout_height="match_parent"
-                        android:layout_weight=".5" >
-
-                        <ImageView
-                            android:id="@+id/iv_draw"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_alignParentLeft="true"
-                            android:layout_alignParentTop="true"
-                            android:src="@drawable/ic_artist" />
+                        android:background="@drawable/layout_border"
+                        android:layout_weight=".5"
+                        android:paddingTop="6dp" >
 
                         <TextView
                             android:id="@+id/tvArtist"
@@ -124,7 +144,19 @@
                             android:layout_height="wrap_content"
                             android:layout_centerVertical="true"
                             android:layout_toRightOf="@+id/iv_draw"
+                            android:textSize="14sp"
+                            android:paddingLeft="8dp"
+                            android:textStyle="bold"
                             android:text="@string/artist" />
+
+                        <ImageView
+                            android:id="@+id/iv_draw"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentLeft="true"
+                            android:layout_alignParentTop="true"
+                            android:paddingLeft="10dp"
+                            android:src="@drawable/ic_artist" />
 
                     </RelativeLayout>
                 </LinearLayout>
@@ -132,7 +164,13 @@
                 <RelativeLayout
                     android:id="@+id/rl_description"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content" >
+                    android:layout_height="wrap_content" 
+                    android:background="@drawable/layout_border"
+                    android:layout_marginLeft="2dp"
+                    android:layout_marginRight="2dp"
+                    android:paddingTop="5dp"
+                    android:paddingBottom="5dp"
+                    android:paddingLeft="10dp">
 
                     <TextView
                         android:id="@+id/tvDecriptionHeader"
@@ -140,6 +178,8 @@
                         android:layout_height="wrap_content"
                         android:layout_alignParentLeft="true"
                         android:layout_alignParentTop="true"
+                        android:textSize="18sp"
+                        android:textStyle="bold"
                         android:text="@string/description" />
 
                     <TextView
@@ -151,6 +191,7 @@
                         android:layout_alignParentRight="true"
                         android:layout_below="@+id/tvDecriptionHeader"
                         android:layout_marginLeft="24dp"
+                        android:textSize="14sp"
                         android:text="TextView" />
                 </RelativeLayout>
             </LinearLayout>
