@@ -89,28 +89,28 @@ public class DisplayDetailedPhotoActivity extends Activity {
 							// (Honeycomb MR2 and later), use it to animate the
 							// in-layout UI controls at the bottom of the
 							// screen.
-							if (mControlsHeight == 0) {
-								mControlsHeight = controlsView.getHeight();
-							}
-							if (mShortAnimTime == 0) {
-								mShortAnimTime = getResources().getInteger(
-										android.R.integer.config_shortAnimTime);
-							}
-							controlsView
-									.animate()
-									.translationY(visible ? 0 : mControlsHeight)
-									.setDuration(mShortAnimTime);
+//							if (mControlsHeight == 0) {
+//								mControlsHeight = controlsView.getHeight();
+//							}
+//							if (mShortAnimTime == 0) {
+//								mShortAnimTime = getResources().getInteger(
+//										android.R.integer.config_shortAnimTime);
+//							}
+//							controlsView
+//									.animate()
+//									.translationY(visible ? 0 : mControlsHeight)
+//									.setDuration(mShortAnimTime);
 						} else {
 							// If the ViewPropertyAnimator APIs aren't
 							// available, simply show or hide the in-layout UI
 							// controls.
-							controlsView.setVisibility(visible ? View.VISIBLE
-									: View.GONE);
+//							controlsView.setVisibility(visible ? View.VISIBLE
+//									: View.GONE);
 						}
 
 						if (visible && AUTO_HIDE) {
 							// Schedule a hide().
-							delayedHide(AUTO_HIDE_DELAY_MILLIS);
+//							delayedHide(AUTO_HIDE_DELAY_MILLIS);
 						}
 					}
 				});
@@ -120,9 +120,9 @@ public class DisplayDetailedPhotoActivity extends Activity {
 			@Override
 			public void onClick(View view) {
 				if (TOGGLE_ON_CLICK) {
-					mSystemUiHider.toggle();
+//					mSystemUiHider.toggle();
 				} else {
-					mSystemUiHider.show();
+//					mSystemUiHider.show();
 				}
 			}
 		});
@@ -173,7 +173,7 @@ public class DisplayDetailedPhotoActivity extends Activity {
 	Runnable mHideRunnable = new Runnable() {
 		@Override
 		public void run() {
-			mSystemUiHider.hide();
+//			mSystemUiHider.hide();
 		}
 	};
 
