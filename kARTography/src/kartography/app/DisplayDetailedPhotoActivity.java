@@ -1,10 +1,10 @@
 package kartography.app;
 
 import kartography.app.util.SystemUiHider;
+import uk.co.senab.photoview.PhotoViewAttacher;
 import android.annotation.TargetApi;
 import android.app.ActionBar;
 import android.app.Activity;
-import android.content.Intent;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -51,6 +51,7 @@ public class DisplayDetailedPhotoActivity extends Activity {
 	 * The instance of the {@link SystemUiHider} for this activity.
 	 */
 	private SystemUiHider mSystemUiHider;
+	PhotoViewAttacher mAttacher;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -64,6 +65,8 @@ public class DisplayDetailedPhotoActivity extends Activity {
 		ImageView photoView = (ImageView) findViewById(R.id.iv_full_photo);
 		Picasso.with(getBaseContext()).load(
 				Uri.parse(getIntent().getStringExtra("photoUrl"))).into(photoView);
+		//Zoom in gesture
+		mAttacher = new PhotoViewAttacher(photoView);
 		ActionBar actionb = getActionBar();
 		actionb.setDisplayHomeAsUpEnabled(true);
 
