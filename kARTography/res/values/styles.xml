@@ -46,10 +46,10 @@
         <item name="android:textSize">22sp</item>
     </style>
 
-    <style name="ActionBarTabStyle.Example" parent="@android:style/Widget.Holo.Light">
+<!--     <style name="ActionBarTabStyle.Example" parent="@android:style/Widget.Holo.Light">
         <item name="android:background">@drawable/tab_indicator_ab_example</item>
     </style>
-    
+     -->
     <style name="FullscreenTheme" parent="android:Theme.NoTitleBar">
         <item name="android:windowContentOverlay">@null</item>
         <item name="android:windowBackground">@null</item>
