@@ -20,5 +20,13 @@
         android:onClick="onFlagPoi"
         android:showAsAction="never"
         android:title="Flag"/>
+    
+    <item
+        android:id="@+id/log_out"
+        android:onClick="onLogout"
+        android:showAsAction="never"
+        android:title="Logout"/>
+    
+    
 
 </menu>

@@ -42,7 +42,7 @@ public class PoiListFragment extends Fragment{
 		lvPoi = (ListView) view.findViewById(R.id.lvPoi);
 		pBar = (ProgressBar) view.findViewById(R.id.progressBar1);
 		
-
+		
 		
 		lvPoi.setOnItemClickListener(new OnItemClickListener() {
 

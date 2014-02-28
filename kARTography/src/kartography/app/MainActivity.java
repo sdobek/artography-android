@@ -35,6 +35,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ImageView;
+import android.widget.TabHost;
 import android.widget.Toast;
 
 import com.google.android.gms.common.ConnectionResult;
@@ -113,6 +114,13 @@ public class MainActivity extends FragmentActivity implements
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		
+		boolean finish = getIntent().getBooleanExtra("finish", false);
+        if (finish) {
+            startActivity(new Intent(this, SignInActivity.class));
+            finish();
+            return;
+        }
 		ParseObject.registerSubclass(Poi.class);
 		setContentView(R.layout.activity_main);
 
@@ -136,11 +144,15 @@ public class MainActivity extends FragmentActivity implements
 		actionBar.setDisplayShowTitleEnabled(true);
 
 		Tab tabList = actionBar.newTab().setText("List")
-				.setTag("PoiListFragment").setIcon(R.drawable.ic_list)
+				.setTag("PoiListFragment").setIcon(R.drawable.ic_list_green)
 				.setTabListener(this);
 
 		Tab tabMap = actionBar.newTab().setText("Map").setTag("PoiMapFragment")
-				.setIcon(R.drawable.ic_map).setTabListener(this);
+				.setIcon(R.drawable.ic_map_green).setTabListener(this);
+		
+//		tabMap.set
+		TabHost tabhost;
+		
 
 		actionBar.addTab(tabList);
 
