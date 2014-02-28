@@ -9,8 +9,9 @@
         <!--
             Theme customizations available in newer API levels can go in
             res/values-vXX/styles.xml, while customizations related to
-            backward-compatibility can go here.
+            backward-compatibility can go here.		<item name="android:actionBarTabStyle">@style/ActionBarTabStyle.Example</item>
         -->
+        
     </style>
 
     <!-- Application theme. -->
@@ -45,6 +46,10 @@
         <item name="android:textSize">22sp</item>
     </style>
 
+    <style name="ActionBarTabStyle.Example" parent="@android:style/Widget.Holo.Light">
+        <item name="android:background">@drawable/tab_indicator_ab_example</item>
+    </style>
+    
     <style name="FullscreenTheme" parent="android:Theme.NoTitleBar">
         <item name="android:windowContentOverlay">@null</item>
         <item name="android:windowBackground">@null</item>
