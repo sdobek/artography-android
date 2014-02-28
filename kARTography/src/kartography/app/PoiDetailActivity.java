@@ -37,6 +37,7 @@ import android.widget.TextView;
 import com.parse.FindCallback;
 import com.parse.ParseException;
 import com.parse.ParseQuery;
+import com.parse.ParseUser;
 import com.squareup.picasso.Picasso;
 
 @TargetApi(Build.VERSION_CODES.HONEYCOMB)
@@ -181,6 +182,21 @@ public class PoiDetailActivity extends FragmentActivity implements ConfirmFlagLi
 		FragmentManager fm = getSupportFragmentManager();
 		ConfirmFlag confirmFlagDialog = ConfirmFlag.newInstance("Some Title");
 		confirmFlagDialog.show(fm, "fragment_edit_name");
+	}
+	
+	public void onLogout(MenuItem mi) {
+		ParseUser.getCurrentUser().logOut();
+		Intent i = new Intent(this, MainActivity.class);
+		i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+		i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+		i.putExtra("finish", true);
+		startActivity(i);
+		finish();
+
+//		Intent intent = new Intent(this, MainActivity.class);
+//        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+//        startActivity(intent);
+		
 	}
 	
 	public void onShowFullscreen(View v){

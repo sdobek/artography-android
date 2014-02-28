@@ -113,6 +113,13 @@ public class MainActivity extends FragmentActivity implements
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		
+		boolean finish = getIntent().getBooleanExtra("finish", false);
+        if (finish) {
+            startActivity(new Intent(this, SignInActivity.class));
+            finish();
+            return;
+        }
 		ParseObject.registerSubclass(Poi.class);
 		setContentView(R.layout.activity_main);
 
