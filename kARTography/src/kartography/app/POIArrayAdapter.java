@@ -4,6 +4,8 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Locale;
 
+import javax.crypto.spec.IvParameterSpec;
+
 import kartography.models.Poi;
 import android.content.Context;
 import android.graphics.Color;
@@ -26,6 +28,15 @@ public class POIArrayAdapter extends ArrayAdapter<Poi> {
 
 	private static LayoutInflater inflator = null;
 	
+	private static class ViewHolder {
+		ImageView ivImageArt;
+        ImageView ivGradient;
+		TextView tvTitle;
+        TextView tvArtist;
+        TextView tvDistance;
+        
+        
+	}
 	
     public POIArrayAdapter(Context context, List<Poi> images) {
         super(context, R.layout.item_list_poi, images);
@@ -45,43 +56,51 @@ public class POIArrayAdapter extends ArrayAdapter<Poi> {
         
 
 
-        View itemView;
+//        View itemView;
         Poi imageInfo = this.getItem(position);
+        ViewHolder viewHolder = null;
         if(convertView == null){
-//            LayoutInflater inflator = LayoutInflater.from(getContext());
-            convertView = inflator.inflate(R.layout.item_list_poi, parent,  false);
-        } 
+
+        	viewHolder = new ViewHolder();
+            convertView = inflator.inflate(R.layout.item_list_poi, null);
+            viewHolder.ivImageArt = (ImageView) convertView.findViewById(R.id.ivThumbnail);
+            viewHolder.tvTitle = (TextView) convertView.findViewById(R.id.tvTitle);
+            viewHolder.tvArtist = (TextView) convertView.findViewById(R.id.tvAddress);
+            viewHolder.tvDistance = (TextView) convertView.findViewById(R.id.tvDistance);
+            viewHolder.ivGradient = (ImageView) convertView.findViewById(R.id.imageView1);
+            viewHolder.tvTitle.setMaxLines(1);
+            convertView.setTag(viewHolder);
+        } else {
+            viewHolder = (ViewHolder) convertView.getTag();
+        }
             
         
         
         
-        ImageView ivImage = (ImageView) convertView.findViewById(R.id.ivThumbnail);
-        TextView tvTitle = (TextView) convertView.findViewById(R.id.tvTitle);
-        TextView tvArtist = (TextView) convertView.findViewById(R.id.tvAddress);
-        TextView tvDistance = (TextView) convertView.findViewById(R.id.tvDistance);
-        tvTitle.setMaxLines(1);
+        
         //probably won't need to truncate right away. Keeping line here for quick access.
         //tvTitle.setEllipsize(TextUtils.TruncateAt.END);
-        tvTitle.setText(imageInfo.getTitle());
-        tvArtist.setText(imageInfo.getArtist());
+        viewHolder.tvTitle.setText(imageInfo.getTitle());
+        viewHolder.tvArtist.setText(imageInfo.getArtist());
         
         
         double lat = imageInfo.getLocation().getLatitude();
 		double longitude = imageInfo.getLocation().getLongitude();
 		String address = getAddress(lat, longitude);
-		tvDistance.setText(address);
+		viewHolder.tvDistance.setText(address);
+		
         
         // This will need to be altered when we get ParseGeoLocations into our DB. 
 //        tvDistance.setText("0.5 mi");
 
 
 //        ivImage.setImageResource(R.drawable.ican);
-        		
+//		ivImage = viewHolder.ivImage;
 		
         String pf = imageInfo.getPhotoFileScaled().getUrl();
         Picasso.with(getContext()).load(Uri.parse(pf))
         .noFade().resize(500,500)
-		.centerCrop().placeholder(R.drawable.ican).into(ivImage);
+		.centerCrop().placeholder(R.drawable.ican).into(viewHolder.ivImageArt);
       
 		
         

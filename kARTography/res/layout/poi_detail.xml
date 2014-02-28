@@ -12,7 +12,9 @@
         android:layout_height="200dp"
         android:onClick="onShowFullscreen"
         android:layout_marginBottom="2dp"
-        android:src="@drawable/ican" />
+        android:src="@drawable/ican" 
+        
+        />
         
         <!--  android:maxHeight="330dp"
         android:layout_height="wrap_content"-->
