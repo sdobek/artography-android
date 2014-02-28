@@ -138,6 +138,7 @@ public class PoiDetailActivity extends FragmentActivity implements ConfirmFlagLi
             Intent intent = new Intent(this, MainActivity.class);
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             startActivity(intent);
+            overridePendingTransition(R.anim.left_in, R.anim.right_out);
             return true;
         default:
             return super.onOptionsItemSelected(item);

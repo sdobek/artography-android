@@ -1,8 +1,6 @@
 package kartography.fragments;
 
-import java.io.IOException;
 import java.util.List;
-import java.util.Locale;
 
 import kartography.app.POIArrayAdapter;
 import kartography.app.PoiDetailActivity;
@@ -10,8 +8,6 @@ import kartography.app.PoiHandler;
 import kartography.app.R;
 import kartography.models.Poi;
 import android.content.Intent;
-import android.location.Address;
-import android.location.Geocoder;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.Log;
@@ -58,10 +54,9 @@ public class PoiListFragment extends Fragment{
 //				ParseFile pf = poi.getPhotoFile();
 				
 				Intent i = new Intent(getActivity(), PoiDetailActivity.class);
-				
 				i.putExtra("id", id);
-				
 				startActivity(i);
+				getActivity().overridePendingTransition(R.anim.right_in, R.anim.left_out);
 				
 			}
 			
