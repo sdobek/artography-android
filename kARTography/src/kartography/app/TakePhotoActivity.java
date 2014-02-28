@@ -106,7 +106,9 @@ public class TakePhotoActivity extends Activity implements
 	@Override
 	public void onBackPressed() {
 		setResult(99);
-		super.onBackPressed();
+//		super.onBackPressed();
+		finish();
+		overridePendingTransition(R.anim.top_out, R.anim.bottom_in);
 	}
 
 //	 @Override

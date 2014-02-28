@@ -200,6 +200,14 @@ public class PoiDetailActivity extends FragmentActivity implements ConfirmFlagLi
 		
 	}
 	
+	@Override
+	public void onBackPressed() {
+		// TODO Auto-generated method stub
+		finish();
+		overridePendingTransition(R.anim.left_in, R.anim.right_out);
+		
+	}
+	
 	public void onShowFullscreen(View v){
 		Intent i = new Intent(this, DisplayDetailedPhotoActivity.class);
 		i.putExtra("photoUrl", poi.getPhotoFile().getUrl());

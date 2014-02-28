@@ -181,6 +181,7 @@ public class MainActivity extends FragmentActivity implements
 	public void addNewArt(MenuItem m) {
 		Intent i = new Intent(this, TakePhotoActivity.class);
 		startActivityForResult(i, 7);
+		overridePendingTransition(R.anim.top_in, R.anim.bottom_out);
 	}
 
 	@Override
