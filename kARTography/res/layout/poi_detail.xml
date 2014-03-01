@@ -28,6 +28,13 @@
             android:onClick="onSetFavorited"
             android:src="@drawable/ic_fav_unselected" />
 
+        <ProgressBar
+            android:id="@+id/pbImageLoad"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true" />
+
     </RelativeLayout>
     <ScrollView
         android:layout_width="match_parent"

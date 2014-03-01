@@ -34,6 +34,7 @@ import android.view.animation.Animation;
 import android.view.animation.Animation.AnimationListener;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.parse.FindCallback;
@@ -55,6 +56,7 @@ public class PoiDetailActivity extends FragmentActivity implements ConfirmFlagLi
 	TextView tvDate;
 	TextView tvDescription;
 	TextView tvUser;
+	ProgressBar pb;
 	Date dateUploaded;
 	String title;
 	String artist;
@@ -78,6 +80,8 @@ public class PoiDetailActivity extends FragmentActivity implements ConfirmFlagLi
 		tvDate = (TextView) findViewById(R.id.tvDateText);
 		tvDescription = (TextView) findViewById(R.id.tvDescriptionText);
 		tvLocation = (TextView) findViewById(R.id.tvLocation);
+		pb = (ProgressBar) findViewById(R.id.pbImageLoad);
+		pb.setVisibility(ProgressBar.VISIBLE);
 		ActionBar actionb = getActionBar();
 		actionb.setDisplayHomeAsUpEnabled(true);
 		Intent i = getIntent();
@@ -122,6 +126,7 @@ public class PoiDetailActivity extends FragmentActivity implements ConfirmFlagLi
 					pfs = poi.getPhotoFileScaled().getUrl();
 					Picasso.with(getBaseContext()).load(Uri.parse(pfUrl)).fit()
 							.into(ivImage);
+					pb.setVisibility(ProgressBar.INVISIBLE);
 					// Toast.makeText(PoiDetailActivity.this, poi.getArtist(),
 					// Toast.LENGTH_LONG).show();
 					uploader = poi.getUploadedByUser();
