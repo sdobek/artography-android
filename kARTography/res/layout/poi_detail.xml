@@ -112,9 +112,9 @@
 	
 	                    <ImageView
 	                        android:id="@+id/ivBottomGradient"
-	                        android:layout_width="25dp"
-	                        android:layout_height="25dp"
-	                        android:layout_marginLeft="16dp"
+	                        android:layout_width="30dp"
+	                        android:layout_height="30dp"
+	                        android:layout_marginLeft="5dp"
 	                        android:layout_alignParentLeft="true"
 	                        android:src="@drawable/ic_pin_mini_green" />
 	
@@ -123,7 +123,7 @@
 	                        android:layout_width="wrap_content"
 	                        android:layout_height="wrap_content"
 	                        android:layout_alignTop="@+id/ivBottomGradient"
-	                        android:layout_marginLeft="20dp"
+	                        android:layout_marginLeft="10dp"
 	                        android:layout_toRightOf="@+id/ivBottomGradient"
 	                        android:text="@string/location"
 	                        android:textSize="14sp" />
@@ -150,9 +150,9 @@
 	
 	                    <ImageView
 	                        android:id="@+id/imageView2"
-	                        android:layout_width="25dp"
-	                        android:layout_height="25dp"
-	                        android:layout_marginLeft="16dp"
+	                        android:layout_width="30dp"
+	                        android:layout_height="30dp"
+	                        android:layout_marginLeft="5dp"
 	                        android:layout_alignParentLeft="true"
 	                        android:layout_centerVertical="true"
 	                        android:src="@drawable/ic_person_mini_green" />
@@ -162,7 +162,7 @@
 	                        android:layout_width="wrap_content"
 	                        android:layout_height="wrap_content"
 	                        android:layout_alignTop="@+id/imageView2"
-	                        android:layout_marginLeft="20dp"
+	                        android:layout_marginLeft="10dp"
 	                        android:layout_toRightOf="@+id/imageView2"
 	                        android:text="@string/artist"
 	                        android:textSize="14sp" />
