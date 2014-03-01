@@ -5,26 +5,37 @@
     android:background="#efefef"
     android:orientation="vertical" >
 
-    <ImageView
-        android:id="@+id/ivArt"
-        android:layout_width="match_parent"
-        android:layout_height="256dp"
-        android:layout_marginBottom="2dp"
-        android:onClick="onShowFullscreen"
-        android:src="@drawable/ican" />
+    <RelativeLayout
+		android:layout_width="match_parent"
+        android:layout_height="256dp">
 
-    <!--
-        android:maxHeight="330dp"
-        android:layout_height="wrap_content"
-    -->
+        <ImageView
+            android:id="@+id/ivArt"
+            android:layout_width="match_parent"
+            android:layout_height="256dp"
+            android:layout_marginBottom="2dp"
+            android:onClick="onShowFullscreen"
+            android:src="@drawable/ican" />
 
+        <ImageView
+            android:id="@+id/ivFavoritedDetail"
+            style="@style/ShadowText"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:layout_margin="2dp"
+            android:onClick="onSetFavorited"
+            android:src="@drawable/ic_fav_unselected" />
+
+    </RelativeLayout>
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent" >
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content" >
 
             <TextView
                 android:id="@+id/tvUploaderHeader"
@@ -76,7 +87,7 @@
                     android:paddingBottom="4dp" >
 
                     <ImageView
-                        android:id="@+id/imageView1"
+                        android:id="@+id/ivBottomGradient"
                         android:layout_width="20dp"
                         android:layout_height="20dp"
                         android:layout_alignParentLeft="true"
@@ -86,9 +97,9 @@
                         android:id="@+id/tvLocation"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_alignTop="@+id/imageView1"
+                        android:layout_alignTop="@+id/ivBottomGradient"
                         android:layout_marginLeft="20dp"
-                        android:layout_toRightOf="@+id/imageView1"
+                        android:layout_toRightOf="@+id/ivBottomGradient"
                         android:text="@string/location"
                         android:textSize="14sp" />
                 </RelativeLayout>
@@ -104,7 +115,7 @@
                     android:paddingBottom="4dp" >
 
                     <ImageView
-                        android:id="@+id/imageView2"
+                        android:id="@+id/ivFavorited"
                         android:layout_width="20dp"
                         android:layout_height="20dp"
                         android:layout_alignParentLeft="true"
@@ -115,9 +126,9 @@
                         android:id="@+id/tvArtist"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_alignTop="@+id/imageView2"
+                        android:layout_alignTop="@+id/ivFavorited"
                         android:layout_marginLeft="20dp"
-                        android:layout_toRightOf="@+id/imageView2"
+                        android:layout_toRightOf="@+id/ivFavorited"
                         android:text="@string/artist"
                         android:textSize="14sp" />
                 </RelativeLayout>

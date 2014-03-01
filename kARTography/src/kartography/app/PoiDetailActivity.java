@@ -4,7 +4,6 @@ import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -31,6 +30,9 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.Animation.AnimationListener;
+import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -46,6 +48,7 @@ public class PoiDetailActivity extends FragmentActivity implements ConfirmFlagLi
 
 	String objectId;
 	ImageView ivImage;
+	ImageView ivFavorited;
 	TextView tvTitle;
 	TextView tvArtist;
 	TextView tvLocation;
@@ -68,12 +71,12 @@ public class PoiDetailActivity extends FragmentActivity implements ConfirmFlagLi
 
 		// initialize
 		ivImage = (ImageView) findViewById(R.id.ivArt);
+		ivFavorited = (ImageView) findViewById(R.id.ivFavoritedDetail);
 		tvTitle = (TextView) findViewById(R.id.tvPhotoTitle);
 		tvUser = (TextView) findViewById(R.id.tvUploaderHeader);
 		tvArtist = (TextView) findViewById(R.id.tvArtist);
 		tvDate = (TextView) findViewById(R.id.tvDateText);
 		tvDescription = (TextView) findViewById(R.id.tvDescriptionText);
-//		tvLocation = (TextView) findViewById(R.id.tvLocationTitle);
 		tvLocation = (TextView) findViewById(R.id.tvLocation);
 		ActionBar actionb = getActionBar();
 		actionb.setDisplayHomeAsUpEnabled(true);
@@ -87,6 +90,12 @@ public class PoiDetailActivity extends FragmentActivity implements ConfirmFlagLi
 			public void done(List<Poi> itemList, ParseException e) {
 				if (e == null) {
 					poi = itemList.get(0);
+					if (poi.getFavorited()){
+						ivFavorited.setImageResource(R.drawable.ic_fav_selected);
+					}
+					else {
+						ivFavorited.setImageResource(R.drawable.ic_fav_unselected);
+					}
 					if (poi.getTitle() != "") {
 						tvTitle.setText(poi.getTitle());
 					} else {
@@ -260,6 +269,41 @@ public class PoiDetailActivity extends FragmentActivity implements ConfirmFlagLi
 
         return result.toString();
     }
+	
+	public void onSetFavorited(View v){
+		
+		if (poi.getFavorited()){
+			ivFavorited.setImageResource(R.drawable.ic_fav_unselected);
+			poi.setFavorited(false);
+		}
+		else {
+			Animation animUp = AnimationUtils.loadAnimation(this, R.anim.favorite_scale_up);
+			ivFavorited.startAnimation(animUp);
+			animUp.setAnimationListener(new AnimationListener() {
+			    @Override
+			    public void onAnimationStart(Animation animation) {
+			        // Fires when animation starts
+			    }
+
+			    @Override
+			    public void onAnimationEnd(Animation animation) {
+			    	ivFavorited.setImageResource(R.drawable.ic_fav_selected);
+			    	Animation animDown = AnimationUtils.
+			    							loadAnimation(PoiDetailActivity.this, R.anim.favorite_scale_down);
+					ivFavorited.startAnimation(animDown);
+			    }
+
+			    @Override
+			    public void onAnimationRepeat(Animation animation) {
+			       // ...			
+			    }
+			});
+			
+			poi.setFavorited(true);
+		}
+		poi.saveInBackground();
+		
+	}
 	
 	public void onFlagSuccess(){
 		poi.setFlagged(true);
