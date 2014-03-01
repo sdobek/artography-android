@@ -39,5 +39,6 @@
     <string name="locationText">Whatever the magic is</string>
     <string name="artist">Artist</string>
     <string name="description">Description</string>
+    <string name="title_photo">Title</string>
 
 </resources>
