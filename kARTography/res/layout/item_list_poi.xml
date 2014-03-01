@@ -12,17 +12,17 @@
         android:layout_weight="0.64"
         android:background="@android:color/darker_gray"
         android:scaleType="centerCrop" />
+
     <ImageView
-        android:id="@+id/imageView1"
-        android:layout_width="wrap_content"
+        android:id="@+id/ivBottomGradient"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentRight="true"
         android:layout_alignTop="@+id/tvTitle"
         android:background="@drawable/black_bottom_gradient"
-        android:src="@drawable/black_bottom_gradient" 
-		/>
+        android:src="@drawable/black_bottom_gradient" />
 
     <TextView
         android:id="@+id/tvAddress"
@@ -64,5 +64,15 @@
         android:layout_toLeftOf="@+id/tvDistance"
         android:background="@drawable/ic_marker_white"
         android:src="@drawable/ic_marker_white" /> -->
+
+    <ImageView
+        android:id="@+id/ivFavorited"
+        style="@style/ShadowText"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_margin="2dp"
+        android:src="@drawable/ic_fav_unselected" />
 
 </RelativeLayout>

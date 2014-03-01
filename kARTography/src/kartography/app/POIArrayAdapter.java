@@ -59,6 +59,13 @@ public class POIArrayAdapter extends ArrayAdapter<Poi> {
         TextView tvTitle = (TextView) convertView.findViewById(R.id.tvTitle);
         TextView tvArtist = (TextView) convertView.findViewById(R.id.tvAddress);
         TextView tvDistance = (TextView) convertView.findViewById(R.id.tvDistance);
+        ImageView ivFavorited = (ImageView) convertView.findViewById(R.id.ivFavorited);
+        if (imageInfo.getFavorited()){
+        	ivFavorited.setImageResource(R.drawable.ic_fav_selected);
+        }else{
+        	ivFavorited.setImageResource(R.drawable.ic_fav_unselected);
+        }
+        
         tvTitle.setMaxLines(1);
         //probably won't need to truncate right away. Keeping line here for quick access.
         //tvTitle.setEllipsize(TextUtils.TruncateAt.END);

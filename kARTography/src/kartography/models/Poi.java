@@ -146,6 +146,17 @@ public class Poi extends ParseObject {
 	public void setLocation(ParseGeoPoint value) {
 		put("location", value);
 	}
+	
+	public void setFavorited(boolean isFavorited){
+		put("favorited", isFavorited);
+	}
+	
+	public Boolean getFavorited(){
+		return (Boolean) get("favorited");
+	}
+	
+	
+	
 
 	
 
