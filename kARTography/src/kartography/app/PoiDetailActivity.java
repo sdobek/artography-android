@@ -46,11 +46,11 @@ public class PoiDetailActivity extends FragmentActivity implements ConfirmFlagLi
 
 	String objectId;
 	ImageView ivImage;
+	TextView tvTitle;
 	TextView tvArtist;
 	TextView tvLocation;
 	TextView tvDate;
 	TextView tvDescription;
-	TextView tvDistance;
 	TextView tvUser;
 	Date dateUploaded;
 	String title;
@@ -68,12 +68,13 @@ public class PoiDetailActivity extends FragmentActivity implements ConfirmFlagLi
 
 		// initialize
 		ivImage = (ImageView) findViewById(R.id.ivArt);
+		tvTitle = (TextView) findViewById(R.id.tvPhotoTitle);
 		tvUser = (TextView) findViewById(R.id.tvUploaderHeader);
 		tvArtist = (TextView) findViewById(R.id.tvArtist);
 		tvDate = (TextView) findViewById(R.id.tvDateText);
 		tvDescription = (TextView) findViewById(R.id.tvDescriptionText);
 //		tvLocation = (TextView) findViewById(R.id.tvLocationTitle);
-		tvDistance = (TextView) findViewById(R.id.tvDistance);
+		tvLocation = (TextView) findViewById(R.id.tvLocation);
 		ActionBar actionb = getActionBar();
 		actionb.setDisplayHomeAsUpEnabled(true);
 		Intent i = getIntent();
@@ -86,24 +87,27 @@ public class PoiDetailActivity extends FragmentActivity implements ConfirmFlagLi
 			public void done(List<Poi> itemList, ParseException e) {
 				if (e == null) {
 					poi = itemList.get(0);
-					ActionBar ab = getActionBar();
 					if (poi.getTitle() != "") {
-						ab.setTitle(poi.getTitle());
+						tvTitle.setText(poi.getTitle());
 					} else {
-						ab.setTitle("Title Unknown");
+						tvTitle.setText("Untitiled");
 					}
-					tvArtist.setText(poi.getArtist());
+					if (poi.getArtist() != "") {
+						tvArtist.setText("Artist - " + poi.getArtist());
+					} else {
+						tvArtist.setText("Artist - Unknown");
+					}
 					tvDescription.setText(poi.getDescription());
-					tvUser.setText(poi.getUploadedByUser());
+					tvUser.setText("Uploaded by "+poi.getUploadedByUser());
 					double lat = poi.getLocation().getLatitude();
 					double longitude = poi.getLocation().getLongitude();
 					String address = getAddress(lat, longitude);
-					tvDistance.setText(address);
-					SimpleDateFormat sdf = new SimpleDateFormat("dd/M/yyyy");
+					tvLocation.setText(address);
+					SimpleDateFormat sdf = new SimpleDateFormat("M/dd/yyyy");
 					// give null right now :(
 					Date date = (Date) poi.getCreatedAt();
 					
-					tvDate.setText(sdf.format(date));
+					tvDate.setText("Uploaded on "+sdf.format(date));
 					String pfUrl = poi.getPhotoFile().getUrl();
 
 					pfs = poi.getPhotoFileScaled().getUrl();

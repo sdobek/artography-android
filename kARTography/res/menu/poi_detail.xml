@@ -3,14 +3,14 @@
   
     <item
         android:id="@+id/edit_detailed"
-        android:icon="@drawable/ic_edit"
+        android:icon="@drawable/ic_edit_green"
         android:onClick="onEditDetails"
         android:showAsAction="always"
         android:title="EditDetail"/>
     
     <item
         android:id="@+id/share_detailed"
-        android:icon="@drawable/ic_share"
+        android:icon="@drawable/ic_share_green"
         android:onClick="onShareDetails"
         android:showAsAction="always"
         android:title="EditDetail"/>
