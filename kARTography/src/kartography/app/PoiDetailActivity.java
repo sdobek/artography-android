@@ -111,7 +111,7 @@ public class PoiDetailActivity extends FragmentActivity implements ConfirmFlagLi
 						tvArtist.setText("Artist - Unknown");
 					}
 					tvDescription.setText(poi.getDescription());
-					tvUser.setText("Uploaded by "+poi.getUploadedByUser());
+					tvUser.setText(poi.getUploadedByUser());
 					double lat = poi.getLocation().getLatitude();
 					double longitude = poi.getLocation().getLongitude();
 					String address = getAddress(lat, longitude);
