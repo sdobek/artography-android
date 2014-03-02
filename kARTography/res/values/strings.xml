@@ -40,5 +40,6 @@
     <string name="artist">Artist</string>
     <string name="description">Description</string>
     <string name="title_photo">Title</string>
+    <string name="title_activity_login_home">LoginHomeActivity</string>
 
 </resources>
