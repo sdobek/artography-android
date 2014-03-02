@@ -6,10 +6,10 @@
     <string name="hello_world">Hello world!</string>
     <string name="title_activity_take_photo">TakePhotoActivity</string>
     <string name="title_activity_set_poilocation">SetPOILocationActivity</string>
-    <string name="hintTitle">Title. Blank if none.</string>
+    <string name="hintTitle">Title. Leave blank if unknown.</string>
     <string name="hintLocation">Location</string>
-    <string name="hintAuthor">Author. Blank if unknown.</string>
-    <string name="hintDescription">Description</string>
+    <string name="hintAuthor">Author. Leave blank if unknown.</string>
+    <string name="hintDescription">Description. Theres a lot of art out there. Be verbose!</string>
     <string name="submitPhoto">Submit</string>
     <string name="photo">Photo</string>
     <string name="title_activity_map">MapActivity</string>
