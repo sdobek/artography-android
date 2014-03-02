@@ -24,7 +24,7 @@
 
         <RelativeLayout 
             android:layout_width="match_parent"
-            android:paddingTop="23dp"
+            android:paddingTop="21dp"
             android:paddingLeft="18dp"
             android:paddingRight="21dp"
             android:background="@drawable/poloroid_blank"
@@ -33,7 +33,7 @@
 	        <ImageView
 	            android:id="@+id/iv_Photo"
 	            android:layout_width="match_parent"
-	            android:layout_height="wrap_content"
+	            android:layout_height="280dp"
 	            android:layout_gravity="center"
 	            android:layout_marginBottom="20dp"
 	            android:background="#000000"

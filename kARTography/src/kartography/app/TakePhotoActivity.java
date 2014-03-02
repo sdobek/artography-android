@@ -29,6 +29,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.common.ConnectionResult;
@@ -79,6 +80,7 @@ public class TakePhotoActivity extends Activity implements
 	private Bitmap imageBitmap;
 	private Bitmap imageBitmapScaled;
 	private Bitmap imageBitmapThumbnail;
+	TextView tvPhoto;
 	ProgressBar pb;
 	Button submitBtn;
 
@@ -99,6 +101,7 @@ public class TakePhotoActivity extends Activity implements
 		submitBtn.setEnabled(false);
 		imageBitmap = null;
 		imageBitmapScaled = null;
+		tvPhoto = (TextView) findViewById(R.id.tv_Photo);
 		ActionBar actionb = getActionBar();
 		actionb.setDisplayHomeAsUpEnabled(true);
 
@@ -146,7 +149,7 @@ public class TakePhotoActivity extends Activity implements
 			takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT,
 					getPhotoFileUri("photo.jpg"));
 			startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE);
-
+			tvPhoto.setVisibility(View.INVISIBLE);
 		}
 	}
 
