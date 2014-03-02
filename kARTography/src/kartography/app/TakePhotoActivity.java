@@ -41,6 +41,7 @@ import com.parse.ParseGeoPoint;
 import com.parse.ParseObject;
 import com.parse.ParseUser;
 import com.parse.SaveCallback;
+import com.squareup.picasso.Picasso;
 
 @TargetApi(Build.VERSION_CODES.HONEYCOMB)
 public class TakePhotoActivity extends Activity implements
@@ -324,7 +325,9 @@ public class TakePhotoActivity extends Activity implements
 				imageBitmap = Bitmap.createScaledBitmap(imageBitmap,
 						(Math.round(imgW * PHOTO_PRCNT)),
 						(Math.round(imgH * PHOTO_PRCNT)), true);
-				photo.setImageBitmap(imageBitmapScaled);
+				Picasso.with(this).load(takenPhotoUri).fit().skipMemoryCache().into(photo);
+//				photo.
+//				setImageBitmap(imageBitmapScaled);
 				submitBtn.setEnabled(true);
 			} catch (FileNotFoundException e) {
 				// TODO Auto-generated catch block
