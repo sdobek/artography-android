@@ -376,25 +376,25 @@ public class MainActivity extends FragmentActivity implements
 		switch (requestCode) {
 
 		case 7:
-			if(resultCode == 55){
-			//evil android magic to wait for the parse server to update
-			final Handler handler = new Handler();
-			handler.postDelayed(new Runnable() {
-			    @Override
-			    public void run() {
-			    	
-			    	
-//					getActionBar().selectTab(tabList);
-			    	
-			    	FragmentManager manager = getSupportFragmentManager();
-
-					android.support.v4.app.FragmentTransaction fts = manager
-							.beginTransaction();
-					fts.replace(R.id.frameContainer, new PoiListFragment());
-					fts.commitAllowingStateLoss();
-			    }
-			}, 100);
-			}
+//			if(resultCode == 55){
+//			//evil android magic to wait for the parse server to update
+//			final Handler handler = new Handler();
+//			handler.postDelayed(new Runnable() {
+//			    @Override
+//			    public void run() {
+//			    	
+//			    	
+////					getActionBar().selectTab(tabList);
+//			    	
+//			    	FragmentManager manager = getSupportFragmentManager();
+//
+//					android.support.v4.app.FragmentTransaction fts = manager
+//							.beginTransaction();
+//					fts.replace(R.id.frameContainer, new PoiListFragment());
+//					fts.commitAllowingStateLoss();
+//			    }
+//			}, 100);
+//			}
 			
 			break;
 		case CONNECTION_FAILURE_RESOLUTION_REQUEST:
