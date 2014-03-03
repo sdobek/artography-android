@@ -40,6 +40,11 @@
     <string name="artist">Artist</string>
     <string name="description">Description</string>
     <string name="title_photo">Title</string>
+    <string name="title_activity_login_home">LoginHomeActivity</string>
+    <string name="createAccountCaps">CREATE ACCOUNT</string>
+    <string name="createAccountLowercase">Create Account</string>
+    <string name="loginLowercase">Login</string>
     <string name="tap_to">TAP TO TAKE PHOTO</string>
+    <string name="missionStatement">Mapping the World through Art...</string>
 
 </resources>

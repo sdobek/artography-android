@@ -34,6 +34,7 @@ public class Poi extends ParseObject {
         put("uploadedByUsername", user.getUsername());
         put("location", location);
         put("flagged", false);
+        put("favorited", false);
     }
 	
 

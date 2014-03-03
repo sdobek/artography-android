@@ -9,6 +9,7 @@
     tools:context=".TakePhotoActivity" 
     android:background="#efefef"
     >
+
 	<ScrollView
 	    android:layout_width="match_parent"
 	    android:layout_height="match_parent"
@@ -51,6 +52,15 @@
 	            android:text="@string/tap_to"
 	            android:textColor="@android:color/white"
 	            android:textAppearance="?android:attr/textAppearanceMedium" />
+
+	        <ProgressBar
+	            android:id="@+id/pbLoading"
+	            style="?android:attr/progressBarStyleLarge"
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:layout_centerHorizontal="true"
+	            android:layout_centerVertical="true"
+	            android:visibility="invisible" />
 	        
 		</RelativeLayout>
 		<View android:id="@+id/separator" 
@@ -175,17 +185,9 @@
             android:layout_gravity="center_horizontal"
             android:onClick="onSavePOI"
             android:text="@string/submitPhoto"
-            android:textColor="#FFF" />
-
-	 	<ProgressBar
-	        android:id="@+id/pbLoading"
-	  		android:visibility="invisible"
-	        style="?android:attr/progressBarStyleLarge"
-	        android:layout_width="wrap_content"
-	        android:layout_height="wrap_content"
-	        android:layout_gravity="center_horizontal"
-	         />   
+            android:textColor="#FFF" />   
  </LinearLayout>
  
  </ScrollView>
+
 </RelativeLayout>

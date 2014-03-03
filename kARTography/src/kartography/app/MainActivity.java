@@ -117,7 +117,7 @@ public class MainActivity extends FragmentActivity implements
 		
 		boolean finish = getIntent().getBooleanExtra("finish", false);
         if (finish) {
-            startActivity(new Intent(this, SignInActivity.class));
+            startActivity(new Intent(this, LoginHomeActivity.class));
             finish();
             return;
         }

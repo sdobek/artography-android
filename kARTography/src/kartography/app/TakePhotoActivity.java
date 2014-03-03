@@ -84,7 +84,6 @@ public class TakePhotoActivity extends Activity implements
 	ProgressBar pb;
 	Button submitBtn;
 
-	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -92,7 +91,7 @@ public class TakePhotoActivity extends Activity implements
 
 		// maps
 		mLocationClient = new LocationClient(this, this, this);
-		
+
 		//
 		etTitle = (EditText) findViewById(R.id.et_title);
 		photo = (ImageView) findViewById(R.id.iv_Photo);
@@ -110,33 +109,33 @@ public class TakePhotoActivity extends Activity implements
 	@Override
 	public void onBackPressed() {
 		setResult(99);
-//		super.onBackPressed();
+		// super.onBackPressed();
 		finish();
 		overridePendingTransition(R.anim.top_out, R.anim.bottom_in);
 	}
 
-//	 @Override
-//	 public boolean onCreateOptionsMenu(Menu menu) {
-//	 // Inflate the menu; this adds items to the action bar if it is present.
-////	 getMenuInflater().inflate(R.menu.take_photo, menu);
-//		 
-//	 return true;
-//	 }
+	// @Override
+	// public boolean onCreateOptionsMenu(Menu menu) {
+	// // Inflate the menu; this adds items to the action bar if it is present.
+	// // getMenuInflater().inflate(R.menu.take_photo, menu);
+	//
+	// return true;
+	// }
 
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {
-        case android.R.id.home:
-            // app icon in action bar clicked; go home
-            Intent intent = new Intent(this, MainActivity.class);
-            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-            startActivity(intent);
-            return true;
-        default:
-            return super.onOptionsItemSelected(item);
-    }
+		case android.R.id.home:
+			// app icon in action bar clicked; go home
+			Intent intent = new Intent(this, MainActivity.class);
+			intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+			startActivity(intent);
+			return true;
+		default:
+			return super.onOptionsItemSelected(item);
+		}
 	}
-	
+
 	public void onTakePicture(View v) {
 		// Intent to take photo using android camera
 		// Return data to store photo
@@ -224,86 +223,89 @@ public class TakePhotoActivity extends Activity implements
 
 		pb.setVisibility(ProgressBar.VISIBLE);
 		if (imageBitmap != null) {
-			savePhoto();
-			savePhotoScaled();
-			savePhotoThumb();
+			ByteArrayOutputStream stream = new ByteArrayOutputStream();
+			imageBitmap.compress(Bitmap.CompressFormat.PNG, 100, stream);
+			byte[] photoBytes = stream.toByteArray();
+			photoFile = new ParseFile("photo2.png", photoBytes);
+			photoFile.saveInBackground(new SaveCallback() {
+				@Override
+				public void done(ParseException e) {
+					if (e != null) {
+						Toast.makeText(TakePhotoActivity.this,
+								"Error saving: " + e.getMessage(),
+								Toast.LENGTH_LONG).show();
+						pb.setVisibility(ProgressBar.INVISIBLE);
+						submitBtn.setEnabled(false);
+					} else {
+						pointOfInterest.setPhotoFile(photoFile);
+						// Now try to upload the scaled image
+						ByteArrayOutputStream stream = new ByteArrayOutputStream();
+						imageBitmapScaled.compress(Bitmap.CompressFormat.PNG,
+								100, stream);
+						byte[] photoBytes = stream.toByteArray();
+						photoFileScaled = new ParseFile("photo3.png",
+								photoBytes);
+						photoFileScaled.saveInBackground(new SaveCallback() {
+							@Override
+							public void done(ParseException e) {
+								if (e != null) {
+									Toast.makeText(
+											TakePhotoActivity.this,
+											"Error saving scaled: "
+													+ e.getMessage(),
+											Toast.LENGTH_LONG).show();
+									pb.setVisibility(ProgressBar.INVISIBLE);
+									submitBtn.setEnabled(false);
+								} else {
+									pointOfInterest
+											.setPhotoFileScaled(photoFileScaled);
+									// Lastly the thumbnail image
+									ByteArrayOutputStream stream = new ByteArrayOutputStream();
+									imageBitmapThumbnail.compress(
+											Bitmap.CompressFormat.PNG, 100,
+											stream);
+									byte[] photoBytes = stream.toByteArray();
+									photoFileThumbnail = new ParseFile(
+											"photo4.png", photoBytes);
+									photoFileThumbnail
+											.saveInBackground(new SaveCallback() {
+												@Override
+												public void done(
+														ParseException e) {
+													if (e != null) {
+														Toast.makeText(
+																TakePhotoActivity.this,
+																"Error saving thumb: "
+																		+ e.getMessage(),
+																Toast.LENGTH_LONG)
+																.show();
+														pb.setVisibility(ProgressBar.INVISIBLE);
+														submitBtn
+																.setEnabled(false);
+													} else {
+														pointOfInterest
+																.setPhotoFileThumbnail(photoFileThumbnail);
+														pointOfInterest
+																.saveInBackground();
+														pb.setVisibility(ProgressBar.INVISIBLE);
+														TakePhotoActivity.this
+																.finish();
+													}
+
+												}
+											});
+								}
+
+							}
+						});
+					}
+
+				}
+			});
+
 		}
 	}
 
-	protected void savePhoto() {
-		ByteArrayOutputStream stream = new ByteArrayOutputStream();
-		imageBitmap.compress(Bitmap.CompressFormat.PNG, 100, stream);
-		byte[] photoBytes = stream.toByteArray();
-		photoFile = new ParseFile("photo2.png", photoBytes);
-		photoFile.saveInBackground(new SaveCallback() {
-			@Override
-			public void done(ParseException e) {
-				if (e != null) {
-					Toast.makeText(TakePhotoActivity.this,
-							"Error saving: " + e.getMessage(),
-							Toast.LENGTH_LONG).show();
-					pb.setVisibility(ProgressBar.INVISIBLE);
-					submitBtn.setEnabled(false);
-				} else {
-					pointOfInterest.setPhotoFile(photoFile);
-					pointOfInterest.saveInBackground();
-				}
-
-			}
-		});
-	}
-
-	protected void savePhotoScaled() {
-		// Now try to upload the scaled image
-		ByteArrayOutputStream stream = new ByteArrayOutputStream();
-		imageBitmapScaled.compress(Bitmap.CompressFormat.PNG, 100, stream);
-		byte[] photoBytes = stream.toByteArray();
-		photoFileScaled = new ParseFile("photo3.png", photoBytes);
-		photoFileScaled.saveInBackground(new SaveCallback() {
-			@Override
-			public void done(ParseException e) {
-				if (e != null) {
-					Toast.makeText(TakePhotoActivity.this,
-							"Error saving scaled: " + e.getMessage(),
-							Toast.LENGTH_LONG).show();
-					pb.setVisibility(ProgressBar.INVISIBLE);
-					submitBtn.setEnabled(false);
-				} else {
-					// Activity finished ok, return the data
-					pointOfInterest.setPhotoFileScaled(photoFileScaled);
-					pointOfInterest.saveInBackground();
-					setResult(55);
-					pb.setVisibility(ProgressBar.INVISIBLE);
-					TakePhotoActivity.this.finish();
-				}
-
-			}
-		});
-	}
-
-	public void savePhotoThumb() {
-		// Lastly the thumbnail image
-		ByteArrayOutputStream stream = new ByteArrayOutputStream();
-		imageBitmapThumbnail.compress(Bitmap.CompressFormat.PNG, 100, stream);
-		byte[] photoBytes = stream.toByteArray();
-		photoFileThumbnail = new ParseFile("photo4.png", photoBytes);
-		photoFileThumbnail.saveInBackground(new SaveCallback() {
-			@Override
-			public void done(ParseException e) {
-				if (e != null) {
-					Toast.makeText(TakePhotoActivity.this,
-							"Error saving thumb: " + e.getMessage(),
-							Toast.LENGTH_LONG).show();
-					pb.setVisibility(ProgressBar.INVISIBLE);
-					submitBtn.setEnabled(false);
-				} else {
-					pointOfInterest.setPhotoFileThumbnail(photoFileThumbnail);
-					pointOfInterest.saveInBackground();
-				}
-
-			}
-		});
-	}
 
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -328,9 +330,10 @@ public class TakePhotoActivity extends Activity implements
 				imageBitmap = Bitmap.createScaledBitmap(imageBitmap,
 						(Math.round(imgW * PHOTO_PRCNT)),
 						(Math.round(imgH * PHOTO_PRCNT)), true);
-				Picasso.with(this).load(takenPhotoUri).fit().skipMemoryCache().into(photo);
-//				photo.
-//				setImageBitmap(imageBitmapScaled);
+				Picasso.with(this).load(takenPhotoUri).fit().skipMemoryCache()
+						.into(photo);
+				// photo.
+				// setImageBitmap(imageBitmapScaled);
 				submitBtn.setEnabled(true);
 			} catch (FileNotFoundException e) {
 				// TODO Auto-generated catch block
