@@ -24,29 +24,39 @@
         android:layout_alignParentRight="true" >
     </RelativeLayout>
 
-    <Button
-        android:id="@+id/btnHomeLogin"
-        android:layout_width="120dp"
-        android:layout_height="60dp"
-        android:layout_alignParentRight="true"
-        android:layout_alignTop="@+id/btnHomeCreate"
-        android:layout_marginRight="30dp"
-        android:background="@drawable/selector_nice_button"
-        android:onClick="onLoginAccount"
-        android:text="@string/loginLowercase"
-        android:textColor="#FFF" />
+    <TextView
+        android:id="@+id/tvMissionStatement"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_margin="16dp"
+        android:text="@string/missionStatement"
+        android:textSize="44sp"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
 
     <Button
         android:id="@+id/btnHomeCreate"
         android:layout_width="120dp"
         android:layout_height="60dp"
         android:layout_above="@+id/relativeLayout1"
-        android:layout_marginBottom="14dp"
-        android:layout_marginRight="30dp"
-        android:layout_toLeftOf="@+id/btnHomeLogin"
+        android:layout_alignParentLeft="true"
+        android:layout_marginLeft="19dp"
         android:background="@drawable/selector_nice_button"
         android:onClick="onCreateAccount"
         android:text="@string/createAccountLowercase"
+        android:textColor="#FFF" />
+
+    <Button
+        android:id="@+id/btnHomeLogin"
+        android:layout_width="120dp"
+        android:layout_height="60dp"
+        android:layout_above="@+id/relativeLayout1"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="19dp"
+        android:background="@drawable/selector_nice_button"
+        android:onClick="onLoginAccount"
+        android:text="@string/loginLowercase"
         android:textColor="#FFF" />
 
 </RelativeLayout>
