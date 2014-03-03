@@ -1,47 +1,58 @@
 package kartography.app;
 
-import com.squareup.picasso.Picasso;
-
-import android.app.Activity;
-import android.graphics.Bitmap;
-import android.graphics.drawable.BitmapDrawable;
+import android.content.Intent;
 import android.os.Bundle;
-import android.util.DisplayMetrics;
-import android.view.Menu;
+import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.FragmentManager;
+import android.view.View;
 import android.widget.ImageView;
-import android.widget.RelativeLayout;
 
-public class LoginHomeActivity extends Activity {
+import com.parse.Parse;
+import com.parse.ParseUser;
+
+public class LoginHomeActivity extends FragmentActivity {
 	
 	ImageView bg;
+	String username;
+	String password;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_login_home);
-		
+		Parse.initialize(this, "wN6gpXkwVEF0d9eTw1YzE0ISX2WM8ACdXM0ueuiu",
+				"dGycMyN2IxdihwSV6kzDiCufYAL9UBBQEpOiRmMn");
+		if (ParseUser.getCurrentUser() != null) {
+			Intent i = new Intent(this, MainActivity.class);
+			startActivity(i);
+			finish();
+		}
 		
 	}
 
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.login_home, menu);
-		return true;
+//	@Override
+//	public boolean onCreateOptionsMenu(Menu menu) {
+//		// Inflate the menu; this adds items to the action bar if it is present.
+//		getMenuInflater().inflate(R.menu.login_home, menu);
+//		return true;
+//	}
+	
+	public void onCreateAccount(View v){
+		FragmentManager fm = getSupportFragmentManager();
+		CreateAccount createDialog = CreateAccount.newInstance("New User");
+		createDialog.show(fm, "fragment_new_user");
 	}
 	
-	@SuppressWarnings("deprecation")
-	@Override
-    public void onWindowFocusChanged(boolean hasFocus) {
-        // TODO Auto-generated method stub
-        super.onWindowFocusChanged(hasFocus);
-        RelativeLayout rl = (RelativeLayout) findViewById(R.id.rlLoginScreen);
-		bg = (ImageView) findViewById(R.id.ivLoginBG);
-		BitmapDrawable bd = (BitmapDrawable) getResources().getDrawable(R.drawable.bg_signin);
-		Bitmap new_bg = Bitmap.createScaledBitmap(bd.getBitmap(), rl.getWidth(), rl.getHeight(), false);
-		bg.setImageBitmap(new_bg);
-		bg.setAlpha(75);
-		
-    }
+	public void onLoginAccount(View v){
+		FragmentManager fm = getSupportFragmentManager();
+		LoginAccount loginDialog = LoginAccount.newInstance("Enter Username and Password");
+		loginDialog.show(fm, "fragment_login");
+	}
+
+	
+	
+	
+	
+	
 	
 }
