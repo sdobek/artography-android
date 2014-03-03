@@ -85,7 +85,7 @@
                     android:layout_marginBottom="35dp"
                     android:layout_marginTop="25dp"
                     android:text="@string/title_photo"
-                    android:textSize="22sp"
+                    android:textSize="32sp"
                     android:textStyle="bold" />
 
                 <RelativeLayout 

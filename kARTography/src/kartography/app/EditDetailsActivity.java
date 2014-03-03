@@ -10,6 +10,7 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -17,6 +18,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
 
@@ -26,7 +28,9 @@ public class EditDetailsActivity extends Activity {
 	private Button submitBtn;
 	private EditText author;
 	private EditText title;
+	TextView tvPhoto;
 	private EditText description;
+	String photoUrl;
 
 	@TargetApi(Build.VERSION_CODES.HONEYCOMB)
 	@Override
@@ -37,11 +41,20 @@ public class EditDetailsActivity extends Activity {
 		pb = (ProgressBar) findViewById(R.id.pbLoading);
 		submitBtn = (Button) findViewById(R.id.btn_submitPhoto);
 		submitBtn.setEnabled(true);
-		
-		ImageView photoView = (ImageView) findViewById(R.id.iv_Photo);
+		tvPhoto = (TextView) findViewById(R.id.tv_Photo);
+		final ImageView photoView = (ImageView) findViewById(R.id.iv_Photo);
 		photoView.setClickable(false);
-		String photoUrl = getIntent().getStringExtra("photoUrl");
-		Picasso.with(getBaseContext()).load(Uri.parse(photoUrl)).into(photoView);
+		final String photoUrl = getIntent().getStringExtra("photoUrl");
+		
+		  final Handler handler = new Handler();
+			handler.postDelayed(new Runnable() {
+			    @Override
+			    public void run() {
+			    	Picasso.with(getBaseContext()).load(Uri.parse(photoUrl)).fit().into(photoView); //   .resize(900, 900).into(photoView);
+
+			    }
+			}, 400);
+		
 		author = (EditText)findViewById(R.id.et_author);
 		author.setText(getIntent().getStringExtra("artist"));
 		title = (EditText)findViewById(R.id.et_title);
@@ -50,15 +63,16 @@ public class EditDetailsActivity extends Activity {
 		description.setText(getIntent().getStringExtra("description"));		
 		ActionBar actionb = getActionBar();
 		actionb.setDisplayHomeAsUpEnabled(true);
+		tvPhoto.setVisibility(View.INVISIBLE);
 	}
 
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.take_photo, menu);
-		return true;
-	}
-	
+//	@Override
+//	public boolean onCreateOptionsMenu(Menu menu) {
+//		// Inflate the menu; this adds items to the action bar if it is present.
+//		getMenuInflater().inflate(R.menu.take_photo, menu);
+//		return true;
+//	}
+//	
 	
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {

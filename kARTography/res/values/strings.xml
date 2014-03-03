@@ -6,10 +6,10 @@
     <string name="hello_world">Hello world!</string>
     <string name="title_activity_take_photo">TakePhotoActivity</string>
     <string name="title_activity_set_poilocation">SetPOILocationActivity</string>
-    <string name="hintTitle">Title. Leave blank if unknown.</string>
+    <string name="hintTitle">Title: Leave blank if unknown.</string>
     <string name="hintLocation">Location</string>
-    <string name="hintAuthor">Author. Leave blank if unknown.</string>
-    <string name="hintDescription">Description. Theres a lot of art out there. Be verbose!</string>
+    <string name="hintAuthor">Artist: Leave blank if unknown.</string>
+    <string name="hintDescription">Description: Theres a lot of art out there. Be verbose!</string>
     <string name="submitPhoto">Submit</string>
     <string name="photo">Photo</string>
     <string name="title_activity_map">MapActivity</string>
@@ -44,5 +44,7 @@
     <string name="createAccountCaps">CREATE ACCOUNT</string>
     <string name="createAccountLowercase">Create Account</string>
     <string name="loginLowercase">Login</string>
+    <string name="tap_to">TAP TO TAKE PHOTO</string>
+    <string name="missionStatement">Mapping the World through Art...</string>
 
 </resources>

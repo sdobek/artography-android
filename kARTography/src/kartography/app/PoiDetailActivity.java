@@ -124,8 +124,8 @@ public class PoiDetailActivity extends FragmentActivity implements ConfirmFlagLi
 					String pfUrl = poi.getPhotoFile().getUrl();
 
 					pfs = poi.getPhotoFileScaled().getUrl();
-					Picasso.with(getBaseContext()).load(Uri.parse(pfUrl)).fit()
-							.into(ivImage);
+					Picasso.with(getBaseContext()).load(Uri.parse(pfUrl)).noFade().fit()
+					.placeholder(R.drawable.ican).into(ivImage);
 					
 					// Toast.makeText(PoiDetailActivity.this, poi.getArtist(),
 					// Toast.LENGTH_LONG).show();

@@ -29,6 +29,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.common.ConnectionResult;
@@ -41,6 +42,7 @@ import com.parse.ParseGeoPoint;
 import com.parse.ParseObject;
 import com.parse.ParseUser;
 import com.parse.SaveCallback;
+import com.squareup.picasso.Picasso;
 
 @TargetApi(Build.VERSION_CODES.HONEYCOMB)
 public class TakePhotoActivity extends Activity implements
@@ -78,6 +80,7 @@ public class TakePhotoActivity extends Activity implements
 	private Bitmap imageBitmap;
 	private Bitmap imageBitmapScaled;
 	private Bitmap imageBitmapThumbnail;
+	TextView tvPhoto;
 	ProgressBar pb;
 	Button submitBtn;
 
@@ -98,6 +101,7 @@ public class TakePhotoActivity extends Activity implements
 		submitBtn.setEnabled(false);
 		imageBitmap = null;
 		imageBitmapScaled = null;
+		tvPhoto = (TextView) findViewById(R.id.tv_Photo);
 		ActionBar actionb = getActionBar();
 		actionb.setDisplayHomeAsUpEnabled(true);
 
@@ -145,7 +149,7 @@ public class TakePhotoActivity extends Activity implements
 			takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT,
 					getPhotoFileUri("photo.jpg"));
 			startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE);
-
+			tvPhoto.setVisibility(View.INVISIBLE);
 		}
 	}
 
@@ -324,7 +328,9 @@ public class TakePhotoActivity extends Activity implements
 				imageBitmap = Bitmap.createScaledBitmap(imageBitmap,
 						(Math.round(imgW * PHOTO_PRCNT)),
 						(Math.round(imgH * PHOTO_PRCNT)), true);
-				photo.setImageBitmap(imageBitmapScaled);
+				Picasso.with(this).load(takenPhotoUri).fit().skipMemoryCache().into(photo);
+//				photo.
+//				setImageBitmap(imageBitmapScaled);
 				submitBtn.setEnabled(true);
 			} catch (FileNotFoundException e) {
 				// TODO Auto-generated catch block

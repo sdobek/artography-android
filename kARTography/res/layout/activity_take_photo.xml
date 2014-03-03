@@ -9,95 +9,183 @@
     tools:context=".TakePhotoActivity" 
     android:background="#efefef"
     >
+	<ScrollView
+	    android:layout_width="match_parent"
+	    android:layout_height="match_parent"
+	     >
 
     <LinearLayout
         android:id="@+id/ll_takePhoto"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
+        android:descendantFocusability="beforeDescendants"
+		android:focusableInTouchMode="true"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentTop="true"
         android:orientation="vertical" >
 
         <RelativeLayout 
             android:layout_width="match_parent"
-	        android:layout_height="128dp">
+            android:paddingTop="21dp"
+            android:paddingLeft="18dp"
+            android:paddingRight="21dp"
+            android:background="@drawable/poloroid_blank"
+	        android:layout_height="wrap_content">
 
 	        <ImageView
 	            android:id="@+id/iv_Photo"
 	            android:layout_width="match_parent"
-	            android:layout_height="228dp"
-	            android:padding="5dp"
-	            android:layout_marginBottom="20dp"
+	            android:layout_height="280dp"
 	            android:layout_gravity="center"
-	        	android:onClick="onTakePicture"    
-	            android:src="@drawable/img_camera" />
+	            android:layout_marginBottom="20dp"
+	            android:background="#000000"
+	            android:onClick="onTakePicture"
+	            android:src="@drawable/poloroid_space" />
+
+				<!-- android:layout_margin="8dp" -->
+	        <TextView
+	            android:id="@+id/tv_Photo"
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:layout_marginTop="10dp"
+	            android:layout_alignTop="@+id/iv_Photo"
+	            android:layout_centerHorizontal="true"
+	            android:text="@string/tap_to"
+	            android:textColor="@android:color/white"
+	            android:textAppearance="?android:attr/textAppearanceMedium" />
 	        
 		</RelativeLayout>
-		
-        <EditText
-            android:id="@+id/et_title"
-            android:layout_width="250dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:imeOptions="actionNext"
-            android:singleLine="true"
-            android:layout_marginBottom="20dp"
-            android:ems="10"
-            android:hint="@string/hintTitle" >
+		<View android:id="@+id/separator" 
+ 			android:background="#087f00" 
+ 			android:layout_marginTop="20dp"
+ 			android:layout_width = "fill_parent"
+ 			android:layout_height="1dip"
+ 			/>
+		<LinearLayout 
+		    android:layout_width="wrap_content"
+		    android:layout_height="wrap_content"
+		    android:layout_marginTop="10dp"
+		    android:orientation="horizontal"
+		    android:layout_gravity="center"
+		    >
 
-            <requestFocus />
-        </EditText>
-        
+			<ImageView
+			    android:id="@+id/icon_title"
+			    android:layout_width="30dp"
+				android:layout_height="30dp"
+				
+			    android:src="@drawable/ic_title" />
+		
+	        <EditText
+	            android:layout_marginRight="7dp"
+	            android:id="@+id/et_title"
+	            android:layout_width="250dp"
+	            android:layout_height="wrap_content"
+	            android:background="#efefef"
+	            android:imeOptions="actionNext"
+	            android:singleLine="true"
+	            android:ems="10"
+	            android:hint="@string/hintTitle" ></EditText>
+          </LinearLayout>
+          
+        <View android:id="@+id/separator" 
+ 			android:background="#087f00" 
+ 			android:layout_marginTop="10dp"
+ 			android:layout_width = "fill_parent"
+ 			android:layout_height="1dip"
+ 			/>
+        <LinearLayout 
+		    android:layout_width="wrap_content"
+		    android:layout_height="wrap_content"
+		    android:orientation="horizontal"
+		    android:layout_marginTop="10dp"
+		    android:layout_gravity="center"
+		    >
+        <ImageView
+			    android:id="@+id/icon_artist"
+			    android:layout_width="30dp"
+				android:layout_height="30dp"
+			
+			    android:src="@drawable/ic_person_mini_green" />
         <EditText
             android:id="@+id/et_author"
             android:layout_width="250dp"
             android:imeOptions="actionNext"
             android:layout_height="wrap_content"
+            android:layout_marginRight="7dp"
             android:layout_gravity="center"
-            android:layout_marginBottom="20dp"
+            android:background="#efefef"
             android:singleLine="true"
             android:minLines="2"
             android:ems="10"
             android:hint="@string/hintAuthor" >
 
-            <requestFocus />
+
         </EditText>
         
+        </LinearLayout>
+        
+        <View android:id="@+id/separator" 
+ 			android:background="#087f00" 
+ 			android:layout_marginTop="10dp"
+ 			android:layout_width = "fill_parent"
+ 			android:layout_height="1dip"
+ 			/>
+        
+        <LinearLayout 
+		    android:layout_width="wrap_content"
+		    android:layout_height="wrap_content"
+		    android:layout_marginTop="10dp"
+		    android:orientation="horizontal"
+		    android:layout_gravity="center"
+		    >
+        <ImageView
+			    android:id="@+id/icon_desc"
+			    android:layout_width="30dp"
+			     android:layout_marginTop="5dp"
+			     
+				android:layout_height="30dp"
+			    android:src="@drawable/ic_description" />
         <EditText
             android:id="@+id/et_description"
             android:layout_width="250dp"
             android:layout_height="wrap_content"
             android:imeOptions="actionDone"
             android:layout_gravity="center"
-            android:layout_marginBottom="20dp"
+            android:layout_marginRight="7dp"
+            android:background="#efefef"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="10dp"
             android:ems="10"
             android:hint="@string/hintDescription" >
 
-            <requestFocus />
+            
         </EditText>
+        
+        </LinearLayout>
+		<View android:id="@+id/separator" 
+ 			android:background="#087f00" 
+ 			android:layout_marginBottom="20dp"
+ 			android:layout_width = "fill_parent"
+ 			android:layout_height="1dip"
+ 			/>
+        <Button
+            android:id="@+id/btn_submitPhoto"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:background="@drawable/selector_nice_button"
+            android:layout_gravity="center_horizontal"
+            android:onClick="onSavePOI"
+            android:text="@string/submitPhoto"
+            android:textColor="#FFF" />
 
-    </LinearLayout>
-
-    <Button
-        android:id="@+id/btn_submitPhoto"
-        android:layout_width="200dp"
-        android:textColor="#FFF"
-        android:background="@drawable/selector_nice_button"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:onClick="onSavePOI"
-        android:text="@string/submitPhoto" />
-
-    <ProgressBar
-        android:id="@+id/pbLoading"
-  		android:visibility="invisible"
-        style="?android:attr/progressBarStyleLarge"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/ll_takePhoto"
-        android:layout_centerHorizontal="true" />
-
+	 	<ProgressBar
+	        android:id="@+id/pbLoading"
+	  		android:visibility="invisible"
+	        style="?android:attr/progressBarStyleLarge"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_gravity="center_horizontal"
+	         />   
+ </LinearLayout>
+ 
+ </ScrollView>
 </RelativeLayout>
