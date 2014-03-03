@@ -13,7 +13,7 @@
         android:alpha=".55"
         android:padding="0dp"
         android:scaleType="fitXY"
-        android:src="@drawable/bg_signin" />
+        android:src="@drawable/bg_signin1" />
 
     <RelativeLayout
         android:id="@+id/relativeLayout1"
