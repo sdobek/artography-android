@@ -55,7 +55,7 @@
         android:inputType="textPassword" />
 
     <Button
-        android:id="@+id/btnLoginAccount"
+        android:id="@+id/btnCreateAccount"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignLeft="@+id/etReEnterPassword"
@@ -69,10 +69,10 @@
         android:id="@+id/btnCreateCancel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/btnLoginAccount"
-        android:layout_alignBottom="@+id/btnLoginAccount"
+        android:layout_alignBaseline="@+id/btnCreateAccount"
+        android:layout_alignBottom="@+id/btnCreateAccount"
         android:layout_marginLeft="37dp"
-        android:layout_toRightOf="@+id/btnLoginAccount"
+        android:layout_toRightOf="@+id/btnCreateAccount"
         android:text="@string/cancel" />
 
 </RelativeLayout>

@@ -35,7 +35,7 @@ public class LoginAccount extends DialogFragment {
 		username = (EditText) view.findViewById(R.id.etCreateUsername);
 		password = (EditText) view.findViewById(R.id.etEnterPassword);
 		
-		getDialog().setTitle("Enter Username and Password");
+		getDialog().requestWindowFeature(STYLE_NO_TITLE);
 		Button confirm = (Button) view.findViewById(R.id.btnLoginAccount);
 		confirm.setOnClickListener(new OnClickListener() {
 			@Override

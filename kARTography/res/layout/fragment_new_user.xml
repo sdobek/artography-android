@@ -16,6 +16,7 @@
         android:layout_alignParentRight="true"
         android:layout_alignParentTop="true"
         android:ems="10"
+        android:background="@drawable/greendialog_edit_text_holo_light"
         android:hint="@string/enterUsername" >
 
         <requestFocus />
@@ -30,6 +31,7 @@
         android:layout_alignParentRight="true"
         android:layout_below="@+id/etCreateUsername"
         android:ems="10"
+        android:background="@drawable/greendialog_edit_text_holo_light"
         android:hint="@string/enterEmail" />
 
     <EditText
@@ -40,6 +42,7 @@
         android:layout_alignParentRight="true"
         android:layout_below="@+id/etEnterEmail"
         android:ems="10"
+        android:background="@drawable/greendialog_edit_text_holo_light"
         android:hint="@string/enterPassword"
         android:inputType="textPassword" />
 
@@ -51,28 +54,32 @@
         android:layout_alignParentRight="true"
         android:layout_below="@+id/etEnterPassword"
         android:ems="10"
+        android:background="@drawable/greendialog_edit_text_holo_light"
         android:hint="@string/reenterpassword"
         android:inputType="textPassword" />
 
     <Button
-        android:id="@+id/btnLoginAccount"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:id="@+id/btnCreateAccount"
+       android:layout_width="80dp"
+        android:layout_height="40dp"
         android:layout_alignLeft="@+id/etReEnterPassword"
         android:layout_below="@+id/etReEnterPassword"
-        android:layout_marginLeft="36dp"
+        android:layout_marginLeft="31dp"
         android:layout_marginTop="22dp"
+        android:background="@drawable/selector_nice_button"
         android:onClick="onCreateUser"
-        android:text="@string/createAccount" />
+        android:text="@string/createAccount"
+        android:textColor="#FFF" />
 
     <Button
         android:id="@+id/btnCreateCancel"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/btnLoginAccount"
-        android:layout_alignBottom="@+id/btnLoginAccount"
-        android:layout_marginLeft="41dp"
-        android:layout_toRightOf="@+id/btnLoginAccount"
+        android:layout_width="80dp"
+        android:layout_height="40dp"
+        android:layout_alignBottom="@+id/btnCreateAccount"
+        android:layout_alignRight="@+id/etReEnterPassword"
+        android:layout_marginRight="50dp"
+        android:background="@drawable/selector_nice_button"
+        android:textColor="#FFF"
         android:text="@string/cancel" />
 
 </RelativeLayout>

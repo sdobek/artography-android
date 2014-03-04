@@ -44,8 +44,8 @@ public class CreateAccount extends DialogFragment {
 		password = (EditText) view.findViewById(R.id.etEnterPassword);
 		re_password = (EditText) view.findViewById(R.id.etReEnterPassword);
 
-		getDialog().setTitle("New User");
-		Button confirm = (Button) view.findViewById(R.id.btnLoginAccount);
+		getDialog().requestWindowFeature(STYLE_NO_TITLE);
+		Button confirm = (Button) view.findViewById(R.id.btnCreateAccount);
 		confirm.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
