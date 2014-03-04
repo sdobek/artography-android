@@ -449,6 +449,7 @@ public class MainActivity extends FragmentActivity implements
 	public void onConnected(Bundle dataBundle) {
 		// Display the connection status
 		myLocation = mLocationClient.getLastLocation();
+		
 		if (myLocation != null) {
 			// Toast.makeText(this, "GPS location was found!",
 			// Toast.LENGTH_SHORT).show();
