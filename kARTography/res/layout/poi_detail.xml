@@ -84,7 +84,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="35dp"
                     android:layout_marginTop="25dp"
-                    android:text="@string/title_photo"
+                    
                     android:textSize="32sp"
                     android:textStyle="bold" />
 
@@ -119,7 +119,7 @@
 	                        android:layout_alignTop="@+id/ivLocationMini"
 	                        android:layout_marginLeft="10dp"
 	                        android:layout_toRightOf="@+id/ivLocationMini"
-	                        android:text="@string/location"
+	                        android:text=""
 	                        android:textSize="14sp" />
 	                </RelativeLayout>
 				</RelativeLayout>
@@ -157,7 +157,7 @@
 	                        android:layout_alignTop="@+id/ivPersonMini"
 	                        android:layout_marginLeft="10dp"
 	                        android:layout_toRightOf="@+id/ivPersonMini"
-	                        android:text="@string/artist"
+	                        android:text=""
 	                        android:textSize="14sp" />
 	                </RelativeLayout>
                 
