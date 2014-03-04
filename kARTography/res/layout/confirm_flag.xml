@@ -2,6 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:paddingBottom="20dp"
     android:layout_gravity="center"
     android:orientation="vertical" >
 
@@ -9,6 +10,7 @@
         android:id="@+id/tvConfirm"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_margin="10dp"
         android:text="@string/confirmFlag" />
 
     <RelativeLayout
@@ -20,21 +22,25 @@
         <Button
             android:id="@+id/btnConfirm"
             style="?android:attr/buttonStyleSmall"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
+            android:layout_width="60dp"
+            android:layout_height="40dp"
+            android:layout_alignParentLeft="true"
             android:layout_alignParentTop="true"
-            android:layout_marginRight="80dp"
+            android:layout_marginLeft="80dp"
+            android:background="@drawable/selector_nice_button"
+            android:textColor="#FFF"
             android:text="@string/flag" />
 
         <Button
             android:id="@+id/btnCancel"
             style="?android:attr/buttonStyleSmall"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="60dp"
+            android:layout_height="40dp"
             android:layout_alignParentTop="true"
-            android:layout_marginRight="43dp"
-            android:layout_toLeftOf="@+id/btnConfirm"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="80dp"
+            android:background="@drawable/selector_nice_button"
+            android:textColor="#FFF"
             android:text="@string/cancel" />
 
     </RelativeLayout>
