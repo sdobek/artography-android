@@ -32,7 +32,7 @@
         android:layout_alignParentTop="true"
         android:layout_margin="16dp"
         android:text="@string/missionStatement"
-        android:textSize="44sp"
+        android:textSize="32sp"
         android:textAppearance="?android:attr/textAppearanceLarge" />
 
     <Button
