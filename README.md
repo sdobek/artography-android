@@ -18,15 +18,15 @@ Basic User Story:
 
 ------------------------------------------------(Future Verisons)------------------------------------------------
 
-- mark recent pieces of art with a special "fresh" marker
+- mark recent pieces of art with a special "fresh" marker.
 
-- Each piece of art could be "checked into"
+- Each piece of art could be "checked into."
 
 - Create and explore art trails: Users can select a trail of checkpoints and check off or check-in to art sites as they visit them. They get a badge when they finish a full trail.
 
-- If there is extra time they could filter art by "tags" or "categories" in a search
+- If there is extra time they could filter art by "tags" or "categories" in a search.
 
-- Create a favorite view to view only pieces the user has favorited
+- Create a favorite view to view only pieces the user has favorited.
 
 - Potential verification for the actual artist who made the piece to comment on it. 
 
