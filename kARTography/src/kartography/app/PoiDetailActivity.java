@@ -34,7 +34,6 @@ import android.view.animation.Animation;
 import android.view.animation.Animation.AnimationListener;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
-import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.parse.FindCallback;
@@ -117,7 +116,6 @@ public class PoiDetailActivity extends FragmentActivity implements ConfirmFlagLi
 					String address = getAddress(lat, longitude);
 					tvLocation.setText(address);
 					SimpleDateFormat sdf = new SimpleDateFormat("M/dd/yyyy");
-					// give null right now :(
 					Date date = (Date) poi.getCreatedAt();
 					
 					tvDate.setText("Uploaded on "+sdf.format(date));
@@ -127,8 +125,6 @@ public class PoiDetailActivity extends FragmentActivity implements ConfirmFlagLi
 					Picasso.with(getBaseContext()).load(Uri.parse(pfUrl)).noFade().fit()
 					.placeholder(R.drawable.ican).into(ivImage);
 					
-					// Toast.makeText(PoiDetailActivity.this, poi.getArtist(),
-					// Toast.LENGTH_LONG).show();
 					uploader = poi.getUploadedByUser();
 				} else {
 					Log.d("item", "Error: " + e.getMessage());
@@ -173,11 +169,6 @@ public class PoiDetailActivity extends FragmentActivity implements ConfirmFlagLi
 		startActivityForResult(i, UPDATE_POI);
 	}
 	public void onShareDetails(MenuItem mi) throws IOException {
-//		Intent sendIntent = new Intent();
-//		sendIntent.setAction(Intent.ACTION_SEND);
-//		sendIntent.putExtra(Intent.EXTRA_TEXT, poi.getPhotoFile().getUrl());
-////		sendIntent.setType("text/plain");
-//		startActivity(sendIntent);
 		URL url = new URL(poi.getPhotoFile().getUrl());
 		
 		Bitmap icon = BitmapFactory.decodeStream(url.openConnection().getInputStream());
@@ -211,11 +202,6 @@ public class PoiDetailActivity extends FragmentActivity implements ConfirmFlagLi
 		i.putExtra("finish", true);
 		startActivity(i);
 		finish();
-
-//		Intent intent = new Intent(this, MainActivity.class);
-//        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-//        startActivity(intent);
-		
 	}
 	
 	@Override

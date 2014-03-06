@@ -53,7 +53,8 @@ public class CreateAccount extends DialogFragment {
 				em = email.getText().toString();
 				pw = password.getText().toString();
 				re_pw = re_password.getText().toString();
-
+				
+				//Check for invalid inputs
 				if (un.equals("")) {
 					Toast.makeText(getActivity(), "Enter Username",
 							Toast.LENGTH_LONG).show();
@@ -69,6 +70,7 @@ public class CreateAccount extends DialogFragment {
 				} else {
 					ParseQuery<ParseUser> query = ParseUser.getQuery();
 					query.whereEqualTo("username", un);
+					//Check that the username has not already been taken
 					query.findInBackground(new FindCallback<ParseUser>() {
 						public void done(List<ParseUser> users, ParseException e) {
 							if (e == null) {
@@ -96,8 +98,7 @@ public class CreateAccount extends DialogFragment {
 																			getActivity(),
 																			MainActivity.class);
 																	startActivity(i);
-																	getActivity()
-																			.finish();
+																	getActivity().finish();
 																} else {
 																	e.printStackTrace();
 																}

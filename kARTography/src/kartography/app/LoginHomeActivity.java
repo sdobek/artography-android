@@ -29,14 +29,8 @@ public class LoginHomeActivity extends FragmentActivity {
 		}
 		
 	}
-
-//	@Override
-//	public boolean onCreateOptionsMenu(Menu menu) {
-//		// Inflate the menu; this adds items to the action bar if it is present.
-//		getMenuInflater().inflate(R.menu.login_home, menu);
-//		return true;
-//	}
 	
+	//Use DialogFragments for Create Account and Login 
 	public void onCreateAccount(View v){
 		FragmentManager fm = getSupportFragmentManager();
 		CreateAccount createDialog = CreateAccount.newInstance("New User");

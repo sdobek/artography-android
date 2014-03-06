@@ -15,14 +15,12 @@ import android.app.Dialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.location.Location;
-import android.media.ImageReader;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
 import android.util.Log;
-import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -48,9 +46,6 @@ import com.squareup.picasso.Picasso;
 public class TakePhotoActivity extends Activity implements
 		GooglePlayServicesClient.ConnectionCallbacks,
 		GooglePlayServicesClient.OnConnectionFailedListener {
-	// private final int PHOTO_DETAIL_PIXELS = 1024;
-	// private final int PHOTO_SCALED_PIXELS = 512;
-	// private final int PHOTO_THUMBNAIL_PIXELS = 128;
 	private final float PHOTO_PRCNT = .5f;
 	private final float PHOTO_SCALED_PRCNT = .25f;
 	private final float PHOTO_THUMB_PRCNT = .05f;
@@ -76,7 +71,6 @@ public class TakePhotoActivity extends Activity implements
 	private ParseFile photoFile;
 	private ParseFile photoFileScaled;
 	private ParseFile photoFileThumbnail;
-	private ParseGeoPoint locationParse;
 	private Bitmap imageBitmap;
 	private Bitmap imageBitmapScaled;
 	private Bitmap imageBitmapThumbnail;
@@ -114,14 +108,6 @@ public class TakePhotoActivity extends Activity implements
 		overridePendingTransition(R.anim.top_out, R.anim.bottom_in);
 	}
 
-	// @Override
-	// public boolean onCreateOptionsMenu(Menu menu) {
-	// // Inflate the menu; this adds items to the action bar if it is present.
-	// // getMenuInflater().inflate(R.menu.take_photo, menu);
-	//
-	// return true;
-	// }
-
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {
@@ -154,8 +140,6 @@ public class TakePhotoActivity extends Activity implements
 
 	@Override
 	protected void onStart() {
-		// TODO Auto-generated method stub
-		// //
 		super.onStart();
 		if (isGooglePlayServicesAvailable()) {
 			mLocationClient.connect();
@@ -222,6 +206,7 @@ public class TakePhotoActivity extends Activity implements
 		pointOfInterest.setFields(title, author, description, user, location);
 
 		pb.setVisibility(ProgressBar.VISIBLE);
+		//Using nested callbacks to make sure all photo sizes save correctly
 		if (imageBitmap != null) {
 			ByteArrayOutputStream stream = new ByteArrayOutputStream();
 			imageBitmap.compress(Bitmap.CompressFormat.PNG, 100, stream);
@@ -280,16 +265,13 @@ public class TakePhotoActivity extends Activity implements
 																Toast.LENGTH_LONG)
 																.show();
 														pb.setVisibility(ProgressBar.INVISIBLE);
-														submitBtn
-																.setEnabled(false);
+														submitBtn.setEnabled(false);
 													} else {
-														pointOfInterest
-																.setPhotoFileThumbnail(photoFileThumbnail);
-														pointOfInterest
-																.saveInBackground();
+														//If everything worked, save
+														pointOfInterest.setPhotoFileThumbnail(photoFileThumbnail);
+														pointOfInterest.saveInBackground();
 														pb.setVisibility(ProgressBar.INVISIBLE);
-														TakePhotoActivity.this
-																.finish();
+														TakePhotoActivity.this.finish();
 													}
 
 												}
@@ -317,9 +299,7 @@ public class TakePhotoActivity extends Activity implements
 
 				int imgH = imageBitmap.getHeight();
 				int imgW = imageBitmap.getWidth();
-				// ^^ use these parameters to tell if photo is portrait or
-				// landscape
-				// and scale accordingly.
+				
 				imageBitmapScaled = Bitmap.createScaledBitmap(imageBitmap,
 						(Math.round(imgW * PHOTO_SCALED_PRCNT)),
 						(Math.round(imgH * PHOTO_SCALED_PRCNT)), true);
@@ -332,14 +312,10 @@ public class TakePhotoActivity extends Activity implements
 						(Math.round(imgH * PHOTO_PRCNT)), true);
 				Picasso.with(this).load(takenPhotoUri).fit().skipMemoryCache()
 						.into(photo);
-				// photo.
-				// setImageBitmap(imageBitmapScaled);
 				submitBtn.setEnabled(true);
 			} catch (FileNotFoundException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 

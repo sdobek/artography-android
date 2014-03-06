@@ -44,15 +44,13 @@ public class LoginAccount extends DialogFragment {
 						password.getText().toString(), new LogInCallback() {
 							public void done(ParseUser user, ParseException e) {
 								if (user != null) {
-									// Hooray! The user is logged in.
+									// The user is logged in.
 									Intent i = new Intent(getActivity(),
 											MainActivity.class);
 									startActivity(i);
 									getActivity().finish();
 								} else {
-									// Signup failed. Look at the ParseException
-									// to see
-									// what happened.
+									// Signup failed. Look at the ParseException.
 									Toast.makeText(getActivity(),
 											"Invalid username or password",
 											Toast.LENGTH_LONG).show();
